@@ -1,21 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PixelArtFilter : MonoBehaviour {
+public class PixelArtFilter : MonoBehaviour
+{
     public Shader pixelArtFilter;
 
     [Range(0, 8)]
     public int downSamples = 0;
 
     private Material pixelArtMat;
-    
-    void OnEnable() {
+
+    void OnEnable()
+    {
         pixelArtMat ??= new Material(pixelArtFilter);
         pixelArtMat.hideFlags = HideFlags.HideAndDontSave;
     }
 
-    void OnRenderImage(RenderTexture source, RenderTexture destination) {
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
+    {
+        ApplyPixelation(source, destination);
+    }
+
+
+    private void ApplyPixelation(RenderTexture source, RenderTexture destination)
+    {
         int width = source.width;
         int height = source.height;
 
@@ -23,7 +30,8 @@ public class PixelArtFilter : MonoBehaviour {
 
         RenderTexture currentSource = source;
 
-        for (int i = 0; i < downSamples; ++i) {
+        for (int i = 0; i < downSamples; ++i)
+        {
             width /= 2;
             height /= 2;
 
@@ -37,7 +45,8 @@ public class PixelArtFilter : MonoBehaviour {
 
         Graphics.Blit(currentSource, destination, pixelArtMat);
 
-        for (int i = 0; i < downSamples; ++i) {
+        for (int i = 0; i < downSamples; ++i)
+        {
             RenderTexture.ReleaseTemporary(textures[i]);
         }
     }

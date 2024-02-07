@@ -5,6 +5,8 @@ Shader "Hidden/DifferenceOfGaussians" {
 
     SubShader {
 
+        
+
         CGINCLUDE
 
         #include "UnityCG.cginc"

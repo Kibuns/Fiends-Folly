@@ -30,10 +30,13 @@ public class DifferenceOfGaussians : MonoBehaviour {
     public bool invert = false;
 
     private Material dogMat;
-    
+
+    private RenderTexture outlineTexture; // Added variable
+
     void OnEnable() {
         dogMat = new Material(differenceOfGaussians);
         dogMat.hideFlags = HideFlags.HideAndDontSave;
+        outlineTexture = new RenderTexture(Screen.width, Screen.height, 0);
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination) {
@@ -54,8 +57,14 @@ public class DifferenceOfGaussians : MonoBehaviour {
 
         dogMat.SetTexture("_GaussianTex", gaussian2);
 
-        Graphics.Blit(source, destination, dogMat, 2);
+        // Render the result to the outlineTexture
+        Graphics.Blit(source, outlineTexture, dogMat, 2);
+
+        // Release temporary render textures
         RenderTexture.ReleaseTemporary(gaussian1);
         RenderTexture.ReleaseTemporary(gaussian2);
+
+        // Copy the result to the screen
+        Graphics.Blit(outlineTexture, destination);
     }
 }
