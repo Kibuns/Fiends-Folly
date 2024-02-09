@@ -12,6 +12,7 @@ public class LookAroundCamera : MonoBehaviour
     public float rotationLerpSpeed;
     private Vector3 frontRotation;
     private Vector3 backRotation;
+    public Vector3 backRotationOffset;
     private PlayerInputActions playerInputActions;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class LookAroundCamera : MonoBehaviour
         playerInputActions.Enable();
         mousePercentagePosition = Vector2.zero;
         frontRotation = transform.localEulerAngles;
-        backRotation = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + 180, transform.localEulerAngles.z);
+        backRotation = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + 180, transform.localEulerAngles.z) + backRotationOffset;
     }
 
     // Update is called once per frame
