@@ -415,7 +415,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -158.10934, y: 0, z: -142.45488, w: 0}
+  m_margin: {x: -468.01556, y: 0, z: -483.3515, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1968,7 +1968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 1631322563}
-  hoverHeight: 0.2
+  hoverPositionDelta: {x: 0, y: 0.2, z: 0}
   maxHoverHeightDelta: 0.02
   maxHoverRotationDelta: 5
   bobbingSpeedMultiplier: 2
@@ -2026,7 +2026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 431867034}
-  hoverHeight: 0
+  hoverPositionDelta: {x: 0, y: 0, z: 0}
   maxHoverHeightDelta: 0
   maxHoverRotationDelta: 0
   bobbingSpeedMultiplier: 0
@@ -2449,6 +2449,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1330640442090450, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1330640442090450, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: m_Name
       value: HoverPhone
@@ -3946,7 +3950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 876962047}
-  hoverHeight: 0.2
+  hoverPositionDelta: {x: 0, y: 0.2, z: 0}
   maxHoverHeightDelta: 0.02
   maxHoverRotationDelta: 5
   bobbingSpeedMultiplier: 2
@@ -4027,7 +4031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 486196817}
-  hoverHeight: 0
+  hoverPositionDelta: {x: 0, y: 0, z: 0}
   maxHoverHeightDelta: 0
   maxHoverRotationDelta: 0
   bobbingSpeedMultiplier: 1
@@ -6424,11 +6428,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4220433984024252, guid: 5d1ef2ca14df55f43b5fc6e5d6c35781, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999999
       objectReference: {fileID: 0}
     - target: {fileID: 4220433984024252, guid: 5d1ef2ca14df55f43b5fc6e5d6c35781, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.00048826358
       objectReference: {fileID: 0}
     - target: {fileID: 4220433984024252, guid: 5d1ef2ca14df55f43b5fc6e5d6c35781, type: 3}
       propertyPath: m_LocalRotation.y
@@ -6436,15 +6440,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4220433984024252, guid: 5d1ef2ca14df55f43b5fc6e5d6c35781, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 2.3283067e-10
       objectReference: {fileID: 0}
     - target: {fileID: 4220433984024252, guid: 5d1ef2ca14df55f43b5fc6e5d6c35781, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -0.056
       objectReference: {fileID: 0}
     - target: {fileID: 4220433984024252, guid: 5d1ef2ca14df55f43b5fc6e5d6c35781, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220433984024252, guid: 5d1ef2ca14df55f43b5fc6e5d6c35781, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -6621,7 +6625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 1901250296}
-  hoverHeight: 0
+  hoverPositionDelta: {x: 0, y: 0, z: 0}
   maxHoverHeightDelta: 0
   maxHoverRotationDelta: 0
   bobbingSpeedMultiplier: 1
@@ -6658,11 +6662,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 1382216412}
-  hoverHeight: 0.2
+  hoverPositionDelta: {x: 0, y: 0.3, z: 0}
   maxHoverHeightDelta: 0.02
   maxHoverRotationDelta: 7
   bobbingSpeedMultiplier: 2
-  hoverRotation: {x: -30, y: 13, z: 30}
+  hoverRotation: {x: -35, y: 13, z: 35}
   lerpSpeed: 10
 --- !u!65 &1551224286
 BoxCollider:
@@ -7501,6 +7505,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a1b91768eb05ea498be61c4a557e446, type: 3}
+--- !u!1 &1881255739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881255741}
+  - component: {fileID: 1881255740}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1881255740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881255739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7095c8c7ebf46cb49b797cecb097cb51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coins: 0
+  secondsInHalfDay: 100
+  timer: 0
+--- !u!4 &1881255741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881255739}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1393.1263, y: -43.006348, z: -3.6195393}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1901250296 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1880943334047018, guid: 5319f220783b88f4b9b309dbe3e6b5ec, type: 3}

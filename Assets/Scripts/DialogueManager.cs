@@ -58,7 +58,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     private void ShowSentence(Sentence sentence)
-    {
+    {   
         if (shakingCoroutine != null)
         {
             StopCoroutine(shakingCoroutine);
@@ -81,7 +81,8 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator TypeSentence(Sentence sentence)
     {
         dialogueTextField.text = "";
-        foreach (char c in sentence.text)
+        string sentenceText = sentence.GetConvertedText().ToUpper(); //does the clock time thingy to replace "{clocktext}"
+        foreach (char c in sentenceText)
         {
             dialogueTextField.text += c;
             audioSource.Play();

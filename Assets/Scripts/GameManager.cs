@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public int coins;
 
-    [SerializeField] private float secondsInHalfDay = 100;
+    [SerializeField] private float secondsInHalfDay = 100f;
 
     public float timer;
 
@@ -27,8 +27,9 @@ public class GameManager : MonoBehaviour
         coins += amount;
     }
 
-    public string GetTimeString(float minutesPassed)
+    public string GetTimeString()
     {
+        float minutesPassed = (timer / secondsInHalfDay) * 720f; // 12 hours * 60 minutes
         // Calculate the hour and minute parts of the time
         int hours = Mathf.FloorToInt(minutesPassed / 60f) % 12; // Hours in 12-hour format
         int minutes = Mathf.FloorToInt(minutesPassed % 60f); // Minutes

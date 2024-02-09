@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Windows;
 
 
 [System.Serializable]
@@ -28,4 +30,15 @@ public class Sentence
     }
 
     public Sentence() { }
+
+    public string GetConvertedText()
+    {
+        // Define the pattern for matching {placeholder}
+        string pattern = @"\{clocktext\}";
+
+        // Replace all occurrences of {placeholder} with "foo"
+        return Regex.Replace(text, pattern, GameManager.instance.GetTimeString());
+    }
+
+
 }

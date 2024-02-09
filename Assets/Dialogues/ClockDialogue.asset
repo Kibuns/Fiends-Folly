@@ -14,15 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typingSound: {fileID: 8300000, guid: 55bd71e1c78f7834098b866ebc27b9a4, type: 3}
   sentences:
-  - text: IT IS TWELVE O'CLOCK
+  - text: IT IS {clocktext}.
     duration: 3.22
     characterTypingTime: 0.1
     shouldShake: 0
     shakeOffsetDelta: 0
     textColor: {r: 1, g: 1, b: 1, a: 1}
-  - text: PREPARE TO DIE
-    duration: 4.51
-    characterTypingTime: 0.2
-    shouldShake: 1
-    shakeOffsetDelta: 6
-    textColor: {r: 1, g: 0, b: 0, a: 1}

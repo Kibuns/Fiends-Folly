@@ -5,7 +5,7 @@ using UnityEngine;
 public class HoveringObject : MonoBehaviour
 {
     public GameObject hoveringObject;
-    public Vector3 hoverPosition;
+    public Vector3 hoverPositionDelta;
     public float maxHoverHeightDelta;
     public float maxHoverRotationDelta;
     public float bobbingSpeedMultiplier;
@@ -79,7 +79,7 @@ public class HoveringObject : MonoBehaviour
             SetSelected(true);
         }
         float targetHoverHeight = Mathf.Sin(Time.time * bobbingSpeedMultiplier) * maxHoverHeightDelta;
-        Vector3 targetPos = new Vector3(hoverPosition.x, hoverPosition.y + targetHoverHeight, hoverPosition.z);
+        Vector3 targetPos = new Vector3(startPosition.x +hoverPositionDelta.x, startPosition.y + hoverPositionDelta.y + targetHoverHeight, startPosition.z + hoverPositionDelta.z);
         hoveringObject.transform.localPosition = Vector3.Lerp(hoveringObject.transform.localPosition, targetPos, Time.deltaTime * lerpSpeed);
 
 
