@@ -5,7 +5,7 @@ using UnityEngine;
 public class HoveringObject : MonoBehaviour
 {
     public GameObject hoveringObject;
-    public float hoverHeight;
+    public Vector3 hoverPosition;
     public float maxHoverHeightDelta;
     public float maxHoverRotationDelta;
     public float bobbingSpeedMultiplier;
@@ -22,7 +22,7 @@ public class HoveringObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPosition = hoveringObject.transform.position;
+        startPosition = hoveringObject.transform.localPosition;
         startRotation = hoveringObject.transform.localEulerAngles;
     }
 
@@ -78,9 +78,9 @@ public class HoveringObject : MonoBehaviour
         {
             SetSelected(true);
         }
-        float targetHoverHeight = hoverHeight + Mathf.Sin(Time.time * bobbingSpeedMultiplier) * maxHoverHeightDelta;
-        Vector3 targetPos = new Vector3(startPosition.x, startPosition.y + targetHoverHeight, startPosition.z);
-        hoveringObject.transform.position = Vector3.Lerp(hoveringObject.transform.position, targetPos, Time.deltaTime * lerpSpeed);
+        float targetHoverHeight = Mathf.Sin(Time.time * bobbingSpeedMultiplier) * maxHoverHeightDelta;
+        Vector3 targetPos = new Vector3(hoverPosition.x, hoverPosition.y + targetHoverHeight, hoverPosition.z);
+        hoveringObject.transform.localPosition = Vector3.Lerp(hoveringObject.transform.localPosition, targetPos, Time.deltaTime * lerpSpeed);
 
 
         float rotationBobbingMultiplier = 2f;
@@ -91,7 +91,7 @@ public class HoveringObject : MonoBehaviour
 
     private void LerpToStart()
     {
-        hoveringObject.transform.position = Vector3.Lerp(hoveringObject.transform.position, startPosition, Time.deltaTime * lerpSpeed);
+        hoveringObject.transform.localPosition = Vector3.Lerp(hoveringObject.transform.localPosition, startPosition, Time.deltaTime * lerpSpeed);
         hoveringObject.transform.localEulerAngles = AngleLerp(hoveringObject.transform.localEulerAngles, startRotation, Time.deltaTime * lerpSpeed);
     }
 
