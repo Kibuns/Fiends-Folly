@@ -17,6 +17,7 @@ public class DrawWithMouse : MonoBehaviour
     private void Start()
     {
         line = GetComponent<LineRenderer>();
+        line.renderingLayerMask = 6;
         line.positionCount = 1;
         input = new PlayerInputActions();
         input.Enable();
@@ -44,20 +45,27 @@ public class DrawWithMouse : MonoBehaviour
                 }
                 else
                 {
-                    line.positionCount++;
-                    line.SetPosition(line.positionCount - 1, currentPosition);
+                    AddLineSection(currentPosition);
                 }
             }
 
             previousPosition = currentPosition;
         }
-        if(input.Player.LeftClick.WasReleasedThisFrame() && line != null)
-        {
-            LineRenderer newLine = gameObject.AddComponent<LineRenderer>();
-            line = newLine;
-            line.positionCount = 1;
+        //if(input.Player.LeftClick.WasReleasedThisFrame() && line != null)
+        //{
+        //    LineRenderer newLine = gameObject.AddComponent<LineRenderer>();
+        //    line = newLine;
+        //    line.positionCount = 1;
             
-        }
+        //}
 
+
+
+    }
+
+    private void AddLineSection(Vector3 currentPosition)
+    {
+        line.positionCount++;
+        line.SetPosition(line.positionCount - 1, currentPosition);
     }
 }
