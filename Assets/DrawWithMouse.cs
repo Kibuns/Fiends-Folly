@@ -13,7 +13,7 @@ public class DrawWithMouse : MonoBehaviour
     [SerializeField] float minDistance;
     private PlayerInputActions input;
     private Material lineMaterial;
-    private bool done;
+    private bool doneWithoutSucces;
     private Color currentColor;
 
     private void Start()
@@ -30,7 +30,7 @@ public class DrawWithMouse : MonoBehaviour
 
     private void Update()
     {
-        if (done)
+        if (doneWithoutSucces)
         {
             FadeOut();
             return;
@@ -61,7 +61,7 @@ public class DrawWithMouse : MonoBehaviour
         }
         if (input.Player.LeftClick.WasReleasedThisFrame() && line != null)
         {
-            done = true;
+            doneWithoutSucces = true;
             // Change render mode to fade
             lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
