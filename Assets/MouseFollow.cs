@@ -9,6 +9,7 @@ public class MouseFollow : MonoBehaviour
     private Transform playerCam;
     [SerializeField] private Collider ritualFloorCollider;
     [SerializeField] private ParticleSystem particles;
+    [SerializeField] private GameObject bloodLinePrefab;
     public float delayTime;
     public bool onRitualCollider;
     private PlayerInputActions playerInput;
@@ -27,6 +28,7 @@ public class MouseFollow : MonoBehaviour
         if (playerInput.Player.LeftClick.triggered)
         {
             StartCoroutine(EnableEmissionCoroutine());
+            Instantiate(bloodLinePrefab);
         }
         if (playerInput.Player.LeftClick.IsPressed())
         {
