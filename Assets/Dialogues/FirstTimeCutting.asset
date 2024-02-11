@@ -22,7 +22,7 @@ MonoBehaviour:
     textColor: {r: 1, g: 1, b: 1, a: 1}
   - text: ...
     duration: 3
-    characterTypingTime: 0.5
+    characterTypingTime: 0.603
     shouldShake: 1
-    shakeOffsetDelta: 4.86
+    shakeOffsetDelta: 5.79
     textColor: {r: 1, g: 1, b: 1, a: 1}

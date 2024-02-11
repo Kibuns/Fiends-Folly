@@ -5,8 +5,13 @@ public class ClockScript : MonoBehaviour
     [SerializeField] private Transform MinuteHand;
     [SerializeField] private Transform HourHand;
 
-    [SerializeField] private float secondsInHalfDay = 100;
+    private float secondsInHalfDay;
 
+
+    private void Start()
+    {
+        secondsInHalfDay = GameManager.instance.secondsInHalfDay;
+    }
     private void Update()
     {
         //timer += Time.deltaTime;

@@ -8,14 +8,28 @@ public class GameManager : MonoBehaviour
 
     public int coins;
 
-    [SerializeField] private float secondsInHalfDay = 100f;
+    [SerializeField] AudioClip bellClip;
+    [SerializeField] public float secondsInHalfDay = 100f;
     [SerializeField] public Transform holdItemPosition;
+    [SerializeField] public GameObject ritualItem;
+
+    public bool isBleeding;
 
     public float timer;
+
+    private AudioSource source;
+    private Vector3 ritualStartPosition;
 
     private void Awake()
     {
         instance = this;
+    }
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+        ritualStartPosition = ritualItem.transform.position;
+        ritualItem.GetComponent<HoveringObject>().enabled = false;
+        ritualItem.transform.position = Vector3.zero;
     }
 
     private void Update()
@@ -26,6 +40,19 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int amount)
     {
         coins += amount;
+    }
+
+    public void PlayBellSound()
+    {
+        source.PlayOneShot(bellClip);
+    }
+
+    public void ActivateRitualItem()
+    {
+        Debug.Log("activate ritual item");
+        ritualItem.transform.position = ritualStartPosition;
+        ritualItem.GetComponent<HoveringObject>().enabled = true;
+        isBleeding = false;
     }
 
     public string GetTimeString()

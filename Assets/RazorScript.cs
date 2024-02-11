@@ -82,6 +82,7 @@ public class RazorScript : MonoBehaviour, IInteractable
         isCutting = true;
         yield return new WaitForSeconds(delay);
         source.PlayOneShot(cutBladeClip);
+        GameManager.instance.isBleeding = true;
 
     }
 

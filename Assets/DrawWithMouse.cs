@@ -30,6 +30,7 @@ public class DrawWithMouse : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.instance.isBleeding) return;
         if (doneWithoutSucces)
         {
             FadeOut();
@@ -87,6 +88,12 @@ public class DrawWithMouse : MonoBehaviour
         lineMaterial.SetColor("_Color", currentColor);
         if(currentColor.a < 0f)
         {
+            //TEMP DEMO CODEvv
+
+            GameManager.instance.ActivateRitualItem();
+            GameManager.instance.PlayBellSound();
+
+            //TEMP DEMO CODE^^
             Destroy(gameObject);
         }
     }

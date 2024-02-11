@@ -11,6 +11,7 @@ public class MouseFollow : MonoBehaviour
     [SerializeField] private ParticleSystem particles;
     [SerializeField] private GameObject bloodLinePrefab;
     [SerializeField] private GameObject bloodLettingPrefab;
+    private AudioSource bloodWritingSource;
     public float delayTime;
     public float lerpSpeed;
     public bool onRitualCollider;
@@ -19,6 +20,7 @@ public class MouseFollow : MonoBehaviour
 
     private void Start()
     {
+        bloodWritingSource = gameObject.GetComponent<AudioSource>();
         playerInput = new PlayerInputActions();
         playerInput.Enable();
         playerCam = Camera.main.transform;
@@ -29,12 +31,14 @@ public class MouseFollow : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.instance.isBleeding) return;
         bool triggeredThisFrame = false;
         if (playerInput.Player.LeftClick.triggered)
         {
             triggeredThisFrame = true;
             StartCoroutine(EnableEmissionCoroutine());
             Instantiate(bloodLinePrefab);
+            bloodWritingSource.Play();
         }
         if (playerInput.Player.LeftClick.IsPressed())
         {
@@ -75,6 +79,7 @@ public class MouseFollow : MonoBehaviour
         }
         if (playerInput.Player.LeftClick.WasReleasedThisFrame())
         {
+            bloodWritingSource.Pause();
             particles.enableEmission = false;
             bloodLettingPrefab.GetComponent<ParticleSystem>().enableEmission = false;
         }
