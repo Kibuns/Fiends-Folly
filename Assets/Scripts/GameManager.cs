@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public int coins;
 
     [SerializeField] private float secondsInHalfDay = 100f;
+    [SerializeField] public Transform holdItemPosition;
 
     public float timer;
 

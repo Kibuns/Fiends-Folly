@@ -10,7 +10,9 @@ public class MouseFollow : MonoBehaviour
     [SerializeField] private Collider ritualFloorCollider;
     [SerializeField] private ParticleSystem particles;
     [SerializeField] private GameObject bloodLinePrefab;
+    [SerializeField] private GameObject bloodLettingPrefab;
     public float delayTime;
+    public float lerpSpeed;
     public bool onRitualCollider;
     private PlayerInputActions playerInput;
     private bool shouldStartEmission;
@@ -21,12 +23,16 @@ public class MouseFollow : MonoBehaviour
         playerInput.Enable();
         playerCam = Camera.main.transform;
         particles.enableEmission = false;
+        bloodLettingPrefab.GetComponent<ParticleSystem>().enableEmission = false;
+        bloodLettingPrefab.transform.parent = null;
     }
 
     private void Update()
     {
+        bool triggeredThisFrame = false;
         if (playerInput.Player.LeftClick.triggered)
         {
+            triggeredThisFrame = true;
             StartCoroutine(EnableEmissionCoroutine());
             Instantiate(bloodLinePrefab);
         }
@@ -45,7 +51,16 @@ public class MouseFollow : MonoBehaviour
                     onRitualCollider = true;
                     CursorManager.instance.EnablePointCursor(); //BUGGYYYYYYYYYYYYYYYYYYYYYYYYYYY
                                                                 // Set the position of this object to the hit point
-                    transform.position = hit.point;
+                    SetBloodLettingPosition(hit.point);
+                    if (triggeredThisFrame)
+                    {
+                        transform.position = hit.point;
+                    }
+                    else
+                    {
+                        transform.position = Vector3.Lerp(transform.position, hit.point, lerpSpeed * Time.deltaTime);
+                    }
+                    
 
                 }
                 else
@@ -61,15 +76,23 @@ public class MouseFollow : MonoBehaviour
         if (playerInput.Player.LeftClick.WasReleasedThisFrame())
         {
             particles.enableEmission = false;
+            bloodLettingPrefab.GetComponent<ParticleSystem>().enableEmission = false;
         }
-        
-        
+        triggeredThisFrame = false;
+
+
+    }
+
+    private void SetBloodLettingPosition(Vector3 hitPoint)
+    {
+        bloodLettingPrefab.transform.position = new Vector3(hitPoint.x, bloodLettingPrefab.transform.position.y, hitPoint.z);
     }
 
     private IEnumerator EnableEmissionCoroutine()
     {
         yield return new WaitForSeconds(delayTime);
         particles.enableEmission = true;
+        bloodLettingPrefab.GetComponent<ParticleSystem>().enableEmission = true;
 
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HoveringObject : MonoBehaviour
 {
@@ -11,32 +12,57 @@ public class HoveringObject : MonoBehaviour
     public float bobbingSpeedMultiplier;
     public Vector3 hoverRotation;
     public float lerpSpeed;
+    public bool pickupOnInteract; //overrides other IInteractable behaviours
 
     private int selectedLayer = 6;
     private int highlightLayer = 3;
-    private Vector3 startPosition;
-    private Vector3 startRotation;
+    private Vector3 localStartPosition;
+    private Vector3 localStartRotation;
+    private Vector3 globalStartPosition;
+    private Vector3 globalStartRotation;
     private bool isHoveredOn;
-    private bool isHovering;
-    private float timer;
+    private bool pickedUp;
+    private Transform holdItemTransform;
+    private PlayerInputActions playerInput;
+
     // Start is called before the first frame update
     void Start()
     {
-        startPosition = hoveringObject.transform.localPosition;
-        startRotation = hoveringObject.transform.localEulerAngles;
+        playerInput = new PlayerInputActions();
+        playerInput.Enable();
+        localStartPosition = hoveringObject.transform.localPosition;
+        localStartRotation = hoveringObject.transform.localEulerAngles;
+        globalStartPosition = transform.position;
+        globalStartRotation = transform.eulerAngles;
+        holdItemTransform = GameManager.instance.holdItemPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        if (pickedUp)
+        {
+            if(playerInput.Player.Escape.triggered)
+            {
+                Drop();
+            }
+            LerpToHoldPosition();
+            LerpToLocalStart();
+            return;
+        }
         if (!isHoveredOn)
         {
-            LerpToStart();
+            LerpToGlobalStart();
+            LerpToLocalStart();
             return;
         }
 
         Hover();
+    }
+    private void LerpToHoldPosition()
+    {
+        transform.position = Vector3.Lerp(transform.position, holdItemTransform.position, Time.deltaTime * lerpSpeed);
+        transform.localEulerAngles = AngleLerp(transform.localEulerAngles, holdItemTransform.eulerAngles, Time.deltaTime * lerpSpeed);
     }
 
     private void InitHover()
@@ -52,6 +78,10 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (pickupOnInteract)
+        {
+            PickUp();
+        }
         if (TryGetComponent(out IInteractable interactable))
         {
             interactable.Interact();
@@ -62,11 +92,25 @@ public class HoveringObject : MonoBehaviour
         }
     }
 
+    public void PickUp()
+    {
+        pickedUp = true;
+        GetComponent<Collider>().enabled = false;
+        SetSelected(true);
+    }
+
+    public void Drop()
+    {
+        pickedUp = false;
+        GetComponent<Collider>().enabled = true;
+        SetSelected(false);
+    }
+
     private void OnMouseExit()
     {
         isHoveredOn = false;
         CursorManager.instance.DisablePointCursor();
-        if (gameObject.layer != highlightLayer)
+        if (gameObject.layer != highlightLayer && !pickedUp)
         {
             SetSelected(false);
         }
@@ -79,7 +123,7 @@ public class HoveringObject : MonoBehaviour
             SetSelected(true);
         }
         float targetHoverHeight = Mathf.Sin(Time.time * bobbingSpeedMultiplier) * maxHoverHeightDelta;
-        Vector3 targetPos = new Vector3(startPosition.x +hoverPositionDelta.x, startPosition.y + hoverPositionDelta.y + targetHoverHeight, startPosition.z + hoverPositionDelta.z);
+        Vector3 targetPos = new Vector3(localStartPosition.x +hoverPositionDelta.x, localStartPosition.y + hoverPositionDelta.y + targetHoverHeight, localStartPosition.z + hoverPositionDelta.z);
         hoveringObject.transform.localPosition = Vector3.Lerp(hoveringObject.transform.localPosition, targetPos, Time.deltaTime * lerpSpeed);
 
 
@@ -89,10 +133,16 @@ public class HoveringObject : MonoBehaviour
         hoveringObject.transform.localEulerAngles = AngleLerp(hoveringObject.transform.localEulerAngles, targetRotation, Time.deltaTime * lerpSpeed);
     }
 
-    private void LerpToStart()
+    private void LerpToLocalStart()
     {
-        hoveringObject.transform.localPosition = Vector3.Lerp(hoveringObject.transform.localPosition, startPosition, Time.deltaTime * lerpSpeed);
-        hoveringObject.transform.localEulerAngles = AngleLerp(hoveringObject.transform.localEulerAngles, startRotation, Time.deltaTime * lerpSpeed);
+        hoveringObject.transform.localPosition = Vector3.Lerp(hoveringObject.transform.localPosition, localStartPosition, Time.deltaTime * lerpSpeed);
+        hoveringObject.transform.localEulerAngles = AngleLerp(hoveringObject.transform.localEulerAngles, localStartRotation, Time.deltaTime * lerpSpeed);
+    }
+
+    private void LerpToGlobalStart()
+    {
+        transform.position = Vector3.Lerp(transform.position, globalStartPosition, Time.deltaTime * lerpSpeed);
+        transform.eulerAngles = AngleLerp(transform.eulerAngles, globalStartRotation, Time.deltaTime * lerpSpeed);
     }
 
     //Replace Vector3.Lerp because that one cant cross an angle of 0, so for instance lerp from 10 to -10 is only possible with this method without weird behaviour
