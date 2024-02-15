@@ -53,8 +53,11 @@ public class DialogueManager : MonoBehaviour
         }
         Debug.Log("dialogue done");
         dialogueBox.SetActive(false);
-        StopCoroutine(typingCoroutine);
-        StopCoroutine(shakingCoroutine);
+
+        if(typingCoroutine != null) { StopCoroutine(typingCoroutine); }
+
+        if(shakingCoroutine != null) { StopCoroutine(shakingCoroutine); }
+        
     }
 
     private void ShowSentence(Sentence sentence)

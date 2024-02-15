@@ -6,7 +6,6 @@ using UnityEngine.Windows;
 
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "New Sentence", menuName = "Sentence")]
 public class Sentence
 {
     [SerializeField] public string text = "Sample Text";

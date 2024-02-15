@@ -12,7 +12,10 @@ public class HoveringObject : MonoBehaviour
     public float bobbingSpeedMultiplier;
     public Vector3 hoverRotation;
     public float lerpSpeed;
-    public bool pickupOnInteract; //overrides other IInteractable behaviours
+    public bool pickupOnInteract; //doesnt override other IInteractable behaviours
+    public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
+    [SerializeField] private Dialogue dialogue;
+    public float dialogueStartDelay;
 
     private int selectedLayer = 6;
     private int highlightLayer = 3;
@@ -22,6 +25,7 @@ public class HoveringObject : MonoBehaviour
     private Vector3 globalStartRotation;
     private bool isHoveredOn;
     private bool pickedUp;
+    
     private Transform holdItemTransform;
     private PlayerInputActions playerInput;
 
@@ -82,6 +86,10 @@ public class HoveringObject : MonoBehaviour
         {
             PickUp();
         }
+        if (startDialogueOnInteract)
+        {
+            StartDialogue();
+        }
         if (TryGetComponent(out IInteractable interactable))
         {
             interactable.Interact();
@@ -90,6 +98,22 @@ public class HoveringObject : MonoBehaviour
         {
             Debug.LogWarning("No IInteractable component found on gameobject");
         }
+    }
+
+    private void StartDialogue()
+    {
+        StartCoroutine(DialogueDelay(dialogueStartDelay));
+    }
+
+    private IEnumerator DialogueDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        ShowDialogue();
+    }
+
+    private void ShowDialogue()
+    {
+        DialogueManager.instance.StartDialogue(dialogue);
     }
 
     public void PickUp()
