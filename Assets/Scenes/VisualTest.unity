@@ -14802,6 +14802,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 804038148}
   shotClip: {fileID: 8300000, guid: 6d3000138090a574aa59220df58238f9, type: 3}
   vignette: {fileID: 841663637}
+  fadeToBlackDelay: 0.065
 --- !u!82 &1863136392
 AudioSource:
   m_ObjectHideFlags: 0
