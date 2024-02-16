@@ -16,7 +16,7 @@ MonoBehaviour:
   sentences:
   - text: IT IS {clocktext}.
     duration: 3.22
-    characterTypingTime: 0.1
+    characterTypingTime: 0.09
     shouldShake: 0
     shakeOffsetDelta: 0
-    textColor: {r: 1, g: 1, b: 1, a: 1}
+    textColor: {r: 0.0133944545, g: 0.3426176, b: 0.4056604, a: 1}

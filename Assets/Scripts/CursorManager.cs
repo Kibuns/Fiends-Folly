@@ -7,7 +7,8 @@ public class CursorManager : MonoBehaviour
     public static CursorManager instance;
 
     [SerializeField] private Texture2D pointCursor;
-    [SerializeField] private Texture2D grabCursor;
+    [SerializeField] private Texture2D defaultCursor;
+    [SerializeField] private Texture2D deadCursor;
 
 
     private void Awake()
@@ -31,8 +32,13 @@ public class CursorManager : MonoBehaviour
         Cursor.SetCursor(pointCursor, Vector2.zero, CursorMode.Auto);
     }
 
-    public void DisablePointCursor()
+    public void SwitchToDefaultCursor()
     {
-        Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void EnableDeadCursor()
+    {
+        Cursor.SetCursor(deadCursor, Vector2.zero, CursorMode.Auto);
     }
 }

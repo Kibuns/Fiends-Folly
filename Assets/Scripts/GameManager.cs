@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
     public int coins;
 
     [SerializeField] AudioClip bellClip;
     [SerializeField] public float secondsInHalfDay = 100f;
-    [SerializeField] public Transform holdItemPosition;
     [SerializeField] public GameObject ritualItem;
 
     public bool isBleeding;
@@ -22,7 +21,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     private void Start()
     {

@@ -30,7 +30,7 @@ public class Grave : MonoBehaviour
         // Check if one second has passed
         if (timer >= interval)
         {
-            GameManager.instance.AddCoins(coinsPerSecond);
+            GameManager.Instance.AddCoins(coinsPerSecond);
             timer = 0f;
         }
     }

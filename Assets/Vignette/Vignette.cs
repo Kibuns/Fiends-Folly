@@ -11,7 +11,7 @@ public class Vignette : MonoBehaviour {
     public Vector2 vignetteOffset = new Vector2(0.0f, 0.0f);
     public Vector2 vignetteSize = new Vector2(1.0f, 1.0f);
     
-    [Range(0.0f, 5.0f)]
+    [Range(0.0f, 10.0f)]
     public float intensity = 1.0f;
     [Range(0.0f, 10.0f)]
     public float roundness = 1.0f;

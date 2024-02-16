@@ -10,12 +10,12 @@ public class ClockScript : MonoBehaviour
 
     private void Start()
     {
-        secondsInHalfDay = GameManager.instance.secondsInHalfDay;
+        secondsInHalfDay = GameManager.Instance.secondsInHalfDay;
     }
     private void Update()
     {
         //timer += Time.deltaTime;
-        float timer = GameManager.instance.timer;
+        float timer = GameManager.Instance.timer;
         // Calculate rotation angles for hour and minute hands
         float hoursPassed = (timer / secondsInHalfDay) * 12f;
         float minutesPassed = (timer / secondsInHalfDay) * 720f; // 12 hours * 60 minutes

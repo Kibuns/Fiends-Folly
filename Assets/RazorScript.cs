@@ -25,7 +25,7 @@ public class RazorScript : MonoBehaviour, IInteractable
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
         childRazorTransform = transform.GetChild(0);
-        downPosition = childRazorTransform.localPosition + Vector3.down;
+        downPosition = childRazorTransform.forward * 2;
     }
 
     // Update is called once per frame
@@ -57,11 +57,12 @@ public class RazorScript : MonoBehaviour, IInteractable
     {
         if (bladeShowing)
         {
-            razorBlade.transform.localEulerAngles = AngleLerp(razorBlade.transform.localEulerAngles, shownBladeEulerRotation, lerpSpeed * Time.deltaTime);
+            if (Quaternion.Angle(razorBlade.transform.localRotation, Quaternion.Euler(shownBladeEulerRotation)) < 3) return;
+            razorBlade.transform.localRotation = Quaternion.Slerp(razorBlade.transform.localRotation, Quaternion.Euler(shownBladeEulerRotation), (lerpSpeed * Time.deltaTime));
         }
         else
         {
-            razorBlade.transform.localEulerAngles = AngleLerp(razorBlade.transform.localEulerAngles, Vector3.zero, lerpSpeed * Time.deltaTime);
+            razorBlade.transform.localRotation = Quaternion.Lerp(razorBlade.transform.localRotation, Quaternion.identity, lerpSpeed * Time.deltaTime);
         }
         
     }
@@ -82,7 +83,7 @@ public class RazorScript : MonoBehaviour, IInteractable
         isCutting = true;
         yield return new WaitForSeconds(delay);
         source.PlayOneShot(cutBladeClip);
-        GameManager.instance.isBleeding = true;
+        GameManager.Instance.isBleeding = true;
 
     }
 

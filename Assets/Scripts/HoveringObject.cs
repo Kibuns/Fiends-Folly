@@ -13,6 +13,7 @@ public class HoveringObject : MonoBehaviour
     public Vector3 hoverRotation;
     public float lerpSpeed;
     public bool pickupOnInteract; //doesnt override other IInteractable behaviours
+    public bool playSoundOnHover;
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
     [SerializeField] private Dialogue dialogue;
     public float dialogueStartDelay;
@@ -24,7 +25,7 @@ public class HoveringObject : MonoBehaviour
     private Vector3 globalStartPosition;
     private Vector3 globalStartRotation;
     private bool isHoveredOn;
-    private bool pickedUp;
+    private bool hoverable;
     
     private Transform holdItemTransform;
     private PlayerInputActions playerInput;
@@ -38,20 +39,15 @@ public class HoveringObject : MonoBehaviour
         localStartRotation = hoveringObject.transform.localEulerAngles;
         globalStartPosition = transform.position;
         globalStartRotation = transform.eulerAngles;
-        holdItemTransform = GameManager.instance.holdItemPosition;
+        holdItemTransform = ItemManager.Instance.holdItemPosition;
+        hoverable = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (pickedUp)
+        if (!hoverable)
         {
-            if(playerInput.Player.Escape.triggered)
-            {
-                Drop();
-            }
-            LerpToHoldPosition();
-            LerpToLocalStart();
             return;
         }
         if (!isHoveredOn)
@@ -71,7 +67,12 @@ public class HoveringObject : MonoBehaviour
 
     private void InitHover()
     {
+        Debug.Log("InitHover");
         CursorManager.instance.EnablePointCursor();
+        if (playSoundOnHover)
+        {
+            hoveringObject.GetComponent<Item>().PlayPickupSound();
+        }
     }
 
     private void OnMouseEnter()
@@ -82,10 +83,7 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (pickupOnInteract)
-        {
-            PickUp();
-        }
+        
         if (startDialogueOnInteract)
         {
             StartDialogue();
@@ -97,6 +95,11 @@ public class HoveringObject : MonoBehaviour
         else
         {
             Debug.LogWarning("No IInteractable component found on gameobject");
+        }
+        if (pickupOnInteract)
+        {
+            DisableHoverable();
+            hoveringObject.GetComponent<Item>().PickUp();
         }
     }
 
@@ -116,16 +119,16 @@ public class HoveringObject : MonoBehaviour
         DialogueManager.instance.StartDialogue(dialogue);
     }
 
-    public void PickUp()
+    public void DisableHoverable()
     {
-        pickedUp = true;
+        hoverable = false;
         GetComponent<Collider>().enabled = false;
         SetSelected(true);
     }
 
-    public void Drop()
+    public void EnableHoverable()
     {
-        pickedUp = false;
+        hoverable = true;
         GetComponent<Collider>().enabled = true;
         SetSelected(false);
     }
@@ -133,8 +136,8 @@ public class HoveringObject : MonoBehaviour
     private void OnMouseExit()
     {
         isHoveredOn = false;
-        CursorManager.instance.DisablePointCursor();
-        if (gameObject.layer != highlightLayer && !pickedUp)
+        CursorManager.instance.SwitchToDefaultCursor();
+        if (gameObject.layer != highlightLayer && hoverable)
         {
             SetSelected(false);
         }

@@ -36,7 +36,7 @@ public class Sentence
         string pattern = @"\{clocktext\}";
 
         // Replace all occurrences of {placeholder} with "foo"
-        return Regex.Replace(text, pattern, GameManager.instance.GetTimeString());
+        return Regex.Replace(text, pattern, GameManager.Instance.GetTimeString());
     }
 
 

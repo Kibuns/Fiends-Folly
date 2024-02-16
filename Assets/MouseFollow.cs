@@ -31,7 +31,7 @@ public class MouseFollow : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.instance.isBleeding) return;
+        if (!GameManager.Instance.isBleeding) return;
         bool triggeredThisFrame = false;
         if (playerInput.Player.LeftClick.triggered)
         {
