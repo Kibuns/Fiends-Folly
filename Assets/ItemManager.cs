@@ -63,6 +63,7 @@ public class ItemManager : MonoBehaviour
 
     public void SetHeldItem(Item item)
     {
+        if (currentlyHeldItem != null) { DropHeldItem(); }
         currentlyHeldItem = item;
         holdItemPosition.localPosition += currentlyHeldItem.offsetPosition;
         holdItemPosition.localRotation *= Quaternion.Euler(currentlyHeldItem.offsetRotation);

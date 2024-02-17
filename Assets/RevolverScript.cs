@@ -10,9 +10,12 @@ public class RevolverScript : MonoBehaviour
     [SerializeField] private AudioClip shotClip;
     [SerializeField] private Vignette vignette;
     [SerializeField] private float fadeToBlackDelay = 0.04f;
+
+    private Collider collider;
     private Item item;
     private AudioSource source;
     private AudioSource[] allAudioSources;
+    private bool isBeingHeld;
     // Start is called before the first frame update
 
     void Awake()
@@ -29,6 +32,8 @@ public class RevolverScript : MonoBehaviour
     }
     void Start()
     {
+        collider = GetComponent<Collider>();
+        collider.enabled = false;
         item = GetComponent<Item>();
         source = GetComponent<AudioSource>();
     }
@@ -36,7 +41,18 @@ public class RevolverScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(item.isBeingHeld && !isBeingHeld)
+        {
+            isBeingHeld = true;
+            collider.enabled = true;
+            Debug.Log("collider enabled");
+        }
+        else if (!item.isBeingHeld && isBeingHeld)
+        {
+            isBeingHeld = false;
+            collider.enabled = false;
+            Debug.Log("collider disabled");
+        }
     }
 
     private void OnMouseOver()

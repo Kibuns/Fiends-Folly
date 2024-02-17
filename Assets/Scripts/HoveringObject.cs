@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,13 +27,18 @@ public class HoveringObject : MonoBehaviour
     private Vector3 globalStartRotation;
     private bool isHoveredOn;
     private bool hoverable;
+    private float OnMouseEnterCooldown = 0.2f;
     
     private Transform holdItemTransform;
     private PlayerInputActions playerInput;
+    private Item attachedItem;
+
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
     {
+        attachedItem = hoveringObject.GetComponent<Item>();
         playerInput = new PlayerInputActions();
         playerInput.Enable();
         localStartPosition = hoveringObject.transform.localPosition;
@@ -46,6 +52,7 @@ public class HoveringObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
         if (!hoverable)
         {
             return;
@@ -67,9 +74,13 @@ public class HoveringObject : MonoBehaviour
 
     private void InitHover()
     {
+        
         Debug.Log("InitHover");
         CursorManager.instance.EnablePointCursor();
-        if (playSoundOnHover)
+
+        if (timer < OnMouseEnterCooldown) return;
+        timer = 0f;
+        if (playSoundOnHover && !attachedItem.isBeingHeld)
         {
             hoveringObject.GetComponent<Item>().PlayPickupSound();
         }
@@ -99,7 +110,7 @@ public class HoveringObject : MonoBehaviour
         if (pickupOnInteract)
         {
             DisableHoverable();
-            hoveringObject.GetComponent<Item>().PickUp();
+            attachedItem.PickUp();
         }
     }
 
@@ -140,6 +151,12 @@ public class HoveringObject : MonoBehaviour
         if (gameObject.layer != highlightLayer && hoverable)
         {
             SetSelected(false);
+        }
+        if (timer < OnMouseEnterCooldown) return;
+        timer = 0f;
+        if (playSoundOnHover && !attachedItem.isBeingHeld)
+        {
+            attachedItem.PlayPutDownSound();
         }
     }
 

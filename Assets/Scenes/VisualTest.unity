@@ -4403,53 +4403,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1330640442090450, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_Icon
+    - target: {fileID: 1382216417, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: pickupClip
       value: 
+      objectReference: {fileID: 8300000, guid: 48e552b5fcc09af47a31725efddf3df9, type: 3}
+    - target: {fileID: 1382216417, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: putDownClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 997140b252e43ea439ceeb4b4f021a5e, type: 3}
+    - target: {fileID: 1382216418, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382216418, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.653
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: playSoundOnHover
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1330640442090450, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: m_Name
       value: HoverPhone
       objectReference: {fileID: 0}
-    - target: {fileID: 1810573865202720, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033155370268238, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033155370268238, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033155370268238, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033155370268238, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033155370268238, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4790307897417242, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: m_RootOrder
       value: 26
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790307897417242, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.1979758
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790307897417242, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1979758
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790307897417242, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1979758
       objectReference: {fileID: 0}
     - target: {fileID: 4790307897417242, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4491,13 +4471,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 64176329752932850, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 6551429581707705277, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: Pan2D
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 64762501569791560, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 6551429581707705277, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.302
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
@@ -11203,6 +11183,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1810573865202720, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
   m_PrefabInstance: {fileID: 554979858}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1382216419 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6551429581707705277, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+  m_PrefabInstance: {fileID: 554979858}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1382216420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382216412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0deb87bd17f53fe49afc315942c02b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toneSource: {fileID: 1382216419}
 --- !u!4 &1387609526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1676609100239073865, guid: 0d780173c250d334f80c9061373c8e4f, type: 3}
@@ -12571,48 +12569,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4890213490046932, guid: 786c7ca63dbb5ab4797219fb28f871b1, type: 3}
   m_PrefabInstance: {fileID: 1601271129}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1551224281 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1330640442090450, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
-  m_PrefabInstance: {fileID: 554979858}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1551224285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551224281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9660d5c44670db49b9b7af1a63f4c4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoveringObject: {fileID: 1382216412}
-  hoverPositionDelta: {x: 0, y: 0.3, z: 0}
-  maxHoverHeightDelta: 0.02
-  maxHoverRotationDelta: 7
-  bobbingSpeedMultiplier: 2
-  hoverRotation: {x: -35, y: 13, z: 35}
-  lerpSpeed: 10
-  pickupOnInteract: 0
-  playSoundOnHover: 0
-  startDialogueOnInteract: 0
-  dialogue: {fileID: 0}
-  dialogueStartDelay: 0
---- !u!65 &1551224286
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551224281}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.33, z: 0.24204181}
-  m_Center: {x: 0.0000009536743, y: 0.07510805, z: -0.020870833}
 --- !u!1 &1553056493
 GameObject:
   m_ObjectHideFlags: 0
@@ -14822,7 +14778,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -14859,7 +14815,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
