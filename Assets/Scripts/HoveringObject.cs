@@ -18,6 +18,8 @@ public class HoveringObject : MonoBehaviour
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
     [SerializeField] private Dialogue dialogue;
     public float dialogueStartDelay;
+    
+    
 
     private int selectedLayer = 6;
     private int highlightLayer = 3;
@@ -28,11 +30,16 @@ public class HoveringObject : MonoBehaviour
     private bool isHoveredOn;
     private bool hoverable;
     private float OnMouseEnterCooldown = 0.2f;
+    private float MaxClickTime = 0.08f;
     
     private Transform holdItemTransform;
     private PlayerInputActions playerInput;
     private Item attachedItem;
+    private LayerMask dragLayerMask;
+    private Vector3 dragTargetPosition;
 
+
+    private float dragTimer;
     private float timer;
 
     // Start is called before the first frame update
@@ -46,12 +53,16 @@ public class HoveringObject : MonoBehaviour
         globalStartPosition = transform.position;
         globalStartRotation = transform.eulerAngles;
         holdItemTransform = ItemManager.Instance.holdItemPosition;
+        dragLayerMask = ItemManager.Instance.dragLayerMask;
         hoverable = true;
+        dragTargetPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlaceDownInput();
+        LerpToDragTarget();
         timer += Time.deltaTime;
         if (!hoverable)
         {
@@ -59,13 +70,40 @@ public class HoveringObject : MonoBehaviour
         }
         if (!isHoveredOn)
         {
-            LerpToGlobalStart();
             LerpToLocalStart();
             return;
         }
 
         Hover();
+        
     }
+
+    private void LerpToDragTarget()
+    {
+        transform.position = Vector3.Lerp(transform.position, dragTargetPosition, lerpSpeed * Time.deltaTime);
+    }
+
+    private void PlaceDownInput()
+    {
+        if (attachedItem == null) return;
+        if (attachedItem.isBeingHeld && playerInput.Player.RightClick.triggered)
+        {
+            ItemManager.Instance.DropHeldItem();
+        }
+    }
+
+    private void MoveToMousePosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, dragLayerMask))
+        {
+            dragTargetPosition = hit.point;
+            ItemManager.Instance.DropHeldItem();
+        }
+    }
+
     private void LerpToHoldPosition()
     {
         transform.position = Vector3.Lerp(transform.position, holdItemTransform.position, Time.deltaTime * lerpSpeed);
@@ -92,9 +130,15 @@ public class HoveringObject : MonoBehaviour
         InitHover();
     }
 
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
-        
+        if (dragTimer > MaxClickTime)
+        {
+            dragTimer = 0f;
+            return;
+        }
+        dragTimer = 0f;
+        CursorManager.instance.EnablePointCursor();
         if (startDialogueOnInteract)
         {
             StartDialogue();
@@ -112,6 +156,15 @@ public class HoveringObject : MonoBehaviour
             DisableHoverable();
             attachedItem.PickUp();
         }
+    }
+
+    private void OnMouseDrag()
+    {
+        dragTimer += Time.deltaTime;
+        if (dragTimer < MaxClickTime) return;
+        isHoveredOn = true;
+        MoveToMousePosition();
+        CursorManager.instance.EnableDragCursor();
     }
 
     private void StartDialogue()
@@ -181,12 +234,6 @@ public class HoveringObject : MonoBehaviour
     {
         hoveringObject.transform.localPosition = Vector3.Lerp(hoveringObject.transform.localPosition, localStartPosition, Time.deltaTime * lerpSpeed);
         hoveringObject.transform.localEulerAngles = AngleLerp(hoveringObject.transform.localEulerAngles, localStartRotation, Time.deltaTime * lerpSpeed);
-    }
-
-    private void LerpToGlobalStart()
-    {
-        transform.position = Vector3.Lerp(transform.position, globalStartPosition, Time.deltaTime * lerpSpeed);
-        transform.eulerAngles = AngleLerp(transform.eulerAngles, globalStartRotation, Time.deltaTime * lerpSpeed);
     }
 
     //Replace Vector3.Lerp because that one cant cross an angle of 0, so for instance lerp from 10 to -10 is only possible with this method without weird behaviour

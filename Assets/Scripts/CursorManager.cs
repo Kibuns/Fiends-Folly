@@ -8,6 +8,7 @@ public class CursorManager : MonoBehaviour
 
     [SerializeField] private Texture2D pointCursor;
     [SerializeField] private Texture2D defaultCursor;
+    [SerializeField] private Texture2D dragCursor;
     [SerializeField] private Texture2D deadCursor;
 
 
@@ -25,6 +26,10 @@ public class CursorManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void EnableDragCursor()
+    {
+        Cursor.SetCursor(dragCursor, Vector2.zero, CursorMode.Auto);
     }
 
     public void EnablePointCursor()

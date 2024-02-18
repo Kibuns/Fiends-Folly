@@ -7,6 +7,7 @@ public class ItemManager : MonoBehaviour
     public static ItemManager Instance;
     [SerializeField] public Transform holdItemPosition;
     [SerializeField] public Item currentlyHeldItem;
+    [SerializeField] public LayerMask dragLayerMask;
 
 
     [Header("Development options")]
