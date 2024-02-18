@@ -94,6 +94,10 @@ public class HoveringObject : MonoBehaviour
         if (attachedItem == null) return;
         if (attachedItem.isBeingHeld && playerInput.Player.RightClick.triggered)
         {
+            if(canBeDragged)
+            {
+                MoveToMousePosition();
+            }
             ItemManager.Instance.DropHeldItem();
         }
     }

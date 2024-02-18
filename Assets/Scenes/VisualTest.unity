@@ -1519,9 +1519,9 @@ MonoBehaviour:
   canBeDragged: 1
   pickupOnInteract: 1
   playSoundOnHover: 0
-  startDialogueOnInteract: 0
-  dialogue: {fileID: 0}
-  dialogueStartDelay: 0
+  startDialogueOnInteract: 1
+  dialogue: {fileID: 11400000, guid: 887f43a6d80cafc4fbd19aa66d0ef36a, type: 2}
+  dialogueStartDelay: 0.5
   overlapYOffset: 0
   yOffset: 0
 --- !u!4 &144809023
@@ -4611,11 +4611,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f0ca90d4948e604eb1f3a214be8986b, type: 2}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: canBeDragged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: playSoundOnHover
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: dialogueStartDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: startDialogueOnInteract
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1330640442090450, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}

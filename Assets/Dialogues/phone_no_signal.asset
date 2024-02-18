@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bbd069958691154091a12026091582e, type: 3}
-  m_Name: Bible
+  m_Name: phone_no_signal
   m_EditorClassIdentifier: 
   typingSound: {fileID: 8300000, guid: fb720fd7573ad114a80d7f3b17293bb3, type: 3}
   sentences:
-  - text: Ah my trusty bible!
-    duration: 3.5
+  - text: No signal
+    duration: 2.53
     characterTypingTime: 0.12
     shouldShake: 0
     shakeOffsetDelta: 0
