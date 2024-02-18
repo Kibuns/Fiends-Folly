@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,11 +14,13 @@ public class HoveringObject : MonoBehaviour
     public float bobbingSpeedMultiplier;
     public Vector3 hoverRotation;
     public float lerpSpeed;
+    public bool canBeDragged = true;
     public bool pickupOnInteract; //doesnt override other IInteractable behaviours
     public bool playSoundOnHover;
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
     [SerializeField] private Dialogue dialogue;
     public float dialogueStartDelay;
+    public float overlapYOffset;
     
     
 
@@ -37,10 +40,13 @@ public class HoveringObject : MonoBehaviour
     private Item attachedItem;
     private LayerMask dragLayerMask;
     private Vector3 dragTargetPosition;
+    private List<Transform> overlappingItemPositions;
 
 
+    public float yOffset;
     private float dragTimer;
     private float timer;
+    private bool isDragging;
 
     // Start is called before the first frame update
     void Start()
@@ -99,8 +105,7 @@ public class HoveringObject : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, dragLayerMask))
         {
-            dragTargetPosition = hit.point;
-            ItemManager.Instance.DropHeldItem();
+            dragTargetPosition = hit.point + new Vector3(0, yOffset, 0);
         }
     }
 
@@ -126,15 +131,18 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (isDragging) return;
         isHoveredOn = true;
         InitHover();
     }
 
     private void OnMouseUp()
     {
-        if (dragTimer > MaxClickTime)
+        isDragging = false;
+        if (dragTimer > MaxClickTime || !isHoveredOn)
         {
             dragTimer = 0f;
+            CursorManager.instance.EnablePointCursor();
             return;
         }
         dragTimer = 0f;
@@ -160,9 +168,11 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        if (!canBeDragged) return;
         dragTimer += Time.deltaTime;
         if (dragTimer < MaxClickTime) return;
         isHoveredOn = true;
+        isDragging = true;
         MoveToMousePosition();
         CursorManager.instance.EnableDragCursor();
     }
@@ -199,6 +209,7 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseExit()
     {
+        if (isDragging) return;
         isHoveredOn = false;
         CursorManager.instance.SwitchToDefaultCursor();
         if (gameObject.layer != highlightLayer && hoverable)
@@ -210,6 +221,23 @@ public class HoveringObject : MonoBehaviour
         if (playSoundOnHover && !attachedItem.isBeingHeld)
         {
             attachedItem.PlayPutDownSound();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other == null)
+        {
+            yOffset = 0f;
+            return;
+        }
+        if (isDragging && other.CompareTag("Paper"))
+        {
+            if (other.transform.position.y >= transform.position.y)
+            {
+                Debug.Log("added " + overlapYOffset + " to yOffset");
+                yOffset = other.GetComponent<HoveringObject>().yOffset + overlapYOffset;
+            }
         }
     }
 
