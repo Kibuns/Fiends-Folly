@@ -72,6 +72,7 @@ public class RevolverScript : MonoBehaviour
         if (!item.isBeingHeld) return;
         Debug.Log("BANG");
         source.PlayOneShot(shotClip);
+        DialogueManager.instance.StopCurrentDialogue();
         muzzleFlash.Play();
         StartCoroutine(FadeToBlack());
     }

@@ -35,12 +35,18 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        if(currentDialogueCoroutine != null)
-        {
-            StopCoroutine(currentDialogueCoroutine);
-            Debug.Log("Started a new dialogue coroutine before the current one was finished");
-        }
+        StopCurrentDialogue();
         currentDialogueCoroutine = StartCoroutine(DialogueCoroutine(dialogue));
+    }
+
+    public void StopCurrentDialogue()
+    {
+        Debug.Log("stop dialogue");
+        if (currentDialogueCoroutine != null)
+        {
+            StopAllCoroutines();
+        }
+        dialogueBox.SetActive(false);
     }
 
     private IEnumerator DialogueCoroutine(Dialogue dialogue)
