@@ -43,6 +43,11 @@ public class Item : MonoBehaviour
 
     public void PickUp()
     {
+        if(isBeingHeld)
+        {
+            Debug.LogError("object is already being held, why are you trying to pick it up again? pls fix");
+            return;
+        }
         ItemManager.Instance.SetHeldItem(this);
         Debug.Log("picked up: " + gameObject.name);
         isBeingHeld = true;

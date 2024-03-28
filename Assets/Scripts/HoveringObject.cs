@@ -189,6 +189,7 @@ public class HoveringObject : MonoBehaviour
     private IEnumerator DialogueDelay(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        if (pickupOnInteract && !attachedItem.isBeingHeld) yield break;
         ShowDialogue();
     }
 

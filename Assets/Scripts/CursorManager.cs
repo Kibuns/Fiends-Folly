@@ -19,7 +19,7 @@ public class CursorManager : MonoBehaviour
 
     void Start()
     {
-
+        SwitchToDefaultCursor();
     }
 
     // Update is called once per frame
