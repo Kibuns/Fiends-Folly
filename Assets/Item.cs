@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Item : MonoBehaviour
 {
@@ -66,11 +65,13 @@ public class Item : MonoBehaviour
 
     public void PlayPickupSound()
     {
+        if (!pickupClip) return;
         source.PlayOneShot(pickupClip);
     }
 
     public void PlayPutDownSound()
     {
+        if (!putDownClip) return;
         source.PlayOneShot(putDownClip);
     }
 

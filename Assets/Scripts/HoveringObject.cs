@@ -121,8 +121,6 @@ public class HoveringObject : MonoBehaviour
 
     private void InitHover()
     {
-        
-        Debug.Log("InitHover");
         CursorManager.instance.EnablePointCursor();
 
         if (timer < OnMouseEnterCooldown) return;

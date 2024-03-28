@@ -41,7 +41,6 @@ public class DialogueManager : MonoBehaviour
 
     public void StopCurrentDialogue()
     {
-        Debug.Log("stop dialogue");
         if (currentDialogueCoroutine != null)
         {
             StopAllCoroutines();
@@ -57,7 +56,6 @@ public class DialogueManager : MonoBehaviour
             ShowSentence(sentence);
             yield return new WaitForSeconds(sentence.duration);
         }
-        Debug.Log("dialogue done");
         dialogueBox.SetActive(false);
 
         if(typingCoroutine != null) { StopCoroutine(typingCoroutine); }

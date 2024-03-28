@@ -45,10 +45,10 @@ public class CandleScript : MonoBehaviour
         StartCoroutine(RandomEventCoroutine());
 
 
-        if (candleLight.lightmapBakeType != LightmapBakeType.Realtime)
-        {
-            Debug.LogWarning("Light component is not set to Realtime.");
-        }
+        //if (candleLight.lightmapBakeType != LightmapBakeType.Realtime) //lightmapBakeType property is editor only for some reason
+        //{
+        //    Debug.LogWarning("Light component is not set to Realtime.");
+        //}
         if (candleLight == null)
         {
             Debug.LogError("Light component cannot be found on GameObject");
