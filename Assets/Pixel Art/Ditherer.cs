@@ -41,8 +41,11 @@ public class Ditherer : MonoBehaviour {
         ditherMat.SetInt("_BlueColorCount", blueColorCount);
         ditherMat.SetInt("_BayerLevel", bayerLevel);
 
-        int width = source.width;
-        int height = source.height;
+        //int width = source.width;
+        //int height = source.height;
+
+        int width = 1920;
+        int height = 1080;
 
         RenderTexture[] textures = new RenderTexture[8];
 

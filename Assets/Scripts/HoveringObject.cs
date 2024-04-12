@@ -33,7 +33,7 @@ public class HoveringObject : MonoBehaviour
     private bool isHoveredOn;
     private bool hoverable;
     private float OnMouseEnterCooldown = 0.2f;
-    private float MaxClickTime = 0.08f;
+    private float MaxClickTime = 0.11f;
     
     private Transform holdItemTransform;
     private PlayerInputActions playerInput;
