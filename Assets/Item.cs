@@ -40,12 +40,17 @@ public class Item : MonoBehaviour
         
     }
 
-    public void PickUp()
+    public bool TryPickUp()
     {
         if(isBeingHeld)
         {
             Debug.LogError("object is already being held, why are you trying to pick it up again? pls fix");
-            return;
+            return false;
+        }
+        if(GameManager.Instance.isInGunSequence && GetComponent<RevolverScript>() == null)
+        {
+            GameManager.Instance.PlayErrorSound();
+            return false;
         }
         ItemManager.Instance.SetHeldItem(this);
         Debug.Log("picked up: " + gameObject.name);
@@ -54,6 +59,7 @@ public class Item : MonoBehaviour
         {
             PlayPickupSound();
         }
+        return true;
     }
 
     public void Drop()

@@ -30,14 +30,15 @@ public class CandleScript : MonoBehaviour
     void Start()
     {
         candleLight = GetComponent<Light>();
-        if(flame != null )
-        {
-            flameLight = flame.GetComponent<Light>();
-        }
+
         baseCandleRange = candleLight.range;
         baseCandleIntensity = candleLight.intensity;
-        baseFlameRange = flameLight.range;
-        isFlamePresent = true;
+        if (flame != null)
+        {
+            flameLight = flame.GetComponent<Light>();
+            baseFlameRange = flameLight.range;
+            isFlamePresent = true;
+        }
 
         float randomTimeOffset = Random.Range(0f, 100f);
         timer = randomTimeOffset;

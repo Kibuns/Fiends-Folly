@@ -8,11 +8,17 @@ public class GameManager : MonoBehaviour
 
     public int coins;
 
+    [SerializeField] public bool startGunSequence;
     [SerializeField] AudioClip bellClip;
+    [SerializeField] AudioClip errorClip;
     [SerializeField] public float secondsInHalfDay = 100f;
     [SerializeField] public GameObject ritualItem;
 
+    [SerializeField] public GameObject gunPrefab;
+    [SerializeField] public Transform gunSpawnPoint;
+
     public bool isBleeding;
+    public bool isInGunSequence;
 
     public float timer;
 
@@ -41,6 +47,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
+        if (startGunSequence)
+        {
+            startGunSequence = false;
+            Instance.StartGunSequence(true);
+        }
     }
 
     public void AddCoins(int amount)
@@ -53,6 +64,11 @@ public class GameManager : MonoBehaviour
         source.PlayOneShot(bellClip);
     }
 
+    public void PlayErrorSound()
+    {
+        source.PlayOneShot(errorClip);
+    }
+
     public void ActivateRitualItem()
     {
         Debug.Log("activate ritual item");
@@ -61,9 +77,43 @@ public class GameManager : MonoBehaviour
         isBleeding = false;
     }
 
+    public float GetMinutesPassed()
+    {
+        return (timer / secondsInHalfDay) * 720f; // 12 hours * 60 minutes
+    }
+
+    /// <summary>
+    /// gets the minute counter of the digital time. <br></br> example: <br></br> At 6:45, returns 45
+    /// </summary>
+    /// <returns></returns>
+    public float GetMinuteTime()
+    {
+        float minutesPassed = GetMinutesPassed();
+        return minutesPassed % 60f;
+    }
+
+    public void StartGunSequence(bool loaded)
+    {
+        StartCoroutine(GunSequence(loaded));
+    }
+
+    private IEnumerator GunSequence(bool loaded)
+    {
+        isInGunSequence = true;
+        ItemManager.Instance.DropHeldItem();
+        yield return new WaitForSeconds(0.3f);
+        LookAroundCamera lookAroundCamera = FindObjectOfType<LookAroundCamera>();
+        lookAroundCamera.MoveToDefaultPosition();
+        yield return new WaitForSeconds(0.3f);
+
+        PlayBellSound();
+        GameObject gun = Instantiate(gunPrefab, gunSpawnPoint);
+
+    }
+
     public string GetTimeString()
     {
-        float minutesPassed = (timer / secondsInHalfDay) * 720f; // 12 hours * 60 minutes
+        float minutesPassed = GetMinutesPassed();
         // Calculate the hour and minute parts of the time
         int hours = Mathf.FloorToInt(minutesPassed / 60f) % 12; // Hours in 12-hour format
         int minutes = Mathf.FloorToInt(minutesPassed % 60f); // Minutes

@@ -19,6 +19,10 @@ public class RevolverScript : MonoBehaviour
     void Awake()
     {
         allAudioSources = FindObjectsOfType<AudioSource>();
+        if(vignette == null)
+        {
+            vignette = FindObjectOfType<Vignette>();
+        }
     }
 
     private void StopAllAudio()

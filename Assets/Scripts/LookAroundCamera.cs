@@ -5,11 +5,21 @@ using UnityEngine;
 public class LookAroundCamera : MonoBehaviour
 {
     [SerializeField] private Transform[] cameraPositions;
+
+    [Header("Camera Positions")]
+    [SerializeField] private Transform overTablePosition;
+    [SerializeField] private Transform defaultPosition;
+    [SerializeField] private Transform ritualPosition;
+
     public Vector3 mousInput;
     public Vector2 mousePercentagePosition;
     public float LookIntensityX;
     public float LookIntensityY;
+
+
+    public bool bentOverTable;
     public bool turnedAround;
+
     public float rotationLerpSpeed;
     public Vector3 backRotationOffset;
     private PlayerInputActions playerInputActions;
@@ -21,7 +31,7 @@ public class LookAroundCamera : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
         mousePercentagePosition = Vector2.zero;
-        currentTargetPosition = cameraPositions[0];
+        currentTargetPosition = defaultPosition;
     }
 
     // Update is called once per frame
@@ -36,10 +46,29 @@ public class LookAroundCamera : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, currentTargetPosition.position, rotationLerpSpeed * Time.deltaTime);
 
 
-        if (playerInputActions.Player.Jump.triggered)
+        if (playerInputActions.Player.Jump.triggered && !GameManager.Instance.isInGunSequence)
         {
-            NextCameraPosition();
+            turnedAround = !turnedAround;
+            if(turnedAround) { currentTargetPosition = ritualPosition; }
+            else { currentTargetPosition = defaultPosition;}
         }
+
+        if(turnedAround) { return; }
+
+        if (playerInputActions.Player.MoveForward.triggered && !GameManager.Instance.isInGunSequence)
+        {
+            currentTargetPosition = overTablePosition;
+        }
+
+        if (playerInputActions.Player.MoveBack.triggered && !GameManager.Instance.isInGunSequence)
+        {
+            currentTargetPosition = defaultPosition;
+        }
+    }
+
+    public void MoveToDefaultPosition()
+    {
+        currentTargetPosition = defaultPosition;
     }
 
     private Vector3 MouseRotationOffset => new Vector3(-mousePercentagePosition.y * LookIntensityY, mousePercentagePosition.x * LookIntensityX, 0f);

@@ -21,9 +21,9 @@ public class HoveringObject : MonoBehaviour
     [SerializeField] private Dialogue dialogue;
     public float dialogueStartDelay;
     public float overlapYOffset;
-    
-    
 
+
+    private int bloodLayer = 7;
     private int selectedLayer = 6;
     private int highlightLayer = 3;
     private Vector3 localStartPosition;
@@ -163,8 +163,8 @@ public class HoveringObject : MonoBehaviour
         }
         if (pickupOnInteract)
         {
+            if (!attachedItem.TryPickUp()) return;
             DisableHoverable();
-            attachedItem.PickUp();
         }
     }
 
@@ -279,6 +279,7 @@ public class HoveringObject : MonoBehaviour
 
     private void SetSelected(bool selected)
     {
+        if (gameObject.layer == bloodLayer) return;
         int targetLayer = selected ? selectedLayer : highlightLayer;
         SetLayerRecursively(transform, targetLayer);
     }

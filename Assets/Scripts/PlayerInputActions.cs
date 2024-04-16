@@ -107,6 +107,24 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveForward"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e91a16b-1577-4c9b-8ce4-3c679d63f02e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveBack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b9831216-2ca4-4513-8658-96782c5f3575"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +270,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""929806b8-5b63-4148-95a0-14cdf8d5c815"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f80f39ba-3a62-45d2-b3bc-f64174e7afee"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +309,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_LeftClick = m_Player.FindAction("LeftClick", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_RightClick = m_Player.FindAction("RightClick", throwIfNotFound: true);
+        m_Player_MoveForward = m_Player.FindAction("MoveForward", throwIfNotFound: true);
+        m_Player_MoveBack = m_Player.FindAction("MoveBack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -337,6 +379,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LeftClick;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_RightClick;
+    private readonly InputAction m_Player_MoveForward;
+    private readonly InputAction m_Player_MoveBack;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -350,6 +394,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @LeftClick => m_Wrapper.m_Player_LeftClick;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputAction @RightClick => m_Wrapper.m_Player_RightClick;
+        public InputAction @MoveForward => m_Wrapper.m_Player_MoveForward;
+        public InputAction @MoveBack => m_Wrapper.m_Player_MoveBack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -386,6 +432,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @RightClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightClick;
                 @RightClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightClick;
                 @RightClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightClick;
+                @MoveForward.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveForward;
+                @MoveForward.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveForward;
+                @MoveForward.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveForward;
+                @MoveBack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveBack;
+                @MoveBack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveBack;
+                @MoveBack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveBack;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -417,6 +469,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @RightClick.started += instance.OnRightClick;
                 @RightClick.performed += instance.OnRightClick;
                 @RightClick.canceled += instance.OnRightClick;
+                @MoveForward.started += instance.OnMoveForward;
+                @MoveForward.performed += instance.OnMoveForward;
+                @MoveForward.canceled += instance.OnMoveForward;
+                @MoveBack.started += instance.OnMoveBack;
+                @MoveBack.performed += instance.OnMoveBack;
+                @MoveBack.canceled += instance.OnMoveBack;
             }
         }
     }
@@ -432,5 +490,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnLeftClick(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
+        void OnMoveForward(InputAction.CallbackContext context);
+        void OnMoveBack(InputAction.CallbackContext context);
     }
 }
