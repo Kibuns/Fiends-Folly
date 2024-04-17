@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbd069958691154091a12026091582e, type: 3}
   m_Name: ClockDialogue
   m_EditorClassIdentifier: 
-  typingSound: {fileID: 8300000, guid: 55bd71e1c78f7834098b866ebc27b9a4, type: 3}
+  typingSound: {fileID: 8300000, guid: 0f1243bd34a9faa47a2b032ba842cbe3, type: 3}
   sentences:
   - text: IT IS {clocktext}.
     duration: 3.22

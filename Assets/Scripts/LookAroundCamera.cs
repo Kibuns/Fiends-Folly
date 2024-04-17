@@ -32,6 +32,7 @@ public class LookAroundCamera : MonoBehaviour
         playerInputActions.Enable();
         mousePercentagePosition = Vector2.zero;
         currentTargetPosition = defaultPosition;
+        GameManager.Instance.isTurnedAround = turnedAround;
     }
 
     // Update is called once per frame
@@ -49,7 +50,8 @@ public class LookAroundCamera : MonoBehaviour
         if (playerInputActions.Player.Jump.triggered && !GameManager.Instance.isInGunSequence)
         {
             turnedAround = !turnedAround;
-            if(turnedAround) { currentTargetPosition = ritualPosition; }
+            GameManager.Instance.isTurnedAround = turnedAround;
+            if (turnedAround) { currentTargetPosition = ritualPosition; }
             else { currentTargetPosition = defaultPosition;}
         }
 

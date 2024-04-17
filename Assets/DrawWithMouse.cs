@@ -90,7 +90,7 @@ public class DrawWithMouse : MonoBehaviour
         {
             //TEMP DEMO CODEvv
 
-            GameManager.Instance.ActivateRitualItem();
+            GameManager.Instance.SpawnRitualItem();
             GameManager.Instance.PlayBellSound();
 
             //TEMP DEMO CODE^^

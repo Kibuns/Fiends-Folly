@@ -15,6 +15,7 @@ public class HoveringObject : MonoBehaviour
     public Vector3 hoverRotation;
     public float lerpSpeed;
     public bool canBeDragged = true;
+    public bool changeLayerOnHover = true;
     public bool pickupOnInteract; //doesnt override other IInteractable behaviours
     public bool playSoundOnHover;
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
@@ -143,6 +144,7 @@ public class HoveringObject : MonoBehaviour
         isDragging = false;
         if (dragTimer > MaxClickTime || !isHoveredOn)
         {
+            isHoveredOn = false;
             dragTimer = 0f;
             CursorManager.instance.EnablePointCursor();
             return;
@@ -166,6 +168,7 @@ public class HoveringObject : MonoBehaviour
             if (!attachedItem.TryPickUp()) return;
             DisableHoverable();
         }
+
     }
 
     private void OnMouseDrag()
@@ -279,7 +282,7 @@ public class HoveringObject : MonoBehaviour
 
     private void SetSelected(bool selected)
     {
-        if (gameObject.layer == bloodLayer) return;
+        if (gameObject.layer == bloodLayer || !changeLayerOnHover) return;
         int targetLayer = selected ? selectedLayer : highlightLayer;
         SetLayerRecursively(transform, targetLayer);
     }

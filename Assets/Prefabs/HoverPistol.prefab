@@ -46,7 +46,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 2.45
-  m_Range: 0.48
+  m_Range: 0.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -162,7 +162,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 2.45
-  m_Range: 0.48
+  m_Range: 0.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -698,8 +698,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 5541468863168002116}
   shotClip: {fileID: 8300000, guid: 6d3000138090a574aa59220df58238f9, type: 3}
+  blankShotClip: {fileID: 8300000, guid: d15d7531be7dc254cbca7c1728fb1a68, type: 3}
   vignette: {fileID: 0}
   fadeToBlackDelay: 0.065
+  isLoaded: 0
 --- !u!114 &5645314239555981482
 MonoBehaviour:
   m_ObjectHideFlags: 0

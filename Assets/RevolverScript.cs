@@ -6,8 +6,11 @@ public class RevolverScript : MonoBehaviour
 {
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private AudioClip shotClip;
+    [SerializeField] private AudioClip blankShotClip;
     [SerializeField] private Vignette vignette;
     [SerializeField] private float fadeToBlackDelay = 0.04f;
+
+    public bool isLoaded;
 
     private Collider collider;
     private Item item;
@@ -72,11 +75,20 @@ public class RevolverScript : MonoBehaviour
     private void OnMouseDown()
     {
         if (!item.isBeingHeld) return;
-        Debug.Log("BANG");
-        source.PlayOneShot(shotClip);
-        DialogueManager.instance.StopCurrentDialogue();
-        muzzleFlash.Play();
-        StartCoroutine(FadeToBlack());
+        if (isLoaded)
+        {
+            source.PlayOneShot(shotClip);
+            DialogueManager.instance.StopCurrentDialogue();
+            muzzleFlash.Play();
+            StartCoroutine(FadeToBlack());
+        }
+        else
+        {
+            source.PlayOneShot(blankShotClip);
+            DialogueManager.instance.StopCurrentDialogue();
+            GameManager.Instance.isInGunSequence = false;
+        }
+
     }
 
     private IEnumerator FadeToBlack()

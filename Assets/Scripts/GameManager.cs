@@ -12,16 +12,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioClip bellClip;
     [SerializeField] AudioClip errorClip;
     [SerializeField] public float secondsInHalfDay = 100f;
-    [SerializeField] public GameObject ritualItem;
+    [SerializeField] public Transform ritualItemSpawnPoint;
+    [SerializeField] public GameObject ritualItemPrefab;
+    [SerializeField] public GameObject surpriseDecal;
 
     [SerializeField] public GameObject gunPrefab;
     [SerializeField] public Transform gunSpawnPoint;
 
     public bool isBleeding;
     public bool isInGunSequence;
+    public bool isTurnedAround;
 
     public float timer;
 
+    private bool revealedDecal;
     private AudioSource source;
     private Vector3 ritualStartPosition;
 
@@ -38,10 +42,10 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        surpriseDecal.SetActive(false);
         source = GetComponent<AudioSource>();
-        ritualStartPosition = ritualItem.transform.position;
-        ritualItem.GetComponent<HoveringObject>().enabled = false;
-        ritualItem.transform.position = Vector3.zero;
+        ritualStartPosition = ritualItemPrefab.transform.position;
+        ritualItemPrefab.transform.position = Vector3.zero;
     }
 
     private void Update()
@@ -52,6 +56,24 @@ public class GameManager : MonoBehaviour
             startGunSequence = false;
             Instance.StartGunSequence(true);
         }
+
+        if (isTurnedAround && !revealedDecal)
+        {
+            revealedDecal = true;
+            StartCoroutine(RevealDecalSequence());
+        }
+    }
+
+    private IEnumerator RevealDecalSequence()
+    {
+        yield return new WaitForSeconds(0.3f);
+        surpriseDecal.SetActive(true);
+        while(isTurnedAround)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(0.2f);
+        PlayBellSound();
     }
 
     public void AddCoins(int amount)
@@ -69,11 +91,9 @@ public class GameManager : MonoBehaviour
         source.PlayOneShot(errorClip);
     }
 
-    public void ActivateRitualItem()
+    public void SpawnRitualItem()
     {
-        Debug.Log("activate ritual item");
-        ritualItem.transform.position = ritualStartPosition;
-        ritualItem.GetComponent<HoveringObject>().enabled = true;
+        Instantiate(ritualItemPrefab, ritualItemSpawnPoint);
         isBleeding = false;
     }
 
