@@ -67,6 +67,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator RevealDecalSequence()
     {
         yield return new WaitForSeconds(0.3f);
+        if (!isTurnedAround)
+        {
+            revealedDecal = false;
+            yield break;
+        }
+        
         surpriseDecal.SetActive(true);
         while(isTurnedAround)
         {
