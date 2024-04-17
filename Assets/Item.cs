@@ -72,7 +72,9 @@ public class Item : MonoBehaviour
     public void PlayPickupSound()
     {
         if (!pickupClip) return;
+        if(source.isPlaying) { source.Stop(); }
         source.PlayOneShot(pickupClip);
+
     }
 
     public void PlayPutDownSound()

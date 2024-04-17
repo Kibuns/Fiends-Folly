@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public float timer;
 
+    private bool startedGunSequence;
     private bool revealedDecal;
     private AudioSource source;
     private Vector3 ritualStartPosition;
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
         if (startGunSequence)
         {
             startGunSequence = false;
-            Instance.StartGunSequence(true);
+            Instance.StartGunSequence(true, 0f);
         }
 
         if (isTurnedAround && !revealedDecal)
@@ -118,22 +119,26 @@ public class GameManager : MonoBehaviour
         return minutesPassed % 60f;
     }
 
-    public void StartGunSequence(bool loaded)
+    public void StartGunSequence(bool loaded, float delay)
     {
-        StartCoroutine(GunSequence(loaded));
+        if(isInGunSequence) { return; }
+        isInGunSequence = true;
+        StartCoroutine(GunSequence(loaded, delay));
     }
 
-    private IEnumerator GunSequence(bool loaded)
+    private IEnumerator GunSequence(bool loaded, float delay)
     {
-        isInGunSequence = true;
-        ItemManager.Instance.DropHeldItem();
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(delay);
         LookAroundCamera lookAroundCamera = FindObjectOfType<LookAroundCamera>();
         lookAroundCamera.MoveToDefaultPosition();
+
+        yield return new WaitForSeconds(0.3f);
+        ItemManager.Instance.DropHeldItem();
         yield return new WaitForSeconds(0.3f);
 
         PlayBellSound();
         GameObject gun = Instantiate(gunPrefab, gunSpawnPoint);
+        gun.GetComponentInChildren<RevolverScript>().isLoaded = loaded;
 
     }
 

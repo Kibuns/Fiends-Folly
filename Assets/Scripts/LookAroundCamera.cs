@@ -46,6 +46,10 @@ public class LookAroundCamera : MonoBehaviour
         transform.localRotation = Quaternion.Lerp(transform.localRotation, composedTargetRotation, rotationLerpSpeed * Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, currentTargetPosition.position, rotationLerpSpeed * Time.deltaTime);
 
+        if (playerInputActions.Player.Jump.triggered && GameManager.Instance.isInGunSequence)
+        {
+            GameManager.Instance.PlayErrorSound();
+        }
 
         if (playerInputActions.Player.Jump.triggered && !GameManager.Instance.isInGunSequence)
         {
@@ -71,6 +75,8 @@ public class LookAroundCamera : MonoBehaviour
     public void MoveToDefaultPosition()
     {
         currentTargetPosition = defaultPosition;
+        GameManager.Instance.isTurnedAround = false;
+        turnedAround = false;
     }
 
     private Vector3 MouseRotationOffset => new Vector3(-mousePercentagePosition.y * LookIntensityY, mousePercentagePosition.x * LookIntensityX, 0f);

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2332216590071596483}
   - component: {fileID: 2332216590071596480}
   - component: {fileID: 2332216590071596481}
+  - component: {fileID: 8779714755628542896}
   m_Layer: 7
   m_Name: RubberDuck_mesh
   m_TagString: Untagged
@@ -211,6 +212,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f19eda3f5aa4145b28ad3293956c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  QuackSound: {fileID: 8300000, guid: e563a31b1362c074296439bf9112b080, type: 3}
+  pitchDecreaseAmount: 0.01
+--- !u!64 &8779714755628542896
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332216590071596482}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5560819990186696704, guid: 7d64f361c634b414b91354af94b6f952, type: 3}
 --- !u!1 &6146018751742547841
 GameObject:
   m_ObjectHideFlags: 0

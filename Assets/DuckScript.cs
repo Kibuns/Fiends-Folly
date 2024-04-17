@@ -7,10 +7,14 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class DuckScript : MonoBehaviour
 {
     [SerializeField] private AudioClip QuackSound;
+    [SerializeField] private float pitchDecreaseAmount = 0.05f;
     private bool startedSequence;
     private HoveringObject hoveringObjectScript;
     private Item itemScript;
     private AudioSource source;
+
+    private bool sequenceStarted;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -60,5 +64,27 @@ public class DuckScript : MonoBehaviour
 
         // Set x rotation to 0 in order to keep the duck leveled with the table
         hoveringObjectScript.transform.eulerAngles = new Vector3(0, hoveringObjectScript.transform.localEulerAngles.y, hoveringObjectScript.transform.localEulerAngles.z);
+    }
+
+    private void OnMouseDown()
+    {
+        if (!itemScript.isBeingHeld) return;
+        itemScript.PlayPickupSound();
+        if (source.pitch - pitchDecreaseAmount <= 0.2f)
+        {
+            if(!sequenceStarted) { StartCoroutine(StartGunSequenceAfterQuackSound()); }
+            return;
+        }
+        source.pitch -= pitchDecreaseAmount;
+    }
+
+    private IEnumerator StartGunSequenceAfterQuackSound()
+    {
+        sequenceStarted = true;
+        while (source.isPlaying)
+        {
+            yield return null;
+        }
+        GameManager.Instance.StartGunSequence(true, 0f);
     }
 }
