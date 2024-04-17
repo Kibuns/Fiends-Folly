@@ -19,9 +19,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject gunPrefab;
     [SerializeField] public Transform gunSpawnPoint;
 
+    public HoveringObject draggedObject;
+
     public bool isBleeding;
     public bool isInGunSequence;
     public bool isTurnedAround;
+    public float gunSequenceInBetweenDelay;
 
     public float timer;
 
@@ -132,9 +135,9 @@ public class GameManager : MonoBehaviour
         LookAroundCamera lookAroundCamera = FindObjectOfType<LookAroundCamera>();
         lookAroundCamera.MoveToDefaultPosition();
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(gunSequenceInBetweenDelay);
         ItemManager.Instance.DropHeldItem();
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(gunSequenceInBetweenDelay);
 
         PlayBellSound();
         GameObject gun = Instantiate(gunPrefab, gunSpawnPoint);

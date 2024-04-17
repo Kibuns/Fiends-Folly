@@ -9,10 +9,14 @@ public class RevolverScript : MonoBehaviour
     [SerializeField] private AudioClip blankShotClip;
     [SerializeField] private Vignette vignette;
     [SerializeField] private float fadeToBlackDelay = 0.04f;
+    [SerializeField] private float vanishDelay = 0.5f;
+    [SerializeField] private float vanishSpeed = 20f;
 
     public bool isLoaded;
 
-    private Collider collider;
+    private bool hasShotBlank;
+    private bool startedVanishSequence;
+    private Collider col;
     private Item item;
     private AudioSource source;
     private AudioSource[] allAudioSources;
@@ -37,8 +41,8 @@ public class RevolverScript : MonoBehaviour
     }
     void Start()
     {
-        collider = GetComponent<Collider>();
-        collider.enabled = false;
+        col = GetComponent<Collider>();
+        col.enabled = false;
         item = GetComponent<Item>();
         source = GetComponent<AudioSource>();
     }
@@ -49,14 +53,36 @@ public class RevolverScript : MonoBehaviour
         if(item.isBeingHeld && !isBeingHeld)
         {
             isBeingHeld = true;
-            collider.enabled = true;
-            Debug.Log("collider enabled");
+            col.enabled = true;
         }
         else if (!item.isBeingHeld && isBeingHeld)
         {
             isBeingHeld = false;
-            collider.enabled = false;
-            Debug.Log("collider disabled");
+            col.enabled = false;
+        }
+
+        if(!startedVanishSequence && hasShotBlank && !isBeingHeld)
+        {
+            startedVanishSequence = true;
+            Debug.Log("START VANISH GUN");
+            StartCoroutine(VanishAfterBlankShotSequence());
+        }
+    }
+
+    private IEnumerator VanishAfterBlankShotSequence()
+    {
+        yield return new WaitForSeconds(vanishDelay);
+        HoveringObject hoveringObject = GetComponentInParent<HoveringObject>();
+        hoveringObject.DisableHoverable();
+        Transform parentTransform = hoveringObject.transform;
+        Vector3 targetPosition = new Vector3(parentTransform.position.x, parentTransform.position.y + 20f, parentTransform.position.z);
+
+        float timer = 0f;
+        while(timer < 3f)
+        {
+            timer += Time.deltaTime;
+            parentTransform.position = Vector3.Lerp(parentTransform.position, targetPosition, vanishSpeed * Time.deltaTime);
+            yield return null;
         }
     }
 
@@ -69,7 +95,7 @@ public class RevolverScript : MonoBehaviour
     private void OnMouseExit()
     {
         if (!item.isBeingHeld) return;
-        CursorManager.instance.SwitchToDefaultCursor();
+        CursorManager.instance.EnableDefaultCursor();
     }
 
     private void OnMouseDown()
@@ -87,6 +113,7 @@ public class RevolverScript : MonoBehaviour
             source.PlayOneShot(blankShotClip);
             DialogueManager.instance.StopCurrentDialogue();
             GameManager.Instance.isInGunSequence = false;
+            hasShotBlank = true;
         }
 
     }

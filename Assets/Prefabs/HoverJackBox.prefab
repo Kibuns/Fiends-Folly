@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5660325801260662516}
-  m_LocalRotation: {x: -0, y: 0.88228935, z: -0, w: -0.47070754}
+  m_LocalRotation: {x: 0, y: 0.88229126, z: -0, w: -0.47070396}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -60,16 +60,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 5659286824664322837}
-  hoverPositionDelta: {x: 0, y: 0.2, z: 0}
+  hoverPositionDelta: {x: 0, y: 0.1, z: 0}
   maxHoverHeightDelta: 0.02
   maxHoverRotationDelta: 5
-  bobbingSpeedMultiplier: 2
-  hoverRotation: {x: -10, y: 10, z: -7.31}
+  bobbingSpeedMultiplier: 1.5
+  hoverRotation: {x: -7, y: 7, z: -7}
   lerpSpeed: 10
   canBeDragged: 1
+  changeLayerOnHover: 1
   pickupOnInteract: 1
   playSoundOnHover: 0
   startDialogueOnInteract: 0
+  isInFrontOfFurnace: 0
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0

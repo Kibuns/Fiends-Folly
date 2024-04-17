@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Unity.VisualScripting.Member;
 
-public class RazorScript : MonoBehaviour, IInteractable
+public class RazorScript : MonoBehaviour
 {
     [SerializeField] private GameObject razorBlade;
     [SerializeField] private Vector3 shownBladeEulerRotation;
@@ -67,24 +67,24 @@ public class RazorScript : MonoBehaviour, IInteractable
         
     }
 
-    void IInteractable.Interact()
+    public void UseBladeToCut()
     {
         StartCoroutine(ShowBladeAnimation(showBladeDelay));
     }
 
     private IEnumerator ShowBladeAnimation(float delay)
     {
-        yield return new WaitForSeconds(delay);
         ShowBlade();
         source.PlayOneShot(showBladeClip);
         yield return new WaitForSeconds(delay);
         DialogueManager.instance.StartDialogue(firstCuttingDialogue);
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(3f);
         isCutting = true;
         yield return new WaitForSeconds(delay);
         source.PlayOneShot(cutBladeClip);
         GameManager.Instance.isBleeding = true;
-
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
     }
 
     //Replace Vector3.Lerp because that one cant cross an angle of 0, so for instance lerp from 10 to -10 is only possible with this method without weird behaviour

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typingSound: {fileID: 8300000, guid: f29017f0424f93842886b31e0e20281b, type: 3}
   sentences:
-  - text: DO IT
-    duration: 7.4
-    characterTypingTime: 0.43
+  - text: PULL THE TRIGGER
+    duration: 8
+    characterTypingTime: 0.251
     shouldShake: 1
     shakeOffsetDelta: 6.8
     textColor: {r: 0.7075472, g: 0.08290392, b: 0.050062295, a: 1}

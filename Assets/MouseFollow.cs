@@ -31,7 +31,11 @@ public class MouseFollow : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.isBleeding) return;
+        if (!GameManager.Instance.isBleeding)
+        {
+            StopWriting();
+            return;
+        }
         bool triggeredThisFrame = false;
         if (playerInput.Player.LeftClick.triggered)
         {
@@ -53,7 +57,6 @@ public class MouseFollow : MonoBehaviour
                 if (hit.collider == ritualFloorCollider)
                 {
                     onRitualCollider = true;
-                    CursorManager.instance.EnablePointCursor(); //BUGGYYYYYYYYYYYYYYYYYYYYYYYYYYY
                                                                 // Set the position of this object to the hit point
                     SetBloodLettingPosition(hit.point);
                     if (triggeredThisFrame)
@@ -79,13 +82,18 @@ public class MouseFollow : MonoBehaviour
         }
         if (playerInput.Player.LeftClick.WasReleasedThisFrame())
         {
-            bloodWritingSource.Pause();
-            particles.enableEmission = false;
-            bloodLettingPrefab.GetComponent<ParticleSystem>().enableEmission = false;
+            StopWriting();
         }
         triggeredThisFrame = false;
 
 
+    }
+
+    private void StopWriting()
+    {
+        bloodWritingSource.Pause();
+        particles.enableEmission = false;
+        bloodLettingPrefab.GetComponent<ParticleSystem>().enableEmission = false;
     }
 
     private void SetBloodLettingPosition(Vector3 hitPoint)

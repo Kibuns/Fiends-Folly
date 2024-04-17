@@ -116,6 +116,11 @@ MonoBehaviour:
   noiseMagnitude: 0.5
   flame: {fileID: 0}
   maxFlameRangeDelta: 0
+  pulseButton: 0
+  pulseDuration: 0
+  maxPulseIntensityMultiplier: 0
+  maxPulseRangeMultiplier: 0
+  maxIntensityPauseDuration: 0
 --- !u!1 &5421227496946108521
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +237,11 @@ MonoBehaviour:
   noiseMagnitude: 0.5
   flame: {fileID: 0}
   maxFlameRangeDelta: 0
+  pulseButton: 0
+  pulseDuration: 0
+  maxPulseIntensityMultiplier: 0
+  maxPulseRangeMultiplier: 0
+  maxIntensityPauseDuration: 0
 --- !u!1 &5645314241089828882
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,9 +297,11 @@ MonoBehaviour:
   hoverRotation: {x: 0, y: 0, z: -20}
   lerpSpeed: 10
   canBeDragged: 0
+  changeLayerOnHover: 1
   pickupOnInteract: 1
   playSoundOnHover: 0
   startDialogueOnInteract: 1
+  isInFrontOfFurnace: 0
   dialogue: {fileID: 11400000, guid: 887f43a6d80cafc4fbd19aa66d0ef36a, type: 2}
   dialogueStartDelay: 0.5
   overlapYOffset: 0
@@ -701,6 +713,8 @@ MonoBehaviour:
   blankShotClip: {fileID: 8300000, guid: d15d7531be7dc254cbca7c1728fb1a68, type: 3}
   vignette: {fileID: 0}
   fadeToBlackDelay: 0.065
+  vanishDelay: 1
+  vanishSpeed: 0.35
   isLoaded: 0
 --- !u!114 &5645314239555981482
 MonoBehaviour:

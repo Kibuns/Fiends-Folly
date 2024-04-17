@@ -15,10 +15,12 @@ public class Item : MonoBehaviour
 
     private Transform targetTransform;
     private AudioSource source;
+    private Collider col;
     public bool isBeingHeld {  get; private set; }
     public float lerpSpeed = 10f;
     void Start()
     {
+        col = GetComponent<Collider>();
         Transform startTransform = transform;
         restTransform = startTransform;
         targetTransform = ItemManager.Instance.holdItemPosition;
@@ -29,15 +31,23 @@ public class Item : MonoBehaviour
     {
         if (isBeingHeld)
         {
+            ToggleCollider(true);
             transform.position = Vector3.Lerp(transform.position, targetTransform.position, lerpSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetTransform.rotation, lerpSpeed * Time.deltaTime);
         }
         else
         {
+            ToggleCollider(false);
             transform.position = Vector3.Lerp(transform.position, restTransform.position, lerpSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, restTransform.rotation, lerpSpeed * Time.deltaTime);
         }
         
+    }
+
+    private void ToggleCollider(bool value)
+    {
+        if (col == null) return;
+        col.enabled = value;
     }
 
     public bool TryPickUp()

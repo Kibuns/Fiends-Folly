@@ -30,12 +30,13 @@ public class DrawWithMouse : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.isBleeding) return;
         if (doneWithoutSucces)
         {
-            FadeOut();
+            FadeOutAndSpawnItem();
             return;
         }
+        if (!GameManager.Instance.isBleeding) return;
+
         Vector3 currentPosition = mouseFollowObject.position;
         if (!mouseFollow.onRitualCollider) { return; }
         if ( input.Player.LeftClick.triggered )
@@ -62,6 +63,7 @@ public class DrawWithMouse : MonoBehaviour
         }
         if (input.Player.LeftClick.WasReleasedThisFrame() && line != null)
         {
+            GameManager.Instance.isBleeding = false;
             doneWithoutSucces = true;
             // Change render mode to fade
             lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
@@ -82,7 +84,7 @@ public class DrawWithMouse : MonoBehaviour
 
     }
 
-    private void FadeOut()
+    private void FadeOutAndSpawnItem()
     {
         currentColor = new Color(1f, 0f, 0f, currentColor.a - (Time.deltaTime / 2));
         lineMaterial.SetColor("_Color", currentColor);

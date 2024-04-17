@@ -10,6 +10,7 @@ public class CursorManager : MonoBehaviour
     [SerializeField] private Texture2D defaultCursor;
     [SerializeField] private Texture2D dragCursor;
     [SerializeField] private Texture2D deadCursor;
+    [SerializeField] private Texture2D ritualCursor;
 
 
     private void Awake()
@@ -19,7 +20,7 @@ public class CursorManager : MonoBehaviour
 
     void Start()
     {
-        SwitchToDefaultCursor();
+        EnableDefaultCursor();
     }
 
     // Update is called once per frame
@@ -37,9 +38,14 @@ public class CursorManager : MonoBehaviour
         Cursor.SetCursor(pointCursor, Vector2.zero, CursorMode.Auto);
     }
 
-    public void SwitchToDefaultCursor()
+    public void EnableDefaultCursor()
     {
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void EnableRitualCursor()
+    {
+        Cursor.SetCursor(ritualCursor, Vector2.zero, CursorMode.Auto);
     }
 
     public void EnableDeadCursor()

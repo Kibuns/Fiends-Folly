@@ -19,6 +19,7 @@ public class HoveringObject : MonoBehaviour
     public bool pickupOnInteract; //doesnt override other IInteractable behaviours
     public bool playSoundOnHover;
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
+    public bool isInFrontOfFurnace;
     [SerializeField] private Dialogue dialogue;
     public float dialogueStartDelay;
     public float overlapYOffset;
@@ -69,12 +70,12 @@ public class HoveringObject : MonoBehaviour
     void Update()
     {
         PlaceDownInput();
-        LerpToDragTarget();
         timer += Time.deltaTime;
         if (!hoverable)
         {
             return;
         }
+        LerpToDragTarget();
         if (!isHoveredOn)
         {
             LerpToRestPostionAndRotation();
@@ -105,12 +106,26 @@ public class HoveringObject : MonoBehaviour
 
     private void MoveToMousePosition()
     {
+        Debug.Log("move to mous pos");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, dragLayerMask))
         {
+            Debug.Log("hit");
             dragTargetPosition = hit.point + new Vector3(0, yOffset, 0);
+            isInFrontOfFurnace = false;
+            CursorManager.instance.EnableDragCursor();
+        }
+        else if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            if(hit.collider.transform.TryGetComponent(out FurnaceScript furnaceScript))
+            {
+                if (!furnaceScript.doorIsOpen) return;
+                dragTargetPosition = furnaceScript.burningObjectSelectionPoint.position;
+                isInFrontOfFurnace = true;
+                CursorManager.instance.EnableDeadCursor();
+            }
         }
     }
 
@@ -141,7 +156,12 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if(isInFrontOfFurnace)
+        {
+            FindObjectOfType<FurnaceScript>().EatDraggedObject(gameObject);
+        }
         isDragging = false;
+        GameManager.Instance.draggedObject = null;
         if (dragTimer > MaxClickTime || !isHoveredOn)
         {
             isHoveredOn = false;
@@ -176,10 +196,10 @@ public class HoveringObject : MonoBehaviour
         if (!canBeDragged) return;
         dragTimer += Time.deltaTime;
         if (dragTimer < MaxClickTime) return;
+        GameManager.Instance.draggedObject = this;
         isHoveredOn = true;
         isDragging = true;
         MoveToMousePosition();
-        CursorManager.instance.EnableDragCursor();
     }
 
     private void StartDialogue()
@@ -217,7 +237,7 @@ public class HoveringObject : MonoBehaviour
     {
         if (isDragging) return;
         isHoveredOn = false;
-        CursorManager.instance.SwitchToDefaultCursor();
+        CursorManager.instance.EnableDefaultCursor();
         if (gameObject.layer != highlightLayer && hoverable)
         {
             SetSelected(false);

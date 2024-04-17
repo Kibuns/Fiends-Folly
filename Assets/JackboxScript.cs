@@ -65,7 +65,7 @@ public class JackboxScript : MonoBehaviour
     private void OnMouseExit()
     {
         if (!item.isBeingHeld) return;
-        CursorManager.instance.SwitchToDefaultCursor();
+        CursorManager.instance.EnableDefaultCursor();
         if (!cranking) return;
         cranking = false;
         CallCrankTime();
