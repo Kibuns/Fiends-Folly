@@ -15,7 +15,7 @@ public class PhoneScript : MonoBehaviour
 
     int ringCount;
 
-    private bool isRinging;
+    public bool isRinging;
     public bool isAnswering;
 
     private Item item;
@@ -77,6 +77,7 @@ public class PhoneScript : MonoBehaviour
         source.clip = voiceClip;
         source.volume = 1f;
         source.Play();
+        GameManager.Instance.StartGunSequence(true, 7f);
     }
 
     public void StartRing()

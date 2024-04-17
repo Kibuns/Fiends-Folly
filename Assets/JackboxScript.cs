@@ -9,9 +9,15 @@ public class JackboxScript : MonoBehaviour
     private float currentCrankSpeed = 0f;
     [SerializeField] private float maxCrankSpeed = 30f;
 
+    [Header("Task Settings")]
+    public float targetMinutes = 15f;
+    public float minimumMinutesForFailure = 6f;
+    public float marginForError = 1f;
+
     private bool cranking;
     private AudioSource crankSource;
     private float crankStartTime;
+    private bool calledDuringCranking;
 
     private float lerpSpeed = 2f;
     // Start is called before the first frame update
@@ -27,6 +33,12 @@ public class JackboxScript : MonoBehaviour
         if(cranking && item.isBeingHeld)
         {
             currentCrankSpeed = Mathf.Lerp(currentCrankSpeed, maxCrankSpeed, lerpSpeed * Time.deltaTime);
+            float minutesCranked = GameManager.Instance.GetMinutesPassed() - crankStartTime;
+            if(minutesCranked > 7 && !calledDuringCranking)
+            {
+                calledDuringCranking = true;
+                GameManager.Instance.RingPhoneForSeconds(10f);
+            }
         }
         else
         {
@@ -75,5 +87,16 @@ public class JackboxScript : MonoBehaviour
     {
         float minutesCranked = GameManager.Instance.GetMinutesPassed() - crankStartTime;
         Debug.Log("Cranked for minutes: " + minutesCranked.ToString());
+
+        if(minutesCranked < minimumMinutesForFailure) { return; }
+        if (Mathf.Abs(minutesCranked - targetMinutes) < marginForError)
+        {
+            GameManager.Instance.SpawnGeneralItem();
+        }
+        else
+        {
+            if (FindObjectOfType<PhoneScript>().isRinging) return; // <<<<<<EXCEPTION TO THE RULE
+            GameManager.Instance.StartGunSequence(true, 2f);
+        }
     }
 }

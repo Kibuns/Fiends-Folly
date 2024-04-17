@@ -20,7 +20,7 @@ public class HoveringObject : MonoBehaviour
     public bool playSoundOnHover;
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
     public bool isInFrontOfFurnace;
-    [SerializeField] private Dialogue dialogue;
+    [SerializeField] public Dialogue dialogue;
     public float dialogueStartDelay;
     public float overlapYOffset;
 
@@ -96,7 +96,12 @@ public class HoveringObject : MonoBehaviour
         if (attachedItem == null) return;
         if (attachedItem.isBeingHeld && playerInput.Player.RightClick.triggered)
         {
-            if(canBeDragged)
+            if (GameManager.Instance.isInGunSequence)
+            {
+                GameManager.Instance.PlayErrorSound();
+                return;
+            }
+            if (canBeDragged)
             {
                 MoveToMousePosition();
             }
@@ -204,6 +209,7 @@ public class HoveringObject : MonoBehaviour
 
     private void StartDialogue()
     {
+        if (dialogue == null) return;
         StartCoroutine(DialogueDelay(dialogueStartDelay));
     }
 

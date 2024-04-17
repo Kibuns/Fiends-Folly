@@ -48,6 +48,11 @@ public class ItemManager : MonoBehaviour
         }
         if(playerActions.Player.Escape.triggered)
         {
+            if (GameManager.Instance.isInGunSequence)
+            {
+                GameManager.Instance.PlayErrorSound();
+                return;
+            }
             DropHeldItem();
         }
     }

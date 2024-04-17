@@ -5,8 +5,16 @@ using UnityEngine;
 public class ClockInteract : MonoBehaviour, IInteractable
 {
     [SerializeField] private Dialogue clockDialogue;
+    [SerializeField] private Dialogue gunSequenceClockDialogue;
     public void Interact()
     {
-        DialogueManager.instance.StartDialogue(clockDialogue);
+        if (GameManager.Instance.isInGunSequence)
+        {
+            DialogueManager.instance.StartDialogue(gunSequenceClockDialogue);
+        }
+        else
+        {
+            DialogueManager.instance.StartDialogue(clockDialogue);
+        }
     }
 }

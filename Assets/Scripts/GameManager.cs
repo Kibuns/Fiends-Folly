@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioClip bellClip;
     [SerializeField] AudioClip errorClip;
     [SerializeField] public float secondsInHalfDay = 100f;
+    [SerializeField] public Transform generalItemSpawnPoint;
+    [SerializeField] public GameObject generalItemPrefab;
     [SerializeField] public Transform ritualItemSpawnPoint;
     [SerializeField] public GameObject ritualItemPrefab;
     [SerializeField] public GameObject surpriseDecal;
@@ -101,10 +103,14 @@ public class GameManager : MonoBehaviour
         source.PlayOneShot(errorClip);
     }
 
+    public void SpawnGeneralItem()
+    {
+        Instantiate(generalItemPrefab, generalItemSpawnPoint);
+    }
+
     public void SpawnRitualItem()
     {
         Instantiate(ritualItemPrefab, ritualItemSpawnPoint);
-        isBleeding = false;
     }
 
     public float GetMinutesPassed()
@@ -127,6 +133,19 @@ public class GameManager : MonoBehaviour
         if(isInGunSequence) { return; }
         isInGunSequence = true;
         StartCoroutine(GunSequence(loaded, delay));
+    }
+
+    public void RingPhoneForSeconds(float seconds)
+    {
+        StartCoroutine(RingSequence(seconds));
+    }
+
+    private IEnumerator RingSequence(float seconds)
+    {
+        PhoneScript phoneScript = FindObjectOfType<PhoneScript>();
+        phoneScript.StartRing();
+        yield return new WaitForSeconds(seconds);
+        phoneScript.StopRing();
     }
 
     private IEnumerator GunSequence(bool loaded, float delay)
