@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class FurnaceScript : MonoBehaviour, IInteractable
 {
     [SerializeField] public Transform burningObjectSelectionPoint;
+    [SerializeField] private AudioClip burnClip;
     public float lerpSpeed;
     private Quaternion startRotation;
     private Quaternion targetRotation;
     private Transform door;
+    private AudioSource source;
 
     public bool doorIsOpen;
 
@@ -16,6 +19,7 @@ public class FurnaceScript : MonoBehaviour, IInteractable
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         door = GetComponent<HoveringObject>().hoveringObject.transform;
         startRotation = door.localRotation;
         targetRotation = Quaternion.Euler(0, 90, 0);
@@ -40,8 +44,9 @@ public class FurnaceScript : MonoBehaviour, IInteractable
         Destroy(eatenObject);
         GetComponentInChildren<CandleScript>().Pulse();
         StartCoroutine(ToggleDoorWithDelay(1f, false));
+        source.PlayOneShot(burnClip);
 
-        if(eatenObjectName == "RubberDuck")
+        if (eatenObjectName == "RubberDuck")
         {
             GameManager.Instance.StartGunSequence(false, 1.5f);
         }
@@ -59,6 +64,7 @@ public class FurnaceScript : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (GameManager.Instance.isInGunSequence) return;
         doorIsOpen = !doorIsOpen;
     }
 }

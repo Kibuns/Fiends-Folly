@@ -13,6 +13,8 @@ public class JackboxScript : MonoBehaviour
     public float targetMinutes = 15f;
     public float minimumMinutesForFailure = 6f;
     public float marginForError = 1f;
+    public float minutesWhenPhoneRings = 10f;
+    public float phoneRingTime = 12.5f;
 
     private bool cranking;
     private AudioSource crankSource;
@@ -34,10 +36,10 @@ public class JackboxScript : MonoBehaviour
         {
             currentCrankSpeed = Mathf.Lerp(currentCrankSpeed, maxCrankSpeed, lerpSpeed * Time.deltaTime);
             float minutesCranked = GameManager.Instance.GetMinutesPassed() - crankStartTime;
-            if(minutesCranked > 7 && !calledDuringCranking)
+            if(minutesCranked > minutesWhenPhoneRings && !calledDuringCranking)
             {
                 calledDuringCranking = true;
-                GameManager.Instance.RingPhoneForSeconds(10f);
+                GameManager.Instance.RingPhoneForSeconds(phoneRingTime, 0f);
             }
         }
         else
@@ -92,6 +94,7 @@ public class JackboxScript : MonoBehaviour
         if (Mathf.Abs(minutesCranked - targetMinutes) < marginForError)
         {
             GameManager.Instance.SpawnGeneralItem();
+            GameManager.Instance.PlaySuccesSound();
         }
         else
         {

@@ -20,6 +20,7 @@ public class HoveringObject : MonoBehaviour
     public bool playSoundOnHover;
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
     public bool isInFrontOfFurnace;
+    public bool showColorsOnHover = false;
     [SerializeField] public Dialogue dialogue;
     public float dialogueStartDelay;
     public float overlapYOffset;
@@ -53,6 +54,8 @@ public class HoveringObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetSelected(false); //maybe jank idk
+        if (showColorsOnHover) { selectedLayer = bloodLayer; }
         attachedItem = hoveringObject.GetComponent<Item>();
         playerInput = new PlayerInputActions();
         playerInput.Enable();
@@ -313,7 +316,7 @@ public class HoveringObject : MonoBehaviour
 
     private void SetSelected(bool selected)
     {
-        if (gameObject.layer == bloodLayer || !changeLayerOnHover) return;
+        if ((gameObject.layer == bloodLayer && !showColorsOnHover) || !changeLayerOnHover) return;
         int targetLayer = selected ? selectedLayer : highlightLayer;
         SetLayerRecursively(transform, targetLayer);
     }

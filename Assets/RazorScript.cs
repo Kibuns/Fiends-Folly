@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Unity.VisualScripting.Member;
 
@@ -12,6 +13,7 @@ public class RazorScript : MonoBehaviour
     [SerializeField] private AudioClip cutBladeClip;
     public float lerpSpeed;
     public float showBladeDelay;
+
     private bool bladeShowing;
     private PlayerInputActions playerInputActions;
     private bool isCutting;
@@ -25,7 +27,8 @@ public class RazorScript : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
         childRazorTransform = transform.GetChild(0);
-        downPosition = childRazorTransform.forward * 2;
+        Vector3 camPos = FindObjectOfType<LookAroundCamera>().transform.position;
+        downPosition = new Vector3(0, -25, 3);
     }
 
     // Update is called once per frame
@@ -40,7 +43,7 @@ public class RazorScript : MonoBehaviour
 
     private void LerpDown()
     {
-        childRazorTransform.localPosition = Vector3.Lerp(childRazorTransform.localPosition, downPosition, lerpSpeed * Time.deltaTime);
+        childRazorTransform.position = Vector3.Lerp(childRazorTransform.position, downPosition, (lerpSpeed / 10) * Time.deltaTime);
     }
 
     public void ShowBlade()
