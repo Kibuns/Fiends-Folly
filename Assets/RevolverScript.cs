@@ -21,6 +21,7 @@ public class RevolverScript : MonoBehaviour
     private AudioSource source;
     private AudioSource[] allAudioSources;
     private bool isBeingHeld;
+    private bool startedScaryMusic;
     // Start is called before the first frame update
 
     void Awake()
@@ -61,6 +62,12 @@ public class RevolverScript : MonoBehaviour
             col.enabled = false;
         }
 
+        if(item.isBeingHeld && !startedScaryMusic)
+        {
+            startedScaryMusic = true;
+            GameManager.Instance.PlayScaryMusic();
+        }
+
         if(!startedVanishSequence && hasShotBlank && !isBeingHeld)
         {
             startedVanishSequence = true;
@@ -84,6 +91,8 @@ public class RevolverScript : MonoBehaviour
             parentTransform.position = Vector3.Lerp(parentTransform.position, targetPosition, vanishSpeed * Time.deltaTime);
             yield return null;
         }
+        GameManager.Instance.PlaySuccesSound();
+        GameManager.Instance.RingPhoneForSeconds(1000f, 11f);
     }
 
     private void OnMouseOver()
@@ -110,6 +119,7 @@ public class RevolverScript : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.StopScaryMusic();
             source.PlayOneShot(blankShotClip);
             DialogueManager.instance.StopCurrentDialogue();
             GameManager.Instance.isInGunSequence = false;

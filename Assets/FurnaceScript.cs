@@ -46,7 +46,7 @@ public class FurnaceScript : MonoBehaviour, IInteractable
         StartCoroutine(ToggleDoorWithDelay(1f, false));
         source.PlayOneShot(burnClip);
 
-        if (eatenObjectName == "RubberDuck")
+        if (eatenObjectName == "RubberDuck(Clone)")
         {
             GameManager.Instance.StartGunSequence(false, 1.5f);
         }

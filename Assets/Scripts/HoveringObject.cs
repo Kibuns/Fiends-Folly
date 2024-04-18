@@ -54,7 +54,6 @@ public class HoveringObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetSelected(false); //maybe jank idk
         if (showColorsOnHover) { selectedLayer = bloodLayer; }
         attachedItem = hoveringObject.GetComponent<Item>();
         playerInput = new PlayerInputActions();

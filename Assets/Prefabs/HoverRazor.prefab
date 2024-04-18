@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3767681788275398404}
   - component: {fileID: 3767681788275398457}
   - component: {fileID: 3767681788275398456}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HoverRazor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,6 +74,7 @@ MonoBehaviour:
   playSoundOnHover: 0
   startDialogueOnInteract: 0
   isInFrontOfFurnace: 0
+  showColorsOnHover: 0
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0
@@ -203,6 +204,14 @@ PrefabInstance:
     - target: {fileID: 1638204274649460, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Razor_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638204274649460, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966559983228852, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4576995694261998, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
       propertyPath: m_RootOrder

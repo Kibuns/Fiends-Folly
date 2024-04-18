@@ -14,6 +14,7 @@ public class DuckScript : MonoBehaviour
     private AudioSource source;
 
     private bool sequenceStarted;
+    private bool gotPickedUp;
     
     // Start is called before the first frame update
     void Start()
@@ -26,8 +27,12 @@ public class DuckScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(itemScript.isBeingHeld) { return; }
-        if(GameManager.Instance.isTurnedAround && !startedSequence)
+        if(itemScript.isBeingHeld)
+        {
+            gotPickedUp = true;
+            return;
+        }
+        if(GameManager.Instance.isTurnedAround && !startedSequence && gotPickedUp)
         {
             startedSequence = true;
             StartCoroutine(turnTowardsPlayer());

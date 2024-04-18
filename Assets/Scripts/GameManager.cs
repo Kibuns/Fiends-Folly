@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioClip bellClip;
     [SerializeField] AudioClip errorClip;
     [SerializeField] AudioClip succesClip;
+    [SerializeField] AudioClip scaryMusicClip;
     [SerializeField] public float secondsInHalfDay = 100f;
     [SerializeField] public Transform generalItemSpawnPoint;
     [SerializeField] public GameObject generalItemPrefab;
@@ -109,6 +110,18 @@ public class GameManager : MonoBehaviour
         source.PlayOneShot(succesClip);
     }
 
+    public void PlayScaryMusic()
+    {
+        source.clip = scaryMusicClip;
+        source.Play();
+    }
+
+    public void StopScaryMusic()
+    {
+        source.clip = null;
+        source.Stop();
+    }
+
     public void SpawnGeneralItem()
     {
         Instantiate(generalItemPrefab, generalItemSpawnPoint);
@@ -116,7 +129,8 @@ public class GameManager : MonoBehaviour
 
     public void SpawnRitualItem()
     {
-        Instantiate(ritualItemPrefab, ritualItemSpawnPoint);
+        GameObject spawnedRitualItem = Instantiate(ritualItemPrefab, ritualItemSpawnPoint);
+        spawnedRitualItem.transform.parent = null;
         RingPhoneForSeconds(10f, 10f);
     }
 

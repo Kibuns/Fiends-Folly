@@ -10,6 +10,7 @@ public class PhoneScript : MonoBehaviour
     [SerializeField] private AudioClip defaultToneClip;
     [SerializeField] private AudioClip ringingClip;
     [SerializeField] private AudioClip voiceClip;
+    [SerializeField] private Dialogue endDialogue;
 
     public bool startRing;
 
@@ -37,7 +38,7 @@ public class PhoneScript : MonoBehaviour
         if (item.isBeingHeld && isRinging && !isAnswering)
         {
             StopRing();
-            PickUpPhone();
+            PickUpRingingPhone();
         }
         if (item.isBeingHeld && !isRinging && !isAnswering)
         {
@@ -51,7 +52,7 @@ public class PhoneScript : MonoBehaviour
         }
     }
 
-    private void PickUpPhone()
+    private void PickUpRingingPhone()
     {
         if (ringCount < 3)
         {
@@ -59,7 +60,7 @@ public class PhoneScript : MonoBehaviour
         }
         else
         {
-            StartDefaultTone();
+            StartSilentTone();
         }
     }
 
@@ -69,6 +70,21 @@ public class PhoneScript : MonoBehaviour
         source.clip = defaultToneClip;
         source.volume = 0.3f;
         source.Play();
+    }
+
+    private void StartSilentTone()
+    {
+        isAnswering = true;
+        source.clip = defaultToneClip;
+        source.volume = 0f;
+        source.Play();
+        StartCoroutine(DialogueDelay(1.5f));
+    }
+
+    private IEnumerator DialogueDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        DialogueManager.instance.StartDialogue(endDialogue);
     }
 
     private void StartBreatheTone()

@@ -7,20 +7,37 @@ public class TarotCardScript : MonoBehaviour
 {
     private Item attachedItem;
     private bool turned;
+    public bool pickUpTurned;
+    private Vector3 startingOffsetRotation;
     // Start is called before the first frame update
     void Start()
     {
         attachedItem = GetComponent<Item>();
+        startingOffsetRotation = attachedItem.offsetRotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!attachedItem.isBeingHeld && turned)
+        if(!attachedItem.isBeingHeld)
         {
-            turned = false;
-            attachedItem.offsetRotation = new Vector3(attachedItem.offsetRotation.x, 0, attachedItem.offsetRotation.z);
+            attachedItem.offsetRotation = startingOffsetRotation;
+            turned = pickUpTurned;
         }
+        else if (turned)
+        {
+            attachedItem.offsetRotation = new Vector3(startingOffsetRotation.x, startingOffsetRotation.y - 180, startingOffsetRotation.z);
+        }
+        else
+        {
+            attachedItem.offsetRotation = startingOffsetRotation;
+        }
+
+        //if(!attachedItem.isBeingHeld && !turned)
+        //{
+        //    turned = true;
+        //    attachedItem.offsetRotation = new Vector3(attachedItem.offsetRotation.x, 0, attachedItem.offsetRotation.z);
+        //}
     }
 
     private void OnMouseEnter()
@@ -38,15 +55,6 @@ public class TarotCardScript : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("turn");
-        turned = !turned;
-        if(turned)
-        {
-            attachedItem.offsetRotation = new Vector3(attachedItem.offsetRotation.x, 180, attachedItem.offsetRotation.z);
-        }
-        else
-        {
-            attachedItem.offsetRotation = new Vector3(attachedItem.offsetRotation.x, 0, attachedItem.offsetRotation.z);
-        }
-        
+        turned = !turned;  
     }
 }

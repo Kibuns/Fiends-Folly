@@ -14,9 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typingSound: {fileID: 8300000, guid: fb720fd7573ad114a80d7f3b17293bb3, type: 3}
   sentences:
-  - text: Ah my trusty bible!
-    duration: 3.5
-    characterTypingTime: 0.12
+  - text: Congrats you found a secret!
+    duration: 3.29
+    characterTypingTime: 0.067
+    shouldShake: 0
+    shakeOffsetDelta: 0
+    textColor: {r: 1, g: 1, b: 1, a: 1}
+  - text: However it currently doesn't do anything
+    duration: 4.17
+    characterTypingTime: 0.067
+    shouldShake: 0
+    shakeOffsetDelta: 0
+    textColor: {r: 1, g: 1, b: 1, a: 1}
+  - text: Sorry about that
+    duration: 2.06
+    characterTypingTime: 0.067
     shouldShake: 0
     shakeOffsetDelta: 0
     textColor: {r: 1, g: 1, b: 1, a: 1}
