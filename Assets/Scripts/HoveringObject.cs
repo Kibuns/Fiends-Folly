@@ -178,6 +178,8 @@ public class HoveringObject : MonoBehaviour
             return;
         }
         dragTimer = 0f;
+
+        if (pickupOnInteract && attachedItem.isBeingHeld) { return; }
         CursorManager.instance.EnablePointCursor();
         if (startDialogueOnInteract)
         {
@@ -201,7 +203,7 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (!canBeDragged) return;
+        if (!canBeDragged || (pickupOnInteract && attachedItem.isBeingHeld)) return;
         dragTimer += Time.deltaTime;
         if (dragTimer < MaxClickTime) return;
         GameManager.Instance.draggedObject = this;

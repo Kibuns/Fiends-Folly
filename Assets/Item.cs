@@ -54,7 +54,7 @@ public class Item : MonoBehaviour
     {
         if(isBeingHeld)
         {
-            Debug.LogError("object is already being held, why are you trying to pick it up again? pls fix");
+            //Debug.LogError("object is already being held, why are you trying to pick it up again? pls fix");
             return false;
         }
         if(GameManager.Instance.isInGunSequence && GetComponent<RevolverScript>() == null)
