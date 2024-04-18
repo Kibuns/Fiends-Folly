@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UseRazorScript : MonoBehaviour
 {
+    private bool usedItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,8 @@ public class UseRazorScript : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if(usedItem) { return; }
+        usedItem = true;
         GetComponentInParent<RazorScript>().UseBladeToCut();
     }
 

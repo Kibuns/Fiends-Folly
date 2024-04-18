@@ -16688,6 +16688,7 @@ MonoBehaviour:
   gunPrefab: {fileID: 5645314241089828882, guid: 1b60d1c9a14636f41b7c68b387660de2, type: 3}
   gunSpawnPoint: {fileID: 437880294}
   draggedObject: {fileID: 0}
+  isDead: 0
   isBleeding: 0
   isInGunSequence: 0
   isTurnedAround: 0
@@ -39669,6 +39670,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5660325800878400360, guid: 43a205303e5c03a44a0d2a71336936ee, type: 3}
+      propertyPath: offsetPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660325800878400360, guid: 43a205303e5c03a44a0d2a71336936ee, type: 3}
+      propertyPath: offsetPosition.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660325800878400360, guid: 43a205303e5c03a44a0d2a71336936ee, type: 3}
+      propertyPath: offsetRotation.x
+      value: 53.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660325800878400360, guid: 43a205303e5c03a44a0d2a71336936ee, type: 3}
+      propertyPath: offsetRotation.y
+      value: -146.9
+      objectReference: {fileID: 0}
     - target: {fileID: 5660325800878400368, guid: 43a205303e5c03a44a0d2a71336936ee, type: 3}
       propertyPath: marginForError
       value: 2
