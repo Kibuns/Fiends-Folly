@@ -116,6 +116,7 @@ public class RevolverScript : MonoBehaviour
             DialogueManager.instance.StopCurrentDialogue();
             muzzleFlash.Play();
             StartCoroutine(FadeToBlack());
+            FindObjectOfType<SceneManageScript>().BackToStartScreen();
         }
         else
         {
