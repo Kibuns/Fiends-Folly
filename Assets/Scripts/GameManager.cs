@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public HoveringObject draggedObject;
 
+    public bool isDead;
     public bool isBleeding;
     public bool isInGunSequence;
     public bool isTurnedAround;

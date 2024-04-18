@@ -81,7 +81,7 @@ public class Item : MonoBehaviour
 
     public void PlayPickupSound()
     {
-        if (!pickupClip) return;
+        if (!pickupClip || GameManager.Instance.isDead) return;
         if(source.isPlaying) { source.Stop(); }
         source.PlayOneShot(pickupClip);
 
@@ -89,7 +89,7 @@ public class Item : MonoBehaviour
 
     public void PlayPutDownSound()
     {
-        if (!putDownClip) return;
+        if (!putDownClip || GameManager.Instance.isDead) return;
         source.PlayOneShot(putDownClip);
     }
 

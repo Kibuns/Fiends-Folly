@@ -156,7 +156,7 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (isDragging) return;
+        if (isDragging || GameManager.Instance.isDead) return;
         isHoveredOn = true;
         InitHover();
     }

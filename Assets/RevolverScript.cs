@@ -22,6 +22,7 @@ public class RevolverScript : MonoBehaviour
     private AudioSource[] allAudioSources;
     private bool isBeingHeld;
     private bool startedScaryMusic;
+    private int blankShotCounter;
     // Start is called before the first frame update
 
     void Awake()
@@ -109,24 +110,31 @@ public class RevolverScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!item.isBeingHeld) return;
+        if (!item.isBeingHeld || GameManager.Instance.isDead) return;
         if (isLoaded)
         {
-            source.PlayOneShot(shotClip);
-            DialogueManager.instance.StopCurrentDialogue();
-            muzzleFlash.Play();
-            StartCoroutine(FadeToBlack());
-            FindObjectOfType<SceneManageScript>().BackToStartScreen();
+            ShootLoaded();
         }
         else
         {
+            blankShotCounter++;
+            if(blankShotCounter == 6) { ShootLoaded(); }
             GameManager.Instance.StopScaryMusic();
             source.PlayOneShot(blankShotClip);
             DialogueManager.instance.StopCurrentDialogue();
             GameManager.Instance.isInGunSequence = false;
             hasShotBlank = true;
         }
+    }
 
+    private void ShootLoaded()
+    {
+        GameManager.Instance.isDead = true;
+        source.PlayOneShot(shotClip);
+        DialogueManager.instance.StopCurrentDialogue();
+        muzzleFlash.Play();
+        StartCoroutine(FadeToBlack());
+        FindObjectOfType<SceneManageScript>().BackToStartScreen();
     }
 
     private IEnumerator FadeToBlack()
