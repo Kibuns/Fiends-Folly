@@ -8149,7 +8149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pixelArtFilter: {fileID: 4800000, guid: 40f888868bff54e489d63cf2a046892c, type: 3}
-  downSamples: 2
+  downSamples: 1
 --- !u!114 &841663635
 MonoBehaviour:
   m_ObjectHideFlags: 0

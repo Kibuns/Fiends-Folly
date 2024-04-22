@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class DuckScript : MonoBehaviour
 {

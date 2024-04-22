@@ -171,7 +171,7 @@ public class HoveringObject : MonoBehaviour
         GameManager.Instance.draggedObject = null;
         if (dragTimer > MaxClickTime || !isHoveredOn)
         {
-            isHoveredOn = false;
+            //isHoveredOn = false;
             dragTimer = 0f;
             CursorManager.instance.EnablePointCursor();
             return;
