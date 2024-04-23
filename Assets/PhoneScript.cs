@@ -94,7 +94,7 @@ public class PhoneScript : MonoBehaviour
         source.volume = 1f;
         source.Stop();
         source.Play();
-        GameManager.Instance.StartGunSequence(true, 7f);
+        GameManager.Instance.StartGunSequence(true, 7f, GameManager.DeathReason.WrongPhonePickup);
     }
 
     public void StartRing()

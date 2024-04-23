@@ -52,11 +52,11 @@ public class FurnaceScript : MonoBehaviour, IInteractable
 
         if (eatenObjectName == "RubberDuck(Clone)")
         {
-            GameManager.Instance.StartGunSequence(false, 1.5f);
+            GameManager.Instance.StartGunSequence(false, 1.5f, GameManager.DeathReason.SixthRevolverChamber);
         }
         else
         {
-            GameManager.Instance.StartGunSequence(true, 1.5f);
+            GameManager.Instance.StartGunSequence(true, 1.5f, GameManager.DeathReason.WrongFurnaceItem);
         }
     }
 

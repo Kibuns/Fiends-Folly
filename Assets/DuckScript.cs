@@ -88,6 +88,6 @@ public class DuckScript : MonoBehaviour
         {
             yield return null;
         }
-        GameManager.Instance.StartGunSequence(true, 0f);
+        GameManager.Instance.StartGunSequence(true, 0f, GameManager.DeathReason.TooManyQuacks);
     }
 }

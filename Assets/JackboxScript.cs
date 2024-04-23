@@ -99,7 +99,7 @@ public class JackboxScript : MonoBehaviour
         else
         {
             if (FindObjectOfType<PhoneScript>().isRinging) return; // <<<<<<EXCEPTION TO THE RULE
-            GameManager.Instance.StartGunSequence(true, 2f);
+            GameManager.Instance.StartGunSequence(true, 2f, GameManager.DeathReason.TooLongJackBox);
         }
     }
 }

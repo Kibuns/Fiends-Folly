@@ -5,6 +5,15 @@ using UnityEngine.Android;
 
 public class GameManager : MonoBehaviour
 {
+    public enum DeathReason
+    {
+        Generic,
+        TooManyQuacks,
+        TooLongJackBox,
+        WrongFurnaceItem,
+        SixthRevolverChamber,
+        WrongPhonePickup,
+    }
     public static GameManager Instance;
 
     public int coins;
@@ -26,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public HoveringObject draggedObject;
 
+    public DeathReason currentDeathReason;
     public bool isDead;
     public bool isBleeding;
     public bool isInGunSequence;
@@ -64,7 +74,7 @@ public class GameManager : MonoBehaviour
         if (startGunSequence)
         {
             startGunSequence = false;
-            Instance.StartGunSequence(true, 0f);
+            Instance.StartGunSequence(true, 0f, DeathReason.Generic);
         }
 
         if (isTurnedAround && !revealedDecal)
@@ -202,9 +212,10 @@ public class GameManager : MonoBehaviour
         return minutesPassed % 60f;
     }
 
-    public void StartGunSequence(bool loaded, float delay)
+    public void StartGunSequence(bool loaded, float delay, DeathReason deathReason)
     {
-        if(isInGunSequence) { return; }
+        currentDeathReason = deathReason;
+        if (isInGunSequence) { return; }
         isInGunSequence = true;
         StartCoroutine(GunSequence(loaded, delay));
     }
