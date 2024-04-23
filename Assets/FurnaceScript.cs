@@ -9,7 +9,8 @@ public class FurnaceScript : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip burnClip;
     public float lerpSpeed;
     private Quaternion startRotation;
-    private Quaternion targetRotation;
+    private Quaternion openRotation;
+    private Quaternion currentTargetRotation;
     private Transform door;
     private AudioSource source;
 
@@ -22,7 +23,8 @@ public class FurnaceScript : MonoBehaviour, IInteractable
         source = GetComponent<AudioSource>();
         door = GetComponent<HoveringObject>().hoveringObject.transform;
         startRotation = door.localRotation;
-        targetRotation = Quaternion.Euler(0, 90, 0);
+        openRotation = Quaternion.Euler(0, 90, 0);
+        currentTargetRotation = startRotation;
     }
 
     // Update is called once per frame
@@ -30,11 +32,13 @@ public class FurnaceScript : MonoBehaviour, IInteractable
     {
         if(doorIsOpen)
         {
-            door.localRotation = Quaternion.Lerp(door.localRotation, targetRotation, lerpSpeed * Time.deltaTime);
+            currentTargetRotation = openRotation;
+            door.localRotation = Quaternion.Lerp(door.localRotation, currentTargetRotation, lerpSpeed * Time.deltaTime);
         }
         else
         {
-            door.localRotation = Quaternion.Lerp(door.localRotation, startRotation, lerpSpeed * Time.deltaTime);
+            currentTargetRotation = startRotation;
+            door.localRotation = Quaternion.Lerp(door.localRotation, currentTargetRotation, lerpSpeed * Time.deltaTime);
         }
     }
     public void EatDraggedObject(GameObject eatenObject)
@@ -65,6 +69,7 @@ public class FurnaceScript : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (GameManager.Instance.isInGunSequence) return;
+        if (Quaternion.Angle(door.localRotation, currentTargetRotation) > 12f) return;
         doorIsOpen = !doorIsOpen;
     }
 }
