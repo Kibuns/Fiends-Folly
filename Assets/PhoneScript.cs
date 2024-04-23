@@ -92,6 +92,7 @@ public class PhoneScript : MonoBehaviour
         isAnswering = true;
         source.clip = voiceClip;
         source.volume = 1f;
+        source.Stop();
         source.Play();
         GameManager.Instance.StartGunSequence(true, 7f);
     }

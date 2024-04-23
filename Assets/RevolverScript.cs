@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RevolverScript : MonoBehaviour
 {
+    [SerializeField] private Transform cylinderTransform;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private AudioClip shotClip;
     [SerializeField] private AudioClip blankShotClip;
@@ -14,7 +15,7 @@ public class RevolverScript : MonoBehaviour
 
     public bool isLoaded;
 
-    private bool hasShotBlank;
+    public bool hasShotBlank;
     private bool startedVanishSequence;
     private Collider col;
     private Item item;
@@ -23,6 +24,7 @@ public class RevolverScript : MonoBehaviour
     private bool isBeingHeld;
     private bool startedScaryMusic;
     private int blankShotCounter;
+    private Vector3 targetRotation;
     // Start is called before the first frame update
 
     void Awake()
@@ -52,7 +54,8 @@ public class RevolverScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(item.isBeingHeld && !isBeingHeld)
+        LerpCylinderToTarget();
+        if (item.isBeingHeld && !isBeingHeld)
         {
             isBeingHeld = true;
             col.enabled = true;
@@ -73,6 +76,7 @@ public class RevolverScript : MonoBehaviour
         {
             startedVanishSequence = true;
             Debug.Log("START VANISH GUN");
+            GetComponentInParent<HoveringObject>().gameObject.GetComponent<Collider>().enabled = false; //stops player from pickup up gun again
             StartCoroutine(VanishAfterBlankShotSequence());
         }
     }
@@ -94,6 +98,11 @@ public class RevolverScript : MonoBehaviour
         }
         GameManager.Instance.PlaySuccesSound();
         GameManager.Instance.RingPhoneForSeconds(1000f, 11f);
+    }
+
+    private void LerpCylinderToTarget()
+    {
+        cylinderTransform.localEulerAngles = Vector3.Lerp(cylinderTransform.localEulerAngles, targetRotation, 30 * Time.deltaTime);
     }
 
     private void OnMouseOver()
@@ -118,6 +127,7 @@ public class RevolverScript : MonoBehaviour
         else
         {
             blankShotCounter++;
+            targetRotation = new Vector3(0, 0, targetRotation.z + 60);
             if(blankShotCounter == 6) { ShootLoaded(); }
             GameManager.Instance.StopScaryMusic();
             source.PlayOneShot(blankShotClip);

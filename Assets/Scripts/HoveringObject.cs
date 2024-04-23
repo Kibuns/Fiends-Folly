@@ -221,6 +221,8 @@ public class HoveringObject : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         if (pickupOnInteract && !attachedItem.isBeingHeld) yield break;
+        if(GameManager.Instance.isDead) yield break;
+        if(attachedItem.GetComponent<RevolverScript>().hasShotBlank) yield break;
         ShowDialogue();
     }
 

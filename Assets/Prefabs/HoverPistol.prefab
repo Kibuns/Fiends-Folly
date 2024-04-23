@@ -487,6 +487,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1023457485917516, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1164901452616646, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Revolver_01
@@ -499,9 +503,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1202501904283748, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1219697453749530, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1219697453749530, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1275503850060172, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
       propertyPath: m_Layer
@@ -519,6 +531,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1675259048888710, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1828404389649418, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -526,6 +542,10 @@ PrefabInstance:
     - target: {fileID: 1922365103266284, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922365103266284, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4602452234407014, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
       propertyPath: m_RootOrder
@@ -571,6 +591,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4700904450167848, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.9999905
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700904450167848, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700904450167848, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700904450167848, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0043637417
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700904450167848, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -359.5
+      objectReference: {fileID: 0}
     - target: {fileID: 64190950831393470, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
       propertyPath: m_Convex
       value: 1
@@ -588,6 +628,11 @@ PrefabInstance:
 --- !u!4 &5640888840664590258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4602452234407014, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
+  m_PrefabInstance: {fileID: 5645314241192799188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5640930155814731772 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4700904450167848, guid: 1b77448d596a62a43a33594db50d10a2, type: 3}
   m_PrefabInstance: {fileID: 5645314241192799188}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5646401350008322066 stripped
@@ -703,6 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ee2e333af32c143b023bf2a5edcbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cylinderTransform: {fileID: 5640930155814731772}
   muzzleFlash: {fileID: 5541468863168002116}
   shotClip: {fileID: 8300000, guid: 6d3000138090a574aa59220df58238f9, type: 3}
   blankShotClip: {fileID: 8300000, guid: d15d7531be7dc254cbca7c1728fb1a68, type: 3}
