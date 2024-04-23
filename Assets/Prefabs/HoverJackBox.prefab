@@ -72,6 +72,7 @@ MonoBehaviour:
   playSoundOnHover: 0
   startDialogueOnInteract: 0
   isInFrontOfFurnace: 0
+  showColorsOnHover: 0
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0
@@ -321,8 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288bc3736631a234f94c75b71b27aaee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetPosition: {x: 0, y: 0.11, z: 0.05}
-  offsetRotation: {x: 10.66, y: -122.85, z: 0}
+  offsetPosition: {x: 0.04, y: 0.12, z: 0.05}
+  offsetRotation: {x: 53.54, y: -146.9, z: 0}
   pickupClip: {fileID: 0}
   putDownClip: {fileID: 0}
   lerpSpeed: 10
@@ -340,6 +341,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crank: {fileID: 5659723965758328979}
   maxCrankSpeed: 101
+  targetMinutes: 15
+  minimumMinutesForFailure: 6
+  marginForError: 2
+  minutesWhenPhoneRings: 10
+  phoneRingTime: 12.5
 --- !u!1 &5659723965758328979 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1940251648753670, guid: 58818bc0e6923a14d9308ab82ecf565f, type: 3}

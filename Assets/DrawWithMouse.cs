@@ -13,7 +13,8 @@ public class DrawWithMouse : MonoBehaviour
     [SerializeField] float minDistance;
     private PlayerInputActions input;
     private Material lineMaterial;
-    private bool doneWithoutSucces;
+    private bool doneWithWriting;
+    private bool writtenCorrectSymbol;
     private Color currentColor;
 
     private void Start()
@@ -30,7 +31,7 @@ public class DrawWithMouse : MonoBehaviour
 
     private void Update()
     {
-        if (doneWithoutSucces)
+        if (doneWithWriting)
         {
             FadeOutAndSpawnItem();
             return;
@@ -63,8 +64,18 @@ public class DrawWithMouse : MonoBehaviour
         }
         if (input.Player.LeftClick.WasReleasedThisFrame() && line != null)
         {
-            GameManager.Instance.isBleeding = false;
-            doneWithoutSucces = true;
+            doneWithWriting = true;
+            if (line.positionCount > 100)
+            {
+                writtenCorrectSymbol = true;
+            }
+
+            if (writtenCorrectSymbol)
+            {
+                GameManager.Instance.isBleeding = false;
+            }
+            
+            
             // Change render mode to fade
             lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
@@ -92,8 +103,12 @@ public class DrawWithMouse : MonoBehaviour
         {
             //TEMP DEMO CODEvv
 
-            GameManager.Instance.SpawnRitualItem();
-            GameManager.Instance.PlayBellSound();
+            if (writtenCorrectSymbol)
+            {
+                GameManager.Instance.SpawnRitualItem();
+                GameManager.Instance.PlayBellSound();
+            }
+
 
             //TEMP DEMO CODE^^
             Destroy(gameObject);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class GameManager : MonoBehaviour
 {
@@ -89,6 +90,57 @@ public class GameManager : MonoBehaviour
         }
         yield return new WaitForSeconds(0.2f);
         PlayBellSound();
+        StartCoroutine(PulseDecalEmission(surpriseDecal));
+    }
+
+    private IEnumerator PulseDecalEmission(GameObject decal)
+    {
+        Renderer renderer = decal.GetComponent<Renderer>();
+
+        if (renderer != null && renderer.materials.Length > 0)
+        {
+            Material material = renderer.materials[0]; // Assuming only one material is used
+            Color baseColor = material.GetColor("_EmissionColor");
+            float minEmission = 0f;
+            float maxEmission = 5f;
+            float duration = 0.5f; // duration of pulsating effect
+
+            //set emission to 0
+            material.SetColor("_EmissionColor", baseColor * Mathf.LinearToGammaSpace(0));
+            yield return new WaitForSeconds(0.2f);
+
+            float t = 0f;
+            while (t < duration)
+            {
+                float emission = Mathf.Lerp(minEmission, maxEmission, Mathf.PingPong(t / duration, 1));
+                Debug.Log(emission);
+                Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+                material.SetColor("_EmissionColor", finalColor);
+
+                t += Time.deltaTime;
+                yield return null;
+            }
+
+            // Smoothly transition back to the original emission color
+            t = 0f;
+            while (t < duration * 3)
+            {
+                float emission = Mathf.Lerp(maxEmission, minEmission, Mathf.PingPong(t / (duration * 3), 1));
+                Debug.Log(emission);
+                Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+                material.SetColor("_EmissionColor", finalColor);
+
+                t += Time.deltaTime;
+                yield return null;
+            }
+
+            // Reset emission color after pulsating
+            //material.SetColor("_EmissionColor", baseColor);
+        }
+        else
+        {
+            Debug.LogWarning("Renderer or materials not found on the provided decal GameObject.");
+        }
     }
 
     public void AddCoins(int amount)

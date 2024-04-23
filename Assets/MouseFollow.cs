@@ -17,6 +17,8 @@ public class MouseFollow : MonoBehaviour
     public bool onRitualCollider;
     private PlayerInputActions playerInput;
     private bool shouldStartEmission;
+    private bool isWriting;
+    private Coroutine volumeFadeCoroutine;
 
     private void Start()
     {
@@ -42,11 +44,13 @@ public class MouseFollow : MonoBehaviour
             triggeredThisFrame = true;
             StartCoroutine(EnableEmissionCoroutine());
             Instantiate(bloodLinePrefab);
+            bloodWritingSource.volume = 1f;
             bloodWritingSource.Play();
         }
         if (playerInput.Player.LeftClick.IsPressed())
         {
-            
+            if (volumeFadeCoroutine != null) StopCoroutine(volumeFadeCoroutine);
+            isWriting = true;
             // Raycast from mouse position into the world
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -91,9 +95,21 @@ public class MouseFollow : MonoBehaviour
 
     private void StopWriting()
     {
-        bloodWritingSource.Pause();
+        if(!isWriting) { return; }
+        isWriting = false;
+        volumeFadeCoroutine = StartCoroutine(fadeVolume(bloodWritingSource));
         particles.enableEmission = false;
         bloodLettingPrefab.GetComponent<ParticleSystem>().enableEmission = false;
+    }
+
+    private IEnumerator fadeVolume(AudioSource source)
+    {
+        while(source.volume > 0.01)
+        {
+            source.volume -= 0.4f * Time.deltaTime;
+            yield return null;
+        }
+        source.Stop();
     }
 
     private void SetBloodLettingPosition(Vector3 hitPoint)
