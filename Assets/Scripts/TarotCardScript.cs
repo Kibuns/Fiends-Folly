@@ -41,19 +41,16 @@ public class TarotCardScript : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        Debug.Log("enter");
         CursorManager.instance.EnablePointCursor();
     }
 
     private void OnMouseExit()
     {
-        Debug.Log("exit");
         CursorManager.instance.EnableDefaultCursor();
     }
 
     private void OnMouseDown()
     {
-        Debug.Log("turn");
         turned = !turned;  
     }
 }

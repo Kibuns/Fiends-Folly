@@ -40,7 +40,7 @@ public class HoveringObject : MonoBehaviour
     
     private Transform holdItemTransform;
     private PlayerInputActions playerInput;
-    private Item attachedItem;
+    public Item attachedItem;
     private LayerMask dragLayerMask;
     private Vector3 dragTargetPosition;
     private List<Transform> overlappingItemPositions;
@@ -119,13 +119,11 @@ public class HoveringObject : MonoBehaviour
 
     private void MoveToMousePosition()
     {
-        Debug.Log("move to mous pos");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, dragLayerMask))
         {
-            Debug.Log("hit");
             dragTargetPosition = hit.point + new Vector3(0, yOffset, 0);
             isInFrontOfFurnace = false;
             CursorManager.instance.EnableDragCursor();
@@ -346,6 +344,12 @@ public class HoveringObject : MonoBehaviour
         if ((gameObject.layer == bloodLayer && !showColorsOnHover) || !changeLayerOnHover) return;
         int targetLayer = selected ? selectedLayer : highlightLayer;
         SetLayerRecursively(transform, targetLayer);
+    }
+
+    public void ToggleArtificialHover(bool hover)
+    {
+        isHoveredOn = hover;
+        GetComponent<Collider>().enabled = !hover;
     }
 
     private void SetLayerRecursively(Transform root, int layer)

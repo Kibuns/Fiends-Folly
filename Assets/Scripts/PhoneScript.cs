@@ -108,6 +108,7 @@ public class PhoneScript : MonoBehaviour
     public void StopRing()
     {
         isRinging = false;
+        if (isAnswering) return;
         source.Stop();
     }
 }
