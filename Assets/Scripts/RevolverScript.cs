@@ -29,7 +29,6 @@ public class RevolverScript : MonoBehaviour
 
     void Awake()
     {
-        allAudioSources = FindObjectsOfType<AudioSource>();
         if(vignette == null)
         {
             vignette = FindObjectOfType<Vignette>();
@@ -38,7 +37,8 @@ public class RevolverScript : MonoBehaviour
 
     private void StopAllAudio()
     {
-        foreach(AudioSource source in allAudioSources)
+        allAudioSources = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource source in allAudioSources)
         {
             source.Stop();
         }
@@ -96,7 +96,6 @@ public class RevolverScript : MonoBehaviour
             parentTransform.position = Vector3.Lerp(parentTransform.position, targetPosition, vanishSpeed * Time.deltaTime);
             yield return null;
         }
-        GameManager.Instance.PlaySuccesSound();
         GameManager.Instance.RingPhoneForSeconds(1000f, 11f);
     }
 
@@ -126,6 +125,7 @@ public class RevolverScript : MonoBehaviour
         }
         else
         {
+            TarotManager.Instance.CompleteSacrificeTarot(2.5f);
             item.RMBToolTip = "Drop Gun";
             ItemManager.Instance.SetToolTipsInCanvas();
             blankShotCounter++;

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
         SixthRevolverChamber,
         WrongPhonePickup,
     }
-    public static GameManager Instance;
+
 
     public int coins;
     [SerializeField] public Canvas playerCanvas;
@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     private AudioSource source;
     private Vector3 ritualStartPosition;
 
+    public static GameManager Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -197,6 +198,7 @@ public class GameManager : MonoBehaviour
         GameObject spawnedRitualItem = Instantiate(ritualItemPrefab, ritualItemSpawnPoint);
         spawnedRitualItem.transform.parent = null;
         RingPhoneForSeconds(10f, 10f);
+        TarotManager.Instance.CompleteRitualTarot(1.5f);
     }
 
     public void ToggleUIVisibility(bool visible)

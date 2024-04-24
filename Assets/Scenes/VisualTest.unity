@@ -6986,6 +6986,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4729558539551352, guid: 97601486a755f7640b3d0341f9e00561, type: 3}
   m_PrefabInstance: {fileID: 1401205691}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &700525129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3666766407636182551, guid: e895008e2c9ea4b4dafc5bc769ba89fb, type: 3}
+  m_PrefabInstance: {fileID: 8635915441921882340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9660d5c44670db49b9b7af1a63f4c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &705741393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7459,6 +7470,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4890213490046932, guid: 786c7ca63dbb5ab4797219fb28f871b1, type: 3}
   m_PrefabInstance: {fileID: 387943387}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &771511636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 771511637}
+  m_Layer: 0
+  m_Name: CompleteTargetPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &771511637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771511636}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0.61, y: 0.844, z: -0.683}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1060279231}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &778763667
 GameObject:
   m_ObjectHideFlags: 0
@@ -10737,7 +10779,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8bb716a0299c0f4c8f16479824082e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTarot: {fileID: 1893266018}
+  timeTarot: {fileID: 1605815159}
+  sacrificeTarot: {fileID: 700525129}
+  phoneTarot: {fileID: 1893266020}
+  ritualTarot: {fileID: 1443177114}
+  flameVFXPrefab: {fileID: 1210487328599734, guid: e9dc57d4359072a4e9e2bdac5c66bf0d, type: 3}
+  completeTargetPoint: {fileID: 771511637}
+  lerpSpeed: 1
   activate: 0
 --- !u!4 &1060279231
 Transform:
@@ -10750,7 +10798,8 @@ Transform:
   m_LocalPosition: {x: -0.5152062, y: -1.3128335, z: 5.767884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 771511637}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13913,6 +13962,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4263491874698800, guid: 4ca3359aecc21c6408dd95416ae42c9c, type: 3}
   m_PrefabInstance: {fileID: 114788958}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1443177114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3471368388706101832, guid: 2e71faf68f1ada8478d83515f3ed7501, type: 3}
+  m_PrefabInstance: {fileID: 2060407166961674423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9660d5c44670db49b9b7af1a63f4c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1446854667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15739,6 +15799,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1605815159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2032899264933063066, guid: 2f304602693987040b410c04a94f66d9, type: 3}
+  m_PrefabInstance: {fileID: 3945493363651241863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9660d5c44670db49b9b7af1a63f4c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1609132024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4890213490046932, guid: 786c7ca63dbb5ab4797219fb28f871b1, type: 3}
@@ -17635,11 +17706,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4490220472220878, guid: 41d36d109b665f944a5d403a23a97965, type: 3}
   m_PrefabInstance: {fileID: 438252509}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1893266018 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1060747006625230555, guid: fc6f78ac909b8ae49b9777501ad24b93, type: 3}
+--- !u!114 &1893266020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1060747006625230550, guid: fc6f78ac909b8ae49b9777501ad24b93, type: 3}
   m_PrefabInstance: {fileID: 1060747006810985918}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9660d5c44670db49b9b7af1a63f4c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1896225503
 GameObject:
   m_ObjectHideFlags: 0
@@ -19619,7 +19696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1060747006625230555, guid: fc6f78ac909b8ae49b9777501ad24b93, type: 3}
       propertyPath: m_Name
-      value: TarotCard1
+      value: PhoneTarot
       objectReference: {fileID: 0}
     - target: {fileID: 1060747007243405447, guid: fc6f78ac909b8ae49b9777501ad24b93, type: 3}
       propertyPath: LMBToolTip
@@ -19699,7 +19776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3471368388706101829, guid: 2e71faf68f1ada8478d83515f3ed7501, type: 3}
       propertyPath: m_Name
-      value: TarotCard2
+      value: RitualTarot
       objectReference: {fileID: 0}
     - target: {fileID: 3471368388706101832, guid: 2e71faf68f1ada8478d83515f3ed7501, type: 3}
       propertyPath: playSoundOnHover
@@ -40422,7 +40499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2032899264933063063, guid: 2f304602693987040b410c04a94f66d9, type: 3}
       propertyPath: m_Name
-      value: TarotCard4
+      value: TimeTarot
       objectReference: {fileID: 0}
     - target: {fileID: 2032899264933063066, guid: 2f304602693987040b410c04a94f66d9, type: 3}
       propertyPath: playSoundOnHover
@@ -40995,7 +41072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3666766407636182554, guid: e895008e2c9ea4b4dafc5bc769ba89fb, type: 3}
       propertyPath: m_Name
-      value: TarotCard3
+      value: SacrificeTarot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e895008e2c9ea4b4dafc5bc769ba89fb, type: 3}

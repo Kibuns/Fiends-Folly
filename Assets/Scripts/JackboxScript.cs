@@ -93,13 +93,19 @@ public class JackboxScript : MonoBehaviour
         if(minutesCranked < minimumMinutesForFailure) { return; }
         if (Mathf.Abs(minutesCranked - targetMinutes) < marginForError)
         {
-            GameManager.Instance.SpawnGeneralItem();
-            GameManager.Instance.PlaySuccesSound();
+            StartCoroutine(SpawnDelay(3));
+            TarotManager.Instance.CompleteTimeTarot(0.5f);
         }
         else
         {
             if (FindObjectOfType<PhoneScript>().isRinging) return; // <<<<<<EXCEPTION TO THE RULE
             GameManager.Instance.StartGunSequence(true, 2f, GameManager.DeathReason.TooLongJackBox);
         }
+    }
+
+    private IEnumerator SpawnDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        GameManager.Instance.SpawnGeneralItem();
     }
 }

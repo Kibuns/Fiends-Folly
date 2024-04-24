@@ -334,9 +334,16 @@ public class HoveringObject : MonoBehaviour
         return Lerped;
     }
 
-    public void SetRestRotation(Vector3 localEulerAngles)
+
+    public void SetRestPostion(Vector3 position)
     {
-        localRestRotation = localEulerAngles;
+        localRestPosition = position;
+    }
+    public void SetRestRotation(Vector3 rotation)
+    {
+
+        //localRestRotation = rotation; <- should be this idk?? jank
+        hoverRotation = rotation;
     }
 
     private void SetSelected(bool selected)
