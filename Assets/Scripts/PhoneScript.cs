@@ -85,6 +85,8 @@ public class PhoneScript : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         DialogueManager.instance.StartDialogue(endDialogue);
+        yield return new WaitForSeconds(10);
+        TarotManager.Instance.CompletePhoneTarot(0f);
     }
 
     private void StartBreatheTone()

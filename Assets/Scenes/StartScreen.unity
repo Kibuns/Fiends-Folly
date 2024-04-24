@@ -3163,6 +3163,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!114 &431867040
 MonoBehaviour:
@@ -8064,6 +8065,7 @@ MonoBehaviour:
   dialogue: {fileID: 11400000, guid: c17acd932b57f814f8ffa414c7b159fc, type: 2}
   dialogueStartDelay: 0.5
   overlapYOffset: 0
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!1001 &886240414
 PrefabInstance:
@@ -8156,6 +8158,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!65 &887874210
 BoxCollider:
@@ -13549,6 +13552,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!65 &1549260334
 BoxCollider:
@@ -14145,6 +14149,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 1
   overlapYOffset: 0
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!114 &1605462867
 MonoBehaviour:
@@ -15551,8 +15556,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -779, y: -391}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -427.49994, y: -434.05804}
+  m_SizeDelta: {x: 955, y: 152.116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1790993401
 MonoBehaviour:
@@ -15574,10 +15579,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Working Title\nPre-Alpha Prototype (Playable Demo)\nBuild: 0.3 \n"
+  m_text: 'Working Title
+
+    Pre-Alpha Prototype (Playable Demo)
+
+    Build: 0.0.21
+
+    Playtest
+    Build: #4
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5fa571807610fb14ea40ce0265011e6a, type: 2}
+  m_sharedMaterial: {fileID: -5174744796126198715, guid: 5fa571807610fb14ea40ce0265011e6a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15601,8 +15615,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30.7
+  m_fontSizeBase: 30.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -15611,7 +15625,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 7.77
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -17552,6 +17566,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!82 &2041808123
 AudioSource:
@@ -39477,6 +39492,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0.00015
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!114 &8631622552572476071
 MonoBehaviour:

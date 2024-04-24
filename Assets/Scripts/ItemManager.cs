@@ -4,7 +4,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ItemManager : MonoBehaviour
 {
