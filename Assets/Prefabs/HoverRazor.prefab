@@ -78,6 +78,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0
+  attachedItem: {fileID: 0}
   yOffset: 0
 --- !u!114 &3767681788275398457
 MonoBehaviour:
@@ -98,6 +99,7 @@ MonoBehaviour:
   cutBladeClip: {fileID: 8300000, guid: e4a98dabc20932c459dea11478f35ec5, type: 3}
   lerpSpeed: 10
   showBladeDelay: 1
+  startedCuttingSequence: 0
 --- !u!82 &3767681788275398456
 AudioSource:
   m_ObjectHideFlags: 0
@@ -301,7 +303,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64534645420194226, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
 --- !u!1 &3768579883597438543 stripped
 GameObject:
@@ -340,6 +343,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7e82dc5066bcb45a8e613989e1298c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &6237272137636635447
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768579883597438543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.019142328, y: 0.34, z: 0.034469504}
+  m_Center: {x: -0.0000000036097854, y: -0.015140537, z: -0.0035546578}
 --- !u!1 &3769374404394672271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1966559983228852, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Item : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Item : MonoBehaviour
 
     [SerializeField] public string LMBToolTip;
     [SerializeField] public string RMBToolTip;
+    [SerializeField] public bool alwaysActiveCollider;
 
     [SerializeField] public Vector3 offsetPosition;
     [SerializeField] public Vector3 offsetRotation;
@@ -20,10 +22,13 @@ public class Item : MonoBehaviour
     private Transform targetTransform;
     private AudioSource source;
     private Collider col;
+    private PlayerInputActions playerInput;
     public bool isBeingHeld {  get; private set; }
     public float lerpSpeed = 10f;
     void Start()
     {
+        playerInput = new PlayerInputActions();
+        playerInput.Enable();
         col = GetComponent<Collider>();
         Transform startTransform = transform;
         restTransform = startTransform;
@@ -51,6 +56,10 @@ public class Item : MonoBehaviour
     private void ToggleCollider(bool value)
     {
         if (col == null) return;
+        if (alwaysActiveCollider) { 
+            col.enabled = true;
+            return;
+        }
         col.enabled = value;
     }
 
@@ -116,6 +125,24 @@ public class Item : MonoBehaviour
     {
         if (maxPitchDelta == 0) return;
         source.pitch = Random.Range(1 - maxPitchDelta, 1 + maxPitchDelta);
+    }
+
+    private void OnMouseOver()
+    {
+        if (playerInput.Player.LeftClick.IsPressed())
+        {
+            CursorManager.instance.EnableDragCursor();
+        }
+        else
+        {
+            CursorManager.instance.EnablePointCursor();
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if(!isBeingHeld) return;
+        CursorManager.instance.EnableDefaultCursor();
     }
 
 

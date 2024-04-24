@@ -12546,7 +12546,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437605365}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0a7fb2bf38df874895f08f134aa6b93, type: 3}
   m_Name: 
@@ -12560,8 +12560,10 @@ MonoBehaviour:
   ritualPosition: {fileID: 1558805970}
   mousInput: {x: 0, y: 0, z: 0}
   mousePercentagePosition: {x: 0, y: 0}
-  LookIntensityX: 20
-  LookIntensityY: 12
+  LookIntensityX: 0
+  LookIntensityY: 0
+  bobbingSpeed: 1
+  bobbingAmount: 0.8
   bentOverTable: 0
   turnedAround: 0
   rotationLerpSpeed: 10

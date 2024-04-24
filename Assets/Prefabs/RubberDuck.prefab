@@ -101,8 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LMBToolTip: Quack
   RMBToolTip: 
-  offsetPosition: {x: 0, y: 0.1, z: 0}
-  offsetRotation: {x: 14.8, y: 215.4, z: -0.28}
+  alwaysActiveCollider: 0
+  offsetPosition: {x: 0.3, y: -0.02, z: 0}
+  offsetRotation: {x: 16.76, y: 249.7, z: -0.28}
   pickupClip: {fileID: 8300000, guid: 8b6fe101abf3cd8409c6a3f9099383fe, type: 3}
   putDownClip: {fileID: 0}
   pitchRandomizationDelta: 0
@@ -294,6 +295,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   dialogueStartDelay: 0
   overlapYOffset: 0.00015
+  attachedItem: {fileID: 0}
   yOffset: 0.00015
 --- !u!65 &6146018751742547871
 BoxCollider:

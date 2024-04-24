@@ -36,7 +36,7 @@ public class HoveringObject : MonoBehaviour
     private bool isHoveredOn;
     private bool hoverable;
     private float OnMouseEnterCooldown = 0.2f;
-    private float MaxClickTime = 0.11f;
+    private float MaxClickTime = 0.25f;
     
     private Transform holdItemTransform;
     private PlayerInputActions playerInput;
@@ -222,6 +222,10 @@ public class HoveringObject : MonoBehaviour
     private void OnMouseOver()
     {
         mouseCurrentlyOverHitbox = true;
+        if (playerInput.Player.LeftClick.IsPressed())
+        {
+            CursorManager.instance.EnableDragCursor();
+        }
     }
 
     private void StartDialogue()

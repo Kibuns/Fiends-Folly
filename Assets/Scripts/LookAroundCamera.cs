@@ -16,6 +16,11 @@ public class LookAroundCamera : MonoBehaviour
     public float LookIntensityX;
     public float LookIntensityY;
 
+    [SerializeField] private float bobbingSpeed = 1f;
+    [SerializeField] private float bobbingAmount = 0.1f;
+
+    private float bobbingOffset = 0f;
+
 
     public bool bentOverTable;
     public bool turnedAround;
@@ -43,6 +48,13 @@ public class LookAroundCamera : MonoBehaviour
 
 
         Quaternion composedTargetRotation = currentTargetPosition.localRotation * Quaternion.Euler(MouseRotationOffset);
+
+        bobbingOffset += Time.deltaTime * bobbingSpeed;
+        float yOffset = Mathf.Sin(bobbingOffset) * bobbingAmount;
+        float xOffset = Mathf.Cos(bobbingOffset + 3.1415f) * bobbingAmount * 1.3f;
+        Vector3 bobbingOffsetVector = new Vector3(yOffset, yOffset, 0f);
+        composedTargetRotation *= Quaternion.Euler(bobbingOffsetVector);
+
         transform.localRotation = Quaternion.Lerp(transform.localRotation, composedTargetRotation, rotationLerpSpeed * Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, currentTargetPosition.position, rotationLerpSpeed * Time.deltaTime);
 
