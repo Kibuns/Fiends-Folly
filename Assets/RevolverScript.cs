@@ -126,6 +126,8 @@ public class RevolverScript : MonoBehaviour
         }
         else
         {
+            item.RMBToolTip = "Drop Gun";
+            ItemManager.Instance.SetToolTipsInCanvas();
             blankShotCounter++;
             targetRotation = new Vector3(0, 0, targetRotation.z + 60);
             if(blankShotCounter == 6) { ShootLoaded(); }
@@ -152,6 +154,7 @@ public class RevolverScript : MonoBehaviour
         yield return new WaitForSeconds(fadeToBlackDelay);
         vignette.roundness = 0f;
         StopAllAudio();
+        GameManager.Instance.ToggleUIVisibility(false);
     }
 
     //maybe event system? on event item picked up, set the collider active so the OnMouse thingies work

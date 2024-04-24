@@ -22,6 +22,10 @@ public class UseRazorScript : MonoBehaviour
         if(usedItem) { return; }
         usedItem = true;
         GetComponentInParent<RazorScript>().UseBladeToCut();
+        Item item = GetComponent<Item>();
+        item.LMBToolTip = "Draw Blood";
+        item.RMBToolTip = "[LOCKED]";
+        ItemManager.Instance.SetToolTipsInCanvas();
     }
 
     private void OnMouseEnter()

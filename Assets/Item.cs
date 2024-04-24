@@ -7,11 +7,15 @@ public class Item : MonoBehaviour
 
     private Transform restTransform;
 
+    [SerializeField] public string LMBToolTip;
+    [SerializeField] public string RMBToolTip;
+
     [SerializeField] public Vector3 offsetPosition;
     [SerializeField] public Vector3 offsetRotation;
 
     [SerializeField] private AudioClip pickupClip;
     [SerializeField] private AudioClip putDownClip;
+    [SerializeField] private float pitchRandomizationDelta = 0f;
 
     private Transform targetTransform;
     private AudioSource source;
@@ -62,6 +66,19 @@ public class Item : MonoBehaviour
             GameManager.Instance.PlayErrorSound();
             return false;
         }
+        try
+        {
+            if (ItemManager.Instance.currentlyHeldItem.transform.parent.TryGetComponent(out RazorScript razorScript) && razorScript.startedCuttingSequence) //if during cutting sequence, cant drop item
+            {
+                GameManager.Instance.PlayErrorSound();
+                return false;
+            }
+        }
+        catch
+        {
+
+        }
+
         ItemManager.Instance.SetHeldItem(this);
         Debug.Log("picked up: " + gameObject.name);
         isBeingHeld = true;
@@ -82,7 +99,8 @@ public class Item : MonoBehaviour
     public void PlayPickupSound()
     {
         if (!pickupClip || GameManager.Instance.isDead) return;
-        if(source.isPlaying) { source.Stop(); }
+        SetPitchToRandom(pitchRandomizationDelta);
+        if (source.isPlaying) { source.Stop(); }
         source.PlayOneShot(pickupClip);
 
     }
@@ -90,7 +108,14 @@ public class Item : MonoBehaviour
     public void PlayPutDownSound()
     {
         if (!putDownClip || GameManager.Instance.isDead) return;
+        SetPitchToRandom(pitchRandomizationDelta);
         source.PlayOneShot(putDownClip);
+    }
+
+    private void SetPitchToRandom(float maxPitchDelta)
+    {
+        if (maxPitchDelta == 0) return;
+        source.pitch = Random.Range(1 - maxPitchDelta, 1 + maxPitchDelta);
     }
 
 

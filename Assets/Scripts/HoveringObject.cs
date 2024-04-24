@@ -50,6 +50,7 @@ public class HoveringObject : MonoBehaviour
     private float dragTimer;
     private float timer;
     private bool isDragging;
+    private bool mouseCurrentlyOverHitbox;
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +100,11 @@ public class HoveringObject : MonoBehaviour
         if (attachedItem.isBeingHeld && playerInput.Player.RightClick.triggered)
         {
             if (GameManager.Instance.isInGunSequence)
+            {
+                GameManager.Instance.PlayErrorSound();
+                return;
+            }
+            if(attachedItem.transform.parent.TryGetComponent(out RazorScript razorScript) && razorScript.startedCuttingSequence) //if during cutting sequence, cant drop item
             {
                 GameManager.Instance.PlayErrorSound();
                 return;
@@ -174,6 +180,10 @@ public class HoveringObject : MonoBehaviour
             //isHoveredOn = false;
             dragTimer = 0f;
             CursorManager.instance.EnablePointCursor();
+            if(!mouseCurrentlyOverHitbox)
+            {
+                MouseExit();
+            }
             return;
         }
         dragTimer = 0f;
@@ -211,6 +221,11 @@ public class HoveringObject : MonoBehaviour
         MoveToMousePosition();
     }
 
+    private void OnMouseOver()
+    {
+        mouseCurrentlyOverHitbox = true;
+    }
+
     private void StartDialogue()
     {
         if (dialogue == null) return;
@@ -222,7 +237,10 @@ public class HoveringObject : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         if (pickupOnInteract && !attachedItem.isBeingHeld) yield break;
         if(GameManager.Instance.isDead) yield break;
-        if(attachedItem.GetComponent<RevolverScript>().hasShotBlank) yield break;
+        if (attachedItem.TryGetComponent(out RevolverScript revolverScript))
+        {
+            if (revolverScript.hasShotBlank) yield break;
+        }
         ShowDialogue();
     }
 
@@ -247,7 +265,13 @@ public class HoveringObject : MonoBehaviour
 
     private void OnMouseExit()
     {
+        mouseCurrentlyOverHitbox = false;
         if (isDragging) return;
+        MouseExit();
+    }
+
+    private void MouseExit()
+    {
         isHoveredOn = false;
         CursorManager.instance.EnableDefaultCursor();
         if (gameObject.layer != highlightLayer && hoverable)

@@ -99,10 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288bc3736631a234f94c75b71b27aaee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LMBToolTip: Quack
+  RMBToolTip: 
   offsetPosition: {x: 0, y: 0.1, z: 0}
   offsetRotation: {x: 14.8, y: 215.4, z: -0.28}
   pickupClip: {fileID: 8300000, guid: 8b6fe101abf3cd8409c6a3f9099383fe, type: 3}
   putDownClip: {fileID: 0}
+  pitchRandomizationDelta: 0
   lerpSpeed: 10
 --- !u!82 &2332216590071596480
 AudioSource:

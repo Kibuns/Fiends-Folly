@@ -14,6 +14,7 @@ public class RazorScript : MonoBehaviour
     public float lerpSpeed;
     public float showBladeDelay;
 
+    public bool startedCuttingSequence;
     private bool bladeShowing;
     private PlayerInputActions playerInputActions;
     private bool isCutting;
@@ -60,6 +61,7 @@ public class RazorScript : MonoBehaviour
     {
         if (bladeShowing)
         {
+            startedCuttingSequence = true;
             if (Quaternion.Angle(razorBlade.transform.localRotation, Quaternion.Euler(shownBladeEulerRotation)) < 3) return;
             razorBlade.transform.localRotation = Quaternion.Slerp(razorBlade.transform.localRotation, Quaternion.Euler(shownBladeEulerRotation), (lerpSpeed * Time.deltaTime));
         }

@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] GameObject dialogueBox;
     [SerializeField] TMPro.TMP_Text dialogueTextField;
     [SerializeField] float shakeWaitTime;
+    [SerializeField] private float pitchRandomizationDelta = 0f;
 
     private Coroutine currentDialogueCoroutine;
     private Coroutine typingCoroutine;
@@ -92,6 +93,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in sentenceText)
         {
             dialogueTextField.text += c;
+            audioSource.pitch = Random.Range(1 - pitchRandomizationDelta, 1 + pitchRandomizationDelta);
             audioSource.Play();
             yield return new WaitForSeconds(sentence.characterTypingTime);
         }

@@ -322,10 +322,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288bc3736631a234f94c75b71b27aaee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LMBToolTip: '[Hold] Play'
+  RMBToolTip: 
   offsetPosition: {x: 0.04, y: 0.12, z: 0.05}
   offsetRotation: {x: 53.54, y: -146.9, z: 0}
   pickupClip: {fileID: 0}
   putDownClip: {fileID: 0}
+  pitchRandomizationDelta: 0
   lerpSpeed: 10
 --- !u!114 &5660325800878400368
 MonoBehaviour:

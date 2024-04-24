@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int coins;
+    [SerializeField] public Canvas playerCanvas;
 
     [SerializeField] public bool startGunSequence;
     [SerializeField] AudioClip bellClip;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Transform ritualItemSpawnPoint;
     [SerializeField] public GameObject ritualItemPrefab;
     [SerializeField] public GameObject surpriseDecal;
+
 
     [SerializeField] public GameObject gunPrefab;
     [SerializeField] public Transform gunSpawnPoint;
@@ -170,7 +172,7 @@ public class GameManager : MonoBehaviour
 
     public void PlaySuccesSound()
     {
-        source.PlayOneShot(succesClip);
+        source.PlayOneShot(succesClip, 0.4f);
     }
 
     public void PlayScaryMusic()
@@ -195,6 +197,11 @@ public class GameManager : MonoBehaviour
         GameObject spawnedRitualItem = Instantiate(ritualItemPrefab, ritualItemSpawnPoint);
         spawnedRitualItem.transform.parent = null;
         RingPhoneForSeconds(10f, 10f);
+    }
+
+    public void ToggleUIVisibility(bool visible)
+    {
+        playerCanvas.enabled = visible;
     }
 
     public float GetMinutesPassed()

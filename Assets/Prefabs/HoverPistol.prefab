@@ -757,6 +757,7 @@ MonoBehaviour:
   vanishDelay: 1
   vanishSpeed: 0.35
   isLoaded: 0
+  hasShotBlank: 0
 --- !u!114 &5645314239555981482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,8 +770,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288bc3736631a234f94c75b71b27aaee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LMBToolTip: Pull Trigger
+  RMBToolTip: '[LOCKED]'
   offsetPosition: {x: 0.2, y: 0.08, z: -0.06}
   offsetRotation: {x: -5.11, y: -151.34, z: -7.1}
   pickupClip: {fileID: 8300000, guid: 364282f0afe2f8a4282837e339fdb0f0, type: 3}
   putDownClip: {fileID: 8300000, guid: d1a3eeb100ea8824aaa09330a43e4679, type: 3}
+  pitchRandomizationDelta: 0
   lerpSpeed: 10
