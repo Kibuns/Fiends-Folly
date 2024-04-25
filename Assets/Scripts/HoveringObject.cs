@@ -19,6 +19,7 @@ public class HoveringObject : MonoBehaviour
     public bool pickupOnInteract; //doesnt override other IInteractable behaviours
     public bool playSoundOnHover;
     public bool startDialogueOnInteract; //doesnt override other IInteractable behaviours
+    public bool playDialogueOnlyOnce;
     public bool isInFrontOfFurnace;
     public bool showColorsOnHover = false;
     [SerializeField] public Dialogue dialogue;
@@ -50,6 +51,7 @@ public class HoveringObject : MonoBehaviour
     private float dragTimer;
     private float timer;
     private bool isDragging;
+    private bool playedDialogue;
     private bool mouseCurrentlyOverHitbox;
 
     // Start is called before the first frame update
@@ -239,7 +241,7 @@ public class HoveringObject : MonoBehaviour
 
     private void StartDialogue()
     {
-        if (dialogue == null) return;
+        if (dialogue == null || (playDialogueOnlyOnce && playedDialogue)) return;
         StartCoroutine(DialogueDelay(dialogueStartDelay));
     }
 
@@ -253,6 +255,7 @@ public class HoveringObject : MonoBehaviour
             if (revolverScript.hasShotBlank) yield break;
         }
         ShowDialogue();
+        playedDialogue = true;
     }
 
     private void ShowDialogue()

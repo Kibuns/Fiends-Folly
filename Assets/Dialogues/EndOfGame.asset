@@ -32,7 +32,7 @@ MonoBehaviour:
     shouldShake: 0
     shakeOffsetDelta: 0
     textColor: {r: 0.7075472, g: 0.08290392, b: 0.050062295, a: 1}
-  - text: THANK YOU FOR PLAYING ALONG
+  - text: THANK YOU FOR PLAYING
     duration: 8
     characterTypingTime: 0.1
     shouldShake: 0

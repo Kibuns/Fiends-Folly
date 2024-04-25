@@ -7,6 +7,10 @@ public class FurnaceScript : MonoBehaviour, IInteractable
 {
     [SerializeField] public Transform burningObjectSelectionPoint;
     [SerializeField] private AudioClip burnClip;
+    [SerializeField] private AudioClip openClip;
+    [SerializeField] private AudioClip closeClip;
+    [SerializeField] private Dialogue bibleDialogue;
+    [SerializeField] private Dialogue duckDialogue;
     public float lerpSpeed;
     private Quaternion startRotation;
     private Quaternion openRotation;
@@ -50,9 +54,14 @@ public class FurnaceScript : MonoBehaviour, IInteractable
         StartCoroutine(ToggleDoorWithDelay(1f, false));
         source.PlayOneShot(burnClip);
 
-        if (eatenObjectName == "RubberDuck(Clone)")
+        if (eatenObjectName == "RubberDuck(Clone)" || eatenObjectName == "RubberDuck")
         {
-            GameManager.Instance.StartGunSequence(false, 1.5f, GameManager.DeathReason.SixthRevolverChamber);
+            DialogueManager.instance.StartDialogue(duckDialogue);
+            GameManager.Instance.StartGunSequence(false, 3.5f, GameManager.DeathReason.SixthRevolverChamber);
+        }
+        else if (eatenObjectName == "HoverBible")
+        {
+            DialogueManager.instance.StartDialogue(bibleDialogue);
         }
         else
         {
@@ -71,5 +80,7 @@ public class FurnaceScript : MonoBehaviour, IInteractable
         if (GameManager.Instance.isInGunSequence) return;
         if (Quaternion.Angle(door.localRotation, currentTargetRotation) > 12f) return;
         doorIsOpen = !doorIsOpen;
+        if (doorIsOpen) { source.PlayOneShot(openClip); }
+        else { source.PlayOneShot(closeClip); }
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 public class DuckScript : MonoBehaviour
 {
     [SerializeField] private AudioClip QuackSound;
+    [SerializeField] private Dialogue smallOwieDialogue;
+    [SerializeField] private Dialogue mediumOwieDialogue;
+    [SerializeField] private Dialogue largeOwieDialogue;
     [SerializeField] private float pitchDecreaseAmount = 0.05f;
     private bool startedSequence;
     private HoveringObject hoveringObjectScript;
@@ -13,10 +16,12 @@ public class DuckScript : MonoBehaviour
 
     private bool sequenceStarted;
     private bool gotPickedUp;
+    private int peepCount;
     
     // Start is called before the first frame update
     void Start()
     {
+        peepCount = 0;
         source = GetComponent<AudioSource>();
         hoveringObjectScript = GetComponentInParent<HoveringObject>();
         itemScript = GetComponent<Item>();
@@ -80,6 +85,22 @@ public class DuckScript : MonoBehaviour
             return;
         }
         source.pitch -= pitchDecreaseAmount;
+        peepCount++;
+        if( peepCount == 5 )
+        {
+            DialogueManager.instance.StartDialogue(smallOwieDialogue);
+        }
+
+        if (peepCount == 30)
+        {
+            DialogueManager.instance.StartDialogue(mediumOwieDialogue);
+        }
+
+        if (peepCount == 80)
+        {
+            DialogueManager.instance.StartDialogue(largeOwieDialogue);
+        }
+
     }
 
     private IEnumerator StartGunSequenceAfterQuackSound()

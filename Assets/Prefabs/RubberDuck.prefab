@@ -217,6 +217,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuackSound: {fileID: 8300000, guid: e563a31b1362c074296439bf9112b080, type: 3}
+  smallOwieDialogue: {fileID: 11400000, guid: c1d1ed9d7589c9c4a9bba6591507bedf, type: 2}
+  mediumOwieDialogue: {fileID: 11400000, guid: 87c6a0a32ad823e45b5c809ad2982459, type: 2}
+  largeOwieDialogue: {fileID: 11400000, guid: bcb7c7f1784d2214d843ef13248acf1c, type: 2}
   pitchDecreaseAmount: 0.01
 --- !u!64 &8779714755628542896
 MeshCollider:

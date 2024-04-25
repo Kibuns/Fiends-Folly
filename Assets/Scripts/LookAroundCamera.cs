@@ -30,6 +30,8 @@ public class LookAroundCamera : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private Transform currentTargetPosition;
     private int currentTargetIndex;
+
+    private float triggeredSecondsAgo;
     // Start is called before the first frame update
 
     private void OnEnable()
@@ -49,22 +51,37 @@ public class LookAroundCamera : MonoBehaviour
         GameManager.Instance.isTurnedAround = turnedAround;
     }
 
+
     // Update is called once per frame
     void Update()
     {
+        triggeredSecondsAgo += Time.deltaTime;
+        if (playerInputActions.Player.Jump.triggered)
+        {
+            triggeredSecondsAgo = 0f;
+        }
         mousInput = Input.mousePosition;
         mousePercentagePosition = new Vector2(Mathf.Clamp((mousInput.x / Screen.width) - 0.5f, -0.5f, 0.5f), Mathf.Clamp((mousInput.y / Screen.height) - 0.5f, -0.5f, 0.5f));
 
 
         Quaternion composedTargetRotation = currentTargetPosition.localRotation * Quaternion.Euler(MouseRotationOffset);
-
         bobbingOffset += Time.deltaTime * bobbingSpeed;
         float yOffset = Mathf.Sin(bobbingOffset) * bobbingAmount;
         float xOffset = Mathf.Cos(bobbingOffset + 3.1415f) * bobbingAmount * 1.3f;
         Vector3 bobbingOffsetVector = new Vector3(xOffset, yOffset, 0f);
         composedTargetRotation *= Quaternion.Euler(bobbingOffsetVector);
 
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, composedTargetRotation, rotationLerpSpeed * Time.deltaTime);
+        //!!!!!!!!!JANK: to get the camera to rotate the nicest way around, without this it prettymuch always chooses the same side to turn.
+        if(triggeredSecondsAgo < 0.2f)
+        {
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, currentTargetPosition.localRotation, rotationLerpSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, composedTargetRotation, rotationLerpSpeed * Time.deltaTime);
+        }
+        ////Jank^^ (it does work rly well tho so this may as well just stay like this)
+        
         transform.position = Vector3.Lerp(transform.position, currentTargetPosition.position, rotationLerpSpeed * Time.deltaTime);
         if (ignoreInput) return;
         if (playerInputActions.Player.Jump.triggered && GameManager.Instance.isInGunSequence)
@@ -84,7 +101,7 @@ public class LookAroundCamera : MonoBehaviour
             else { currentTargetPosition = defaultPosition;}
         }
 
-        if(turnedAround) { return; }
+        if (turnedAround) { return; }
 
         if (playerInputActions.Player.MoveForward.triggered && !GameManager.Instance.isInGunSequence)
         {
