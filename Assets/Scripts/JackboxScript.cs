@@ -93,7 +93,7 @@ public class JackboxScript : MonoBehaviour
         if(minutesCranked < minimumMinutesForFailure) { return; }
         if (Mathf.Abs(minutesCranked - targetMinutes) < marginForError)
         {
-            StartCoroutine(SpawnDelay(3));
+            StartCoroutine(SpawnDelay(5));
             TarotManager.Instance.CompleteTimeTarot(0.5f);
         }
         else

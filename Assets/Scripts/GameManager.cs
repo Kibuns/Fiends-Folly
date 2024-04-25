@@ -24,12 +24,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioClip errorClip;
     [SerializeField] AudioClip succesClip;
     [SerializeField] AudioClip scaryMusicClip;
+    [SerializeField] AudioClip spawnItemClip;
     [SerializeField] public float secondsInHalfDay = 100f;
     [SerializeField] public Transform generalItemSpawnPoint;
     [SerializeField] public GameObject generalItemPrefab;
     [SerializeField] public Transform ritualItemSpawnPoint;
     [SerializeField] public GameObject ritualItemPrefab;
     [SerializeField] public GameObject surpriseDecal;
+    [SerializeField] public GameObject spawnVFX;
 
 
     [SerializeField] public GameObject gunPrefab;
@@ -174,6 +176,11 @@ public class GameManager : MonoBehaviour
         source.PlayOneShot(succesClip, 0.4f);
     }
 
+    public void PlaySpawnSound()
+    {
+        source.PlayOneShot(spawnItemClip, 1f);
+    }
+
     public void PlayScaryMusic()
     {
         source.clip = scaryMusicClip;
@@ -188,13 +195,22 @@ public class GameManager : MonoBehaviour
 
     public void SpawnGeneralItem()
     {
-        Instantiate(generalItemPrefab, generalItemSpawnPoint);
+        StartCoroutine(SpawnItemSequence(generalItemPrefab, generalItemSpawnPoint));
+    }
+
+    public IEnumerator SpawnItemSequence(GameObject spawnedItem, Transform point)
+    {
+        GameObject fx = Instantiate(spawnVFX, point);
+        fx.GetComponent<DestroyAfterSeconds>().enabled = true;
+        PlaySpawnSound();
+        yield return new WaitForSeconds(1f);
+        GameObject item = Instantiate(spawnedItem, point);
+        item.transform.parent = null;
     }
 
     public void SpawnRitualItem()
     {
-        GameObject spawnedRitualItem = Instantiate(ritualItemPrefab, ritualItemSpawnPoint);
-        spawnedRitualItem.transform.parent = null;
+        StartCoroutine(SpawnItemSequence(ritualItemPrefab, ritualItemSpawnPoint));
         RingPhoneForSeconds(10f, 10f);
         TarotManager.Instance.CompleteRitualTarot(1.5f);
     }

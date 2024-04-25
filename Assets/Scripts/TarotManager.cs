@@ -105,7 +105,7 @@ public class TarotManager : MonoBehaviour
             flameVFXObject.transform.position = newFramePosition;
 
             newFrameRotation = Vector3.Slerp(newFrameRotation, completeTargetPoint.eulerAngles, lerpSpeed * Time.deltaTime);
-            tarotCard.SetRestRotation(newFrameRotation);
+            tarotCard.SetHoverRotation(newFrameRotation);
             yield return null;
         }
         if (GameManager.Instance.isDead) yield break;

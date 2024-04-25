@@ -75,6 +75,10 @@ public class LookAroundCamera : MonoBehaviour
         if (playerInputActions.Player.Jump.triggered && !GameManager.Instance.isInGunSequence)
         {
             turnedAround = !turnedAround;
+            if (ItemManager.Instance.currentlyHeldItem != null) {
+                Debug.Log("has held item");
+                ItemManager.Instance.currentlyHeldItem.GetComponentInParent<HoveringObject>().TurnRestAndHoverRotation();
+            } //turn the front facing rotation with the player if they pick up item and turn around
             GameManager.Instance.isTurnedAround = turnedAround;
             if (turnedAround) { currentTargetPosition = ritualPosition; }
             else { currentTargetPosition = defaultPosition;}

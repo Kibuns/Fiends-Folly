@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class MouseFollow : MonoBehaviour
 {
@@ -41,13 +42,22 @@ public class MouseFollow : MonoBehaviour
         bool triggeredThisFrame = false;
         if (playerInput.Player.LeftClick.triggered)
         {
-            triggeredThisFrame = true;
-            StartCoroutine(EnableEmissionCoroutine());
-            Instantiate(bloodLinePrefab);
-            bloodWritingSource.volume = 1f;
-            bloodWritingSource.Play();
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                // Check if the raycast hits the ritualFloorCollider
+                if (hit.collider == ritualFloorCollider)
+                {
+                    triggeredThisFrame = true;
+                    StartCoroutine(EnableEmissionCoroutine());
+                    Instantiate(bloodLinePrefab);
+                    bloodWritingSource.volume = 1f;
+                    bloodWritingSource.Play();
+                }
+            }
+           
         }
-        if (playerInput.Player.LeftClick.IsPressed())
+        if (playerInput.Player.LeftClick.IsPressed() && bloodWritingSource.isPlaying)
         {
             if (volumeFadeCoroutine != null) StopCoroutine(volumeFadeCoroutine);
             isWriting = true;

@@ -15,15 +15,6 @@ public class LampScript : MonoBehaviour
             isOn = true;
         }
     }
-    private void OnMouseEnter()
-    {
-        CursorManager.instance.EnablePointCursor();
-    }
-
-    private void OnMouseExit()
-    {
-        CursorManager.instance.EnableDefaultCursor();
-    }
 
     private void OnMouseDown()
     {

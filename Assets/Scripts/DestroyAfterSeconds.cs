@@ -13,7 +13,9 @@ public class DestroyAfterSeconds : MonoBehaviour
 
     private IEnumerator DestroyCoroutine(float seconds)
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(seconds - 0.05f);
+        GetComponent<AudioSource>().Stop();
+        yield return new WaitForSeconds(0.05f);
         Destroy(gameObject);
     }
 

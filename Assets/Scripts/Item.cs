@@ -37,7 +37,9 @@ public class Item : MonoBehaviour
     }
     void Start()
     {
+
         col = GetComponent<Collider>();
+        if (alwaysActiveCollider) col.enabled = true;
         Transform startTransform = transform;
         restTransform = startTransform;
         targetTransform = ItemManager.Instance.holdItemPosition;
@@ -65,7 +67,6 @@ public class Item : MonoBehaviour
     {
         if (col == null) return;
         if (alwaysActiveCollider) { 
-            col.enabled = true;
             return;
         }
         col.enabled = value;
@@ -127,6 +128,12 @@ public class Item : MonoBehaviour
         if (!putDownClip || GameManager.Instance.isDead) return;
         SetPitchToRandom(pitchRandomizationDelta);
         source.PlayOneShot(putDownClip);
+
+        //for phone
+        if(TryGetComponent(out PhoneScript phoneScript))
+        {
+            if(phoneScript.isRinging) { phoneScript.StopRing(); }
+        }
     }
 
     private void SetPitchToRandom(float maxPitchDelta)
@@ -149,7 +156,6 @@ public class Item : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if(!isBeingHeld) return;
         CursorManager.instance.EnableDefaultCursor();
     }
 

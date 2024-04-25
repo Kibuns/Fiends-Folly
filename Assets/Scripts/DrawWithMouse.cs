@@ -115,7 +115,6 @@ public class DrawWithMouse : MonoBehaviour
             if (writtenCorrectSymbol)
             {
                 GameManager.Instance.SpawnRitualItem();
-                GameManager.Instance.PlayBellSound();
             }
 
 

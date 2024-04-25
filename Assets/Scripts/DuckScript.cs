@@ -53,6 +53,7 @@ public class DuckScript : MonoBehaviour
 
         // Make the duck look at the camera
         hoveringObjectScript.transform.LookAt(FindObjectOfType<LookAroundCamera>().transform);
+        hoveringObjectScript.ResetRestRotation();
 
 
         Debug.Log("angle: " + angle);

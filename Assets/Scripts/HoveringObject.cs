@@ -352,11 +352,22 @@ public class HoveringObject : MonoBehaviour
     {
         localRestPosition = position;
     }
-    public void SetRestRotation(Vector3 rotation)
+    public void SetHoverRotation(Vector3 rotation)
     {
-
-        //localRestRotation = rotation; <- should be this idk?? jank
         hoverRotation = rotation;
+    }
+
+    public void TurnRestAndHoverRotation()
+    {
+        hoverRotation = new Vector3(hoverRotation.x, hoverRotation.y + 180, hoverRotation.z);
+        localRestRotation = new Vector3(localRestRotation.x, localRestRotation.y + 180, localRestRotation.z);
+        Debug.Log(localRestRotation);
+    }
+
+    //made for ducky
+    public void ResetRestRotation()
+    {
+        localRestRotation = Vector3.zero;
     }
 
     private void SetSelected(bool selected)

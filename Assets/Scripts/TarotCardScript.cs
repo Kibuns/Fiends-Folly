@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class TarotCardScript : MonoBehaviour
 {
     private Item attachedItem;
+    [SerializeField] private AudioClip flipClip;
     private bool turned;
     public bool pickUpTurned;
     private Vector3 startingOffsetRotation;
+    private AudioSource source;
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         attachedItem = GetComponent<Item>();
         startingOffsetRotation = attachedItem.offsetRotation;
     }
@@ -51,6 +55,7 @@ public class TarotCardScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        turned = !turned;  
+        turned = !turned;
+        source.PlayOneShot(flipClip);
     }
 }
