@@ -18,6 +18,7 @@ public class LookAroundCamera : MonoBehaviour
 
     [SerializeField] private float bobbingSpeed = 1f;
     [SerializeField] private float bobbingAmount = 0.1f;
+    [SerializeField] private float cooldown;
 
     private float bobbingOffset = 0f;
 
@@ -31,7 +32,8 @@ public class LookAroundCamera : MonoBehaviour
     private Transform currentTargetPosition;
     private int currentTargetIndex;
 
-    private float triggeredSecondsAgo;
+    private float triggeredSecondsAgo = 0f;
+    private float cooldownTimer;
     // Start is called before the first frame update
 
     private void OnEnable()
@@ -46,6 +48,7 @@ public class LookAroundCamera : MonoBehaviour
     }
     void Start()
     {
+        cooldownTimer = 1f;
         mousePercentagePosition = Vector2.zero;
         currentTargetPosition = defaultPosition;
         GameManager.Instance.isTurnedAround = turnedAround;
@@ -55,11 +58,8 @@ public class LookAroundCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        cooldownTimer += Time.deltaTime;
         triggeredSecondsAgo += Time.deltaTime;
-        if (playerInputActions.Player.Jump.triggered)
-        {
-            triggeredSecondsAgo = 0f;
-        }
         mousInput = Input.mousePosition;
         mousePercentagePosition = new Vector2(Mathf.Clamp((mousInput.x / Screen.width) - 0.5f, -0.5f, 0.5f), Mathf.Clamp((mousInput.y / Screen.height) - 0.5f, -0.5f, 0.5f));
 
@@ -84,21 +84,10 @@ public class LookAroundCamera : MonoBehaviour
         
         transform.position = Vector3.Lerp(transform.position, currentTargetPosition.position, rotationLerpSpeed * Time.deltaTime);
         if (ignoreInput) return;
-        if (playerInputActions.Player.Jump.triggered && GameManager.Instance.isInGunSequence)
-        {
-            GameManager.Instance.PlayErrorSound();
-        }
 
-        if (playerInputActions.Player.Jump.triggered && !GameManager.Instance.isInGunSequence)
+        if (playerInputActions.Player.Jump.triggered)
         {
-            turnedAround = !turnedAround;
-            if (ItemManager.Instance.currentlyHeldItem != null) {
-                Debug.Log("has held item");
-                ItemManager.Instance.currentlyHeldItem.GetComponentInParent<HoveringObject>().TurnRestAndHoverRotation();
-            } //turn the front facing rotation with the player if they pick up item and turn around
-            GameManager.Instance.isTurnedAround = turnedAround;
-            if (turnedAround) { currentTargetPosition = ritualPosition; }
-            else { currentTargetPosition = defaultPosition;}
+            TurnAround();
         }
 
         if (turnedAround) { return; }
@@ -112,6 +101,27 @@ public class LookAroundCamera : MonoBehaviour
         {
             currentTargetPosition = defaultPosition;
         }
+    }
+
+    public void TurnAround()
+    {
+        if(cooldownTimer < cooldown) { return; }
+        cooldownTimer = 0f;
+        triggeredSecondsAgo = 0f;
+        if (GameManager.Instance.isInGunSequence)
+        {
+            GameManager.Instance.PlayErrorSound();
+            return;
+        }
+        turnedAround = !turnedAround;
+        if (ItemManager.Instance.currentlyHeldItem != null)
+        {
+            Debug.Log("has held item");
+            ItemManager.Instance.currentlyHeldItem.GetComponentInParent<HoveringObject>().TurnRestAndHoverRotation();
+        } //turn the front facing rotation with the player if they pick up item and turn around
+        GameManager.Instance.isTurnedAround = turnedAround;
+        if (turnedAround) { currentTargetPosition = ritualPosition; }
+        else { currentTargetPosition = defaultPosition; }
     }
 
     public void MoveToDefaultPosition()
