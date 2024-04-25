@@ -6,16 +6,18 @@ using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
+    MusicManager Instance;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 }

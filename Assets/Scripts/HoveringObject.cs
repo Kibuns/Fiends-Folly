@@ -53,12 +53,21 @@ public class HoveringObject : MonoBehaviour
     private bool mouseCurrentlyOverHitbox;
 
     // Start is called before the first frame update
+
+    private void OnEnable()
+    {
+        playerInput = new PlayerInputActions();
+        playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Disable();
+    }
     void Start()
     {
         if (showColorsOnHover) { selectedLayer = bloodLayer; }
         attachedItem = hoveringObject.GetComponent<Item>();
-        playerInput = new PlayerInputActions();
-        playerInput.Enable();
         localRestPosition = hoveringObject.transform.localPosition;
         localRestRotation = hoveringObject.transform.localEulerAngles;
         globalStartPosition = transform.position;
@@ -198,7 +207,7 @@ public class HoveringObject : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No IInteractable component found on gameobject");
+            //Debug.LogWarning("No IInteractable component found on gameobject");
         }
         if (pickupOnInteract)
         {

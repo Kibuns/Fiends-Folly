@@ -56,7 +56,7 @@ public class CandleScript : MonoBehaviour
         //if (candleLight.lightmapBakeType != LightmapBakeType.Realtime) //lightmapBakeType property is editor only for some reason
         //{
         //    Debug.LogWarning("Light component is not set to Realtime.");
-        //}
+        //}www
         if (candleLight == null)
         {
             Debug.LogError("Light component cannot be found on GameObject");
@@ -64,7 +64,7 @@ public class CandleScript : MonoBehaviour
 
         if (flameLight == null)
         {
-            Debug.LogError("No Flame Found");
+            //Debug.LogError("No Flame Found");
             isFlamePresent = false;
         }
     }

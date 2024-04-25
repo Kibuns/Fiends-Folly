@@ -9,9 +9,11 @@ public class PixelArtFilter : MonoBehaviour
 
     private Material pixelArtMat;
 
+
+
     void OnEnable()
     {
-        pixelArtMat ??= new Material(pixelArtFilter);
+        pixelArtMat = new Material(pixelArtFilter);
         pixelArtMat.hideFlags = HideFlags.HideAndDontSave;
     }
 

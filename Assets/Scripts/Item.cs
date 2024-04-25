@@ -25,10 +25,18 @@ public class Item : MonoBehaviour
     private PlayerInputActions playerInput;
     public bool isBeingHeld {  get; private set; }
     public float lerpSpeed = 10f;
-    void Start()
+
+    private void OnEnable()
     {
         playerInput = new PlayerInputActions();
         playerInput.Enable();
+    }
+    private void OnDisable()
+    {
+        playerInput.Disable();
+    }
+    void Start()
+    {
         col = GetComponent<Collider>();
         Transform startTransform = transform;
         restTransform = startTransform;

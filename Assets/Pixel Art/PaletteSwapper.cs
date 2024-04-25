@@ -11,7 +11,7 @@ public class PaletteSwapper : MonoBehaviour {
     private Material paletteMat;
     
     void OnEnable() {
-        paletteMat ??= new Material(paletteShader);
+        paletteMat = new Material(paletteShader);
         paletteMat.hideFlags = HideFlags.HideAndDontSave;
     }
 

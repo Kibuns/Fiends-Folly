@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
             while (t < duration)
             {
                 float emission = Mathf.Lerp(minEmission, maxEmission, Mathf.PingPong(t / duration, 1));
-                Debug.Log(emission);
                 Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
                 material.SetColor("_EmissionColor", finalColor);
 
@@ -139,7 +138,6 @@ public class GameManager : MonoBehaviour
             while (t < duration * 3)
             {
                 float emission = Mathf.Lerp(maxEmission, minEmission, Mathf.PingPong(t / (duration * 3), 1));
-                Debug.Log(emission);
                 Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
                 material.SetColor("_EmissionColor", finalColor);
 

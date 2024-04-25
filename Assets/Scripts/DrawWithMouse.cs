@@ -17,6 +17,17 @@ public class DrawWithMouse : MonoBehaviour
     private bool writtenCorrectSymbol;
     private Color currentColor;
 
+
+    private void OnEnable()
+    {
+        input = new PlayerInputActions();
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
+    }
     private void Start()
     {
         mouseFollowObject = GameObject.FindObjectOfType<MouseFollow>().transform;
@@ -24,8 +35,6 @@ public class DrawWithMouse : MonoBehaviour
         line = GetComponent<LineRenderer>();
         line.renderingLayerMask = 6;
         line.positionCount = 1;
-        input = new PlayerInputActions();
-        input.Enable();
         lineMaterial = line.material;
     }
 

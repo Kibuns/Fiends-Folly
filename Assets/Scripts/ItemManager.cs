@@ -31,7 +31,7 @@ public class ItemManager : MonoBehaviour
 
     private void Awake()
     {
-        playerActions = new PlayerInputActions();
+        
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -41,12 +41,22 @@ public class ItemManager : MonoBehaviour
             Instance = this;
         }
     }
+
+    private void OnEnable()
+    {
+        playerActions = new PlayerInputActions();
+        playerActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerActions.Disable();
+    }
     void Start()
     {
         toolTipGroup.alpha = 0f;
         holdItemStartPosition = holdItemPosition.localPosition;
         holdItemStartRotation = holdItemPosition.localRotation;
-        playerActions.Enable();
 
         Image[] images = toolTipGroup.gameObject.GetComponentsInChildren<Image>();
         UIStartAlpha = images[0].color.a;
