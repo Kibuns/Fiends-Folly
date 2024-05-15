@@ -133,6 +133,11 @@ public class Item : MonoBehaviour
         if(TryGetComponent(out PhoneScript phoneScript))
         {
             if(phoneScript.isRinging) { phoneScript.StopRing(); }
+            if(phoneScript.ringCount == 3 && !phoneScript.isAnswering)
+            {
+                GameManager.Instance.StartGunSequence(true, 0.5f, GameManager.DeathReason.WrongPhonePickup);
+            }
+            
         }
     }
 

@@ -14,7 +14,7 @@ public class PhoneScript : MonoBehaviour
 
     public bool startRing;
 
-    int ringCount;
+    public int ringCount;
 
     public bool isRinging;
     public bool isAnswering;

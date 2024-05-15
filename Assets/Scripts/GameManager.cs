@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject ritualItemPrefab;
     [SerializeField] public GameObject surpriseDecal;
     [SerializeField] public GameObject spawnVFX;
+    [SerializeField] private Vignette vignette;
 
 
     [SerializeField] public GameObject gunPrefab;
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     private bool revealedDecal;
     private AudioSource source;
     private Vector3 ritualStartPosition;
+    private AudioSource[] allAudioSources;
 
     public static GameManager Instance;
     private void Awake()
@@ -63,6 +65,11 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
+        }
+
+        if (vignette == null)
+        {
+            vignette = FindObjectOfType<Vignette>();
         }
     }
     private void Start()
@@ -87,6 +94,20 @@ public class GameManager : MonoBehaviour
             revealedDecal = true;
             StartCoroutine(RevealDecalSequence());
         }
+    }
+
+    public void StopAllAudio()
+    {
+        allAudioSources = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource source in allAudioSources)
+        {
+            source.Stop();
+        }
+    }
+
+    public void SetVignetteRoundness(float roundness)
+    {
+        vignette.roundness = roundness;
     }
 
     private IEnumerator RevealDecalSequence()

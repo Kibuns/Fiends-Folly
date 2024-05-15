@@ -8,7 +8,6 @@ public class RevolverScript : MonoBehaviour
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private AudioClip shotClip;
     [SerializeField] private AudioClip blankShotClip;
-    [SerializeField] private Vignette vignette;
     [SerializeField] private float fadeToBlackDelay = 0.04f;
     [SerializeField] private float vanishDelay = 0.5f;
     [SerializeField] private float vanishSpeed = 20f;
@@ -20,29 +19,12 @@ public class RevolverScript : MonoBehaviour
     private Collider col;
     private Item item;
     private AudioSource source;
-    private AudioSource[] allAudioSources;
+    
     private bool isBeingHeld;
     private bool startedScaryMusic;
     private int blankShotCounter;
     private Vector3 targetRotation;
-    // Start is called before the first frame update
-
-    void Awake()
-    {
-        if(vignette == null)
-        {
-            vignette = FindObjectOfType<Vignette>();
-        }
-    }
-
-    private void StopAllAudio()
-    {
-        allAudioSources = FindObjectsOfType<AudioSource>();
-        foreach (AudioSource source in allAudioSources)
-        {
-            source.Stop();
-        }
-    }
+    
     void Start()
     {
         col = GetComponent<Collider>();
@@ -51,7 +33,6 @@ public class RevolverScript : MonoBehaviour
         source = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         LerpCylinderToTarget();
@@ -152,8 +133,8 @@ public class RevolverScript : MonoBehaviour
     private IEnumerator FadeToBlack()
     {
         yield return new WaitForSeconds(fadeToBlackDelay);
-        vignette.roundness = 0f;
-        StopAllAudio();
+        GameManager.Instance.SetVignetteRoundness(0);
+        GameManager.Instance.StopAllAudio();
         GameManager.Instance.ToggleUIVisibility(false);
     }
 

@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringObject: {fileID: 3768579883597438543}
-  hoverPositionDelta: {x: -0.2, y: 0, z: 0}
+  hoverPositionDelta: {x: -0.05, y: 0, z: 0}
   maxHoverHeightDelta: 0.002
   maxHoverRotationDelta: 2
   bobbingSpeedMultiplier: 1.2
@@ -73,6 +73,7 @@ MonoBehaviour:
   pickupOnInteract: 1
   playSoundOnHover: 0
   startDialogueOnInteract: 0
+  playDialogueOnlyOnce: 0
   isInFrontOfFurnace: 0
   showColorsOnHover: 0
   dialogue: {fileID: 0}
@@ -311,6 +312,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1638204274649460, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
   m_PrefabInstance: {fileID: 3767681788166420283}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &6237272137636635447
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768579883597438543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.019142328, y: 0.34, z: 0.034469504}
+  m_Center: {x: -0.0000000036097854, y: -0.015140537, z: -0.0035546578}
 --- !u!114 &3767681788283101764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LMBToolTip: Cut
   RMBToolTip: 
+  alwaysActiveCollider: 0
   offsetPosition: {x: 0.25, y: 0, z: 0}
   offsetRotation: {x: 25, y: -90, z: -25.1}
   pickupClip: {fileID: 0}
@@ -343,19 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7e82dc5066bcb45a8e613989e1298c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &6237272137636635447
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3768579883597438543}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.019142328, y: 0.34, z: 0.034469504}
-  m_Center: {x: -0.0000000036097854, y: -0.015140537, z: -0.0035546578}
 --- !u!1 &3769374404394672271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1966559983228852, guid: 98cb87a595c51234884e4d5c38103d3e, type: 3}
