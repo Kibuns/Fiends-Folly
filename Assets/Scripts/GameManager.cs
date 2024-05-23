@@ -119,13 +119,13 @@ public class GameManager : MonoBehaviour
             yield break;
         }
         
-        surpriseDecal.SetActive(true);
         while(isTurnedAround)
         {
             yield return null;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.35f);
         PlayBellSound();
+        surpriseDecal.SetActive(true);
         StartCoroutine(PulseDecalEmission(surpriseDecal));
     }
 
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
             float duration = 0.5f; // duration of pulsating effect
 
             //set emission to 0
-            material.SetColor("_EmissionColor", baseColor * Mathf.LinearToGammaSpace(0));
+            //material.SetColor("_EmissionColor", baseColor * Mathf.LinearToGammaSpace(0));
             yield return new WaitForSeconds(0.2f);
 
             float t = 0f;

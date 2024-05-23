@@ -48,10 +48,14 @@ public class DrawWithMouse : MonoBehaviour
         if (!GameManager.Instance.isBleeding) return;
 
         Vector3 currentPosition = mouseFollowObject.position;
-        if (!mouseFollow.onRitualCollider) { return; }
+        if (!mouseFollow.onRitualCollider)
+        {
+            Debug.Log("MOUSEFOLLOW NOT ON RITUAL COLLIDER!");
+        }
         if ( input.Player.LeftClick.triggered )
         {
             line.SetPosition(0, currentPosition);
+            return;
         }
 
         if (input.Player.LeftClick.IsPressed())
@@ -67,9 +71,11 @@ public class DrawWithMouse : MonoBehaviour
                 {
                     AddLineSection(currentPosition);
                 }
+
+                previousPosition = currentPosition;
             }
 
-            previousPosition = currentPosition;
+            
         }
         if (input.Player.LeftClick.WasReleasedThisFrame() && line != null)
         {
