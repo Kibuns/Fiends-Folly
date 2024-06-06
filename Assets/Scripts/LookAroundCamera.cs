@@ -108,7 +108,7 @@ public class LookAroundCamera : MonoBehaviour
         if(cooldownTimer < cooldown) { return; }
         cooldownTimer = 0f;
         triggeredSecondsAgo = 0f;
-        if (GameManager.Instance.isInGunSequence)
+        if (GameManager.Instance.isInGunSequence || FindObjectOfType<DrawWithMouse>().startedWriting)
         {
             GameManager.Instance.PlayErrorSound();
             return;

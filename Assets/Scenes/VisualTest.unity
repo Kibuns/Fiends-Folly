@@ -5102,16 +5102,48 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0f0ca90d4948e604eb1f3a214be8986b, type: 2}
     - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: attachedItem
+      value: 
+      objectReference: {fileID: 1382216422}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: canBeDragged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: hoverRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: hoverRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: hoverRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: playSoundOnHover
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: dialogueStartDelay
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: maxHoverHeightDelta
+      value: 0.006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: hoverPositionDelta.y
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: maxHoverRotationDelta
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+      propertyPath: bobbingSpeedMultiplier
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 1551224285, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
       propertyPath: startDialogueOnInteract
@@ -13581,6 +13613,17 @@ MonoBehaviour:
   ringCount: 0
   isRinging: 0
   isAnswering: 0
+--- !u!114 &1382216422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1382216417, guid: 647e0fdeda71c554c9698615b11687d2, type: 3}
+  m_PrefabInstance: {fileID: 554979858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382216412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288bc3736631a234f94c75b71b27aaee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1387609526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1676609100239073865, guid: 0d780173c250d334f80c9061373c8e4f, type: 3}

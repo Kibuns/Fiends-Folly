@@ -16,6 +16,7 @@ public class DrawWithMouse : MonoBehaviour
     private bool doneWithWriting;
     private bool writtenCorrectSymbol;
     private Color currentColor;
+    public bool startedWriting;
 
 
     private void OnEnable()
@@ -54,6 +55,7 @@ public class DrawWithMouse : MonoBehaviour
         }
         if ( input.Player.LeftClick.triggered )
         {
+            startedWriting = true;
             line.SetPosition(0, currentPosition);
             return;
         }
@@ -79,6 +81,7 @@ public class DrawWithMouse : MonoBehaviour
         }
         if (input.Player.LeftClick.WasReleasedThisFrame() && line != null)
         {
+            startedWriting = false;
             doneWithWriting = true;
             if (line.positionCount > 100)
             {
